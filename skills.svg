@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" width="100%">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&amp;display=swap');
+    
+    .header-text { font-family: monospace; font-size: 12px; font-weight: bold; fill: #1c1917; }
+    .skill-name { font-family: 'Share Tech Mono', monospace, Courier; font-size: 13px; font-weight: bold; fill: #1c1917; }
+    .skill-val { font-family: monospace; font-size: 13px; font-weight: bold; fill: #1c1917; }
+  </style>
+
+  <!-- Hard Drop Shadow Box -->
+  <rect x="12" y="12" width="776" height="326" fill="#79716b" stroke="#1c1917" stroke-width="3" />
+  
+  <!-- Main Card Body -->
+  <rect x="4" y="4" width="776" height="326" fill="#e7e5e4" stroke="#1c1917" stroke-width="3" />
+  
+  <!-- Top Window Header Bar -->
+  <rect x="4" y="4" width="776" height="34" fill="#d6d3d1" stroke="#1c1917" stroke-width="3" />
+  
+  <!-- Control Dots -->
+  <circle cx="22" cy="21" r="6" fill="#f87171" stroke="#1c1917" stroke-width="2" />
+  <circle cx="40" cy="21" r="6" fill="#fbbf24" stroke="#1c1917" stroke-width="2" />
+  <circle cx="58" cy="21" r="6" fill="#34d399" stroke="#1c1917" stroke-width="2" />
+  
+  <text x="78" y="25" class="header-text">technical_skills.cfg</text>
+
+  <!-- Skill Rows -->
+  
+  <!-- 1. Full-Stack Development -->
+  <text x="36" y="76" class="skill-name">Full-Stack Development</text>
+  <text x="710" y="76" class="skill-val">90%</text>
+  <rect x="36" y="84" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
+  <rect x="36" y="84" width="655.2" height="16" fill="#1c1917" /> <!-- 90% of 728 -->
+
+  <!-- 2. UI/UX Design -->
+  <text x="36" y="130" class="skill-name">UI/UX Design</text>
+  <text x="710" y="130" class="skill-val">85%</text>
+  <rect x="36" y="138" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
+  <rect x="36" y="138" width="618.8" height="16" fill="#1c1917" /> <!-- 85% of 728 -->
+
+  <!-- 3. PHP & Laravel -->
+  <text x="36" y="184" class="skill-name">PHP &amp; Laravel Development</text>
+  <text x="710" y="184" class="skill-val">92%</text>
+  <rect x="36" y="192" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
+  <rect x="36" y="192" width="669.76" height="16" fill="#1c1917" /> <!-- 92% of 728 -->
+
+  <!-- 4. JavaScript / Next.js -->
+  <text x="36" y="238" class="skill-name">JavaScript &amp; Next.js Ecosystem</text>
+  <text x="710" y="238" class="skill-val">88%</text>
+  <rect x="36" y="246" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
+  <rect x="36" y="246" width="640.64" height="16" fill="#1c1917" /> <!-- 88% of 728 -->
+
+  <!-- 5. HTML & CSS Grid -->
+  <text x="36" y="292" class="skill-name">HTML5 &amp; CSS Layouts</text>
+  <text x="710" y="292" class="skill-val">95%</text>
+  <rect x="36" y="300" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
+  <rect x="36" y="300" width="691.6" height="16" fill="#1c1917" /> <!-- 95% of 728 -->
+</svg>
