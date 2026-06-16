@@ -5,65 +5,44 @@
   <img src="banner.svg" alt="Aldio Lisafron Profile" width="100%" />
 </p>
 
+<p align="center">
+  <b>Web developer focused on practical systems, calm interfaces, and maintainable code.</b>
+</p>
+
 ---
 
-## 📁 projects_directory/
+## 🧑‍💻 whoami.log
 
-*Click on the folders below to expand details and descriptions:*
+I build web applications that turn everyday workflows into structured, usable tools. My work usually sits around PHP/Laravel, JavaScript, database-backed features, and interface details that make apps easier to use.
 
-<details>
-  <summary>📁 <b>the-lend-list</b> — <code>PHP / Web</code></summary>
-  <blockquote>
-    A collaborative peer-to-peer item lending platform designed to track, manage, and facilitate shared item logs.
-    <br />
-    👉 <b><a href="https://github.com/al-dioooo/the-lend-list">Explore Codebase</a></b>
-  </blockquote>
-</details>
+I enjoy working on products with a clear real-world purpose: business systems, information dashboards, educational resources, content-driven websites, and tools that help people manage data with less friction.
 
-<details>
-  <summary>📁 <b>batik-discover</b> — <code>HTML / JS</code></summary>
-  <blockquote>
-    Visual exploration and classifier resources detailing authentic Indonesian Batik cultural patterns.
-    <br />
-    👉 <b><a href="https://github.com/al-dioooo/batik-discover">Explore Codebase</a></b>
-  </blockquote>
-</details>
+---
 
-<details>
-  <summary>📁 <b>bogor-city</b> — <code>HTML / CSS</code></summary>
-  <blockquote>
-    Detailed administrative portal and localized tourism guide listing hotspots around Bogor City.
-    <br />
-    👉 <b><a href="https://github.com/al-dioooo/bogor-city">Explore Codebase</a></b>
-  </blockquote>
-</details>
+## 🧭 current_focus.log
 
-<details>
-  <summary>📁 <b>karya-mitra-blog</b> — <code>JavaScript</code></summary>
-  <blockquote>
-    Developer documentation portal and corporate blog page system hosting regular development logs.
-    <br />
-    👉 <b><a href="https://github.com/al-dioooo/karya-mitra-blog">Explore Codebase</a></b>
-  </blockquote>
-</details>
+- Sharpening Laravel and PHP application structure
+- Improving frontend polish with cleaner responsive layouts
+- Writing clearer documentation for projects and technical decisions
+- Building small, focused tools before expanding the feature set
 
-<details>
-  <summary>📁 <b>rak-stainless</b> — <code>Blade / CSS</code></summary>
-  <blockquote>
-    Product listings catalog and inquiry database system built for premium racking hardware.
-    <br />
-    👉 <b><a href="https://github.com/al-dioooo/rak-stainless">Explore Codebase</a></b>
-  </blockquote>
-</details>
+---
 
-<details>
-  <summary>📁 <b>karya-mitra-inventory</b> — <code>PHP / DB</code></summary>
-  <blockquote>
-    Secure inventory control dashboard application tracking materials and machinery for Karya Mitra Usaha.
-    <br />
-    👉 <b><a href="https://github.com/al-dioooo/karya-mitra-inventory">Explore Codebase</a></b>
-  </blockquote>
-</details>
+## 🛠️ build_style.md
+
+- Start from the user's workflow, then design the data and screens around it
+- Prefer readable code, predictable structure, and small iterations
+- Keep interfaces direct, calm, and easy to scan
+- Document the "why" when a decision affects future changes
+
+---
+
+## 📌 interests.ini
+
+- Practical web systems
+- Local business process tools
+- Cultural and educational web resources
+- Clean dashboards, catalogs, and content management flows
 
 ---
 
