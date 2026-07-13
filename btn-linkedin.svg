@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 44" width="250" height="44" role="img" aria-label="LinkedIn: aldio-lisafron">
+  <defs>
+    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M10 0H0V10" fill="none" stroke="#45403A" stroke-width="0.5" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <!-- Hard drop shadow -->
+  <rect x="8" y="8" width="240" height="34" fill="#79716B" stroke="#1C1917" stroke-width="2"/>
+  <!-- Paper plate -->
+  <rect x="2" y="2" width="240" height="34" fill="#E7E5E4" stroke="#1C1917" stroke-width="2"/>
+  <rect x="3" y="3" width="238" height="32" fill="url(#grid)"/>
+  <!-- Ink block with pixel briefcase -->
+  <rect x="2" y="2" width="34" height="34" fill="#38352E" stroke="#1C1917" stroke-width="2"/>
+  <g stroke="#E7E5E4" stroke-width="2" fill="none">
+    <rect x="12" y="15" width="14" height="11"/>
+    <path d="M15.5 15v-3.5h7V15"/>
+    <line x1="12" y1="20" x2="26" y2="20"/>
+  </g>
+  <!-- Label -->
+  <text x="46" y="23.5" font-family="ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace"
+        font-size="11" font-weight="bold" fill="#1C1917" letter-spacing="0.3">LINKEDIN // aldio-lisafron</text>
+</svg>

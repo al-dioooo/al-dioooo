@@ -1,82 +1,91 @@
-# 📁 Aldio Lisafron (al-dioooo)
+<!-- ════════════════════════════════════════════════════════════
+     UNIT RECORD : al-dioooo
+     FORMAT      : NieR graph-paper UI
+     ════════════════════════════════════════════════════════════ -->
 
-<!-- Stylized Profile Window Banner -->
 <p align="center">
-  <img src="banner.svg" alt="Aldio Lisafron Profile" width="100%" />
+  <img src="banner.svg" alt="Aldio Lisafron — Creative Full-stack Developer" width="100%" />
 </p>
 
 <p align="center">
-  <b>Web developer focused on practical systems, calm interfaces, and maintainable code.</b>
+  <samp><b>Web developer focused on practical systems, calm interfaces, and maintainable code.</b></samp>
 </p>
 
----
+<p align="center">
+  <img src="divider.svg" alt="" width="100%" />
+</p>
 
-## 🧑‍💻 whoami.log
+> <samp><b>POD 042:</b> Report — unit <code>al-dioooo</code> operating within normal parameters.
+> Primary directive: turn everyday workflows into structured, usable tools.
+> Proposal: review the records below.</samp>
+
+## <samp>■ 01 · INTEL // unit_data</samp>
 
 I build web applications that turn everyday workflows into structured, usable tools. My work usually sits around PHP/Laravel, JavaScript, database-backed features, and interface details that make apps easier to use.
 
 I enjoy working on products with a clear real-world purpose: business systems, information dashboards, educational resources, content-driven websites, and tools that help people manage data with less friction.
 
----
+<p align="center">
+  <img src="divider.svg" alt="" width="100%" />
+</p>
 
-## 🧭 current_focus.log
+## <samp>■ 02 · QUESTS // active_quests</samp>
 
-- Sharpening Laravel and PHP application structure
-- Improving frontend polish with cleaner responsive layouts
-- Writing clearer documentation for projects and technical decisions
-- Building small, focused tools before expanding the feature set
+| <samp>STATUS</samp> | <samp>QUEST LOG</samp> |
+| :--- | :--- |
+| <samp>▸ ACTIVE</samp> | Sharpening Laravel and PHP application structure |
+| <samp>▸ ACTIVE</samp> | Improving frontend polish with cleaner responsive layouts |
+| <samp>▸ ACTIVE</samp> | Writing clearer documentation for projects and technical decisions |
+| <samp>▸ SIDE&nbsp;&nbsp;</samp> | Building small, focused tools before expanding the feature set |
 
----
+<p align="center">
+  <img src="divider.svg" alt="" width="100%" />
+</p>
 
-## 🛠️ build_style.md
+## <samp>■ 03 · SYSTEM // operating_protocol</samp>
 
-- Start from the user's workflow, then design the data and screens around it
-- Prefer readable code, predictable structure, and small iterations
-- Keep interfaces direct, calm, and easy to scan
-- Document the "why" when a decision affects future changes
+- <samp>P-01</samp> — Start from the user's workflow, then design the data and screens around it
+- <samp>P-02</samp> — Prefer readable code, predictable structure, and small iterations
+- <samp>P-03</samp> — Keep interfaces direct, calm, and easy to scan
+- <samp>P-04</samp> — Document the "why" when a decision affects future changes
 
----
+<p align="center">
+  <img src="divider.svg" alt="" width="100%" />
+</p>
 
-## 📌 interests.ini
+## <samp>■ 04 · INTEL // points_of_interest</samp>
 
 - Practical web systems
 - Local business process tools
 - Cultural and educational web resources
 - Clean dashboards, catalogs, and content management flows
 
----
-
-## 📊 technical_skills.cfg
-
-<!-- Stylized Skills Gauge Banner -->
 <p align="center">
-  <img src="skills.svg" alt="Aldio Lisafron Skills" width="100%" />
+  <img src="divider.svg" alt="" width="100%" />
 </p>
 
----
-
-## 📈 productivity_charts.log
+## <samp>■ 05 · SKILLS // loadout</samp>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=al-dioooo&amp;show_icons=true&amp;theme=default&amp;bg_color=e7e5e4&amp;text_color=1c1917&amp;title_color=1c1917&amp;icon_color=79716b&amp;border_color=1c1917&amp;border_radius=0" alt="Aldio's Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=al-dioooo&amp;layout=compact&amp;theme=default&amp;bg_color=e7e5e4&amp;text_color=1c1917&amp;title_color=1c1917&amp;border_color=1c1917&amp;border_radius=0" alt="Aldio's Top Languages" />
+  <img src="skills.svg" alt="Skills — Full-Stack Development 90%, UI/UX Design 85%, PHP & Laravel 92%, JavaScript & Next.js 88%, HTML5 & CSS 95%" width="100%" />
 </p>
 
----
+<p align="center">
+  <img src="divider.svg" alt="" width="100%" />
+</p>
 
-## ✉️ communication_channels.log
+## <samp>■ 06 · COMMS // transmission_channels</samp>
 
-<div align="center">
-  <a href="https://al.is-a.dev" target="_blank">
-    <img src="https://img.shields.io/badge/🌐_Website-al.is--a.dev-%231c1917?style=for-the-badge&labelColor=e7e5e4&color=1c1917" alt="Website" />
-  </a>
-  <a href="https://linkedin.com/in/aldio-lisafron" target="_blank">
-    <img src="https://img.shields.io/badge/💼_LinkedIn-aldio--lisafron-%231c1917?style=for-the-badge&labelColor=e7e5e4&color=1c1917" alt="LinkedIn" />
-  </a>
-  <a href="https://instagram.com/al.dioooo" target="_blank">
-    <img src="https://img.shields.io/badge/📸_Instagram-@al.dioooo-%231c1917?style=for-the-badge&labelColor=e7e5e4&color=1c1917" alt="Instagram" />
-  </a>
-  <a href="mailto:contact@al.is-a.dev" target="_blank">
-    <img src="https://img.shields.io/badge/📧_Email-contact@al.is--a.dev-%231c1917?style=for-the-badge&labelColor=e7e5e4&color=1c1917" alt="Email" />
-  </a>
-</div>
+<p align="center">
+  <a href="https://al.is-a.dev" target="_blank"><img src="btn-website.svg" alt="Website — al.is-a.dev" width="250" height="44" /></a>&nbsp;
+  <a href="https://linkedin.com/in/aldio-lisafron" target="_blank"><img src="btn-linkedin.svg" alt="LinkedIn — aldio-lisafron" width="250" height="44" /></a>
+  <br />
+  <a href="https://instagram.com/al.dioooo" target="_blank"><img src="btn-instagram.svg" alt="Instagram — @al.dioooo" width="250" height="44" /></a>&nbsp;
+  <a href="mailto:contact@al.is-a.dev"><img src="btn-email.svg" alt="Email — contact@al.is-a.dev" width="250" height="44" /></a>
+</p>
+
+<p align="center">
+  <img src="footer.svg" alt="Record end — glory to mankind" width="100%" />
+</p>
+
+<!-- [E]ject data? ... negative. Thanks for reading. -->

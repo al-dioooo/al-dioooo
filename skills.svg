@@ -1,57 +1,126 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" width="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" width="100%" role="img" aria-label="Skills loadout panel">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&amp;display=swap');
-    
-    .header-text { font-family: monospace; font-size: 12px; font-weight: bold; fill: #1c1917; }
-    .skill-name { font-family: 'Share Tech Mono', monospace, Courier; font-size: 13px; font-weight: bold; fill: #1c1917; }
-    .skill-val { font-family: monospace; font-size: 13px; font-weight: bold; fill: #1c1917; }
+    text { font-family: ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace; }
+    .title { font-size: 14px; font-weight: bold; fill: #1C1917; letter-spacing: 1.5px; }
+    .meta  { font-size: 11px; font-weight: bold; fill: #79716B; letter-spacing: 1px; }
+    .idx   { font-size: 11px; font-weight: bold; fill: #79716B; }
+    .name  { font-size: 12.5px; font-weight: bold; fill: #1C1917; letter-spacing: 0.5px; }
+    .val   { font-size: 13px; font-weight: bold; fill: #38352E; }
+    .foot  { font-size: 9px; font-weight: bold; fill: #79716B; letter-spacing: 1px; }
   </style>
 
-  <!-- Hard Drop Shadow Box -->
-  <rect x="12" y="12" width="776" height="326" fill="#79716b" stroke="#1c1917" stroke-width="3" />
-  
-  <!-- Main Card Body -->
-  <rect x="4" y="4" width="776" height="326" fill="#e7e5e4" stroke="#1c1917" stroke-width="3" />
-  
-  <!-- Top Window Header Bar -->
-  <rect x="4" y="4" width="776" height="34" fill="#d6d3d1" stroke="#1c1917" stroke-width="3" />
-  
-  <!-- Control Dots -->
-  <circle cx="22" cy="21" r="6" fill="#f87171" stroke="#1c1917" stroke-width="2" />
-  <circle cx="40" cy="21" r="6" fill="#fbbf24" stroke="#1c1917" stroke-width="2" />
-  <circle cx="58" cy="21" r="6" fill="#34d399" stroke="#1c1917" stroke-width="2" />
-  
-  <text x="78" y="25" class="header-text">technical_skills.cfg</text>
+  <defs>
+    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M10 0H0V10" fill="none" stroke="#45403A" stroke-width="0.5" opacity="0.12"/>
+    </pattern>
+    <pattern id="gridMajor" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#45403A" stroke-width="0.75" opacity="0.14"/>
+    </pattern>
+    <g id="tri" fill="#38352E">
+      <circle cx="-5" cy="0" r="2"/>
+      <circle cx="5" cy="0" r="2"/>
+      <circle cx="0" cy="6.5" r="2"/>
+    </g>
+    <rect id="tick" width="12" height="3" fill="#38352E"/>
+    <clipPath id="card">
+      <rect x="3" y="3" width="786" height="366"/>
+    </clipPath>
+  </defs>
 
-  <!-- Skill Rows -->
-  
-  <!-- 1. Full-Stack Development -->
-  <text x="36" y="76" class="skill-name">Full-Stack Development</text>
-  <text x="710" y="76" class="skill-val">90%</text>
-  <rect x="36" y="84" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
-  <rect x="36" y="84" width="655.2" height="16" fill="#1c1917" /> <!-- 90% of 728 -->
+  <!-- Hard drop shadow -->
+  <rect x="10" y="10" width="788" height="368" fill="#79716B" stroke="#1C1917" stroke-width="2"/>
+  <!-- Paper -->
+  <rect x="2" y="2" width="788" height="368" fill="#E7E5E4" stroke="#1C1917" stroke-width="2"/>
+  <rect x="3" y="3" width="786" height="366" fill="url(#grid)"/>
+  <rect x="3" y="3" width="786" height="366" fill="url(#gridMajor)"/>
 
-  <!-- 2. UI/UX Design -->
-  <text x="36" y="130" class="skill-name">UI/UX Design</text>
-  <text x="710" y="130" class="skill-val">85%</text>
-  <rect x="36" y="138" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
-  <rect x="36" y="138" width="618.8" height="16" fill="#1c1917" /> <!-- 85% of 728 -->
+  <!-- Construction lines -->
+  <g clip-path="url(#card)">
+    <circle cx="396" cy="190" r="230" fill="none" stroke="#45403A" stroke-width="1" opacity="0.1"/>
+    <circle cx="396" cy="190" r="238" fill="none" stroke="#45403A" stroke-width="0.75" opacity="0.08"/>
+    <path d="M-60 430 L360 -60" stroke="#45403A" stroke-width="1" opacity="0.09" fill="none"/>
+    <path d="M480 430 L900 -60" stroke="#45403A" stroke-width="1" opacity="0.07" fill="none"/>
+    <rect x="3" y="4" width="786" height="28" fill="#38352E" opacity="0.03">
+      <animate attributeName="y" values="4;334;4" dur="20s" repeatCount="indefinite"/>
+    </rect>
+  </g>
 
-  <!-- 3. PHP & Laravel -->
-  <text x="36" y="184" class="skill-name">PHP &amp; Laravel Development</text>
-  <text x="710" y="184" class="skill-val">92%</text>
-  <rect x="36" y="192" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
-  <rect x="36" y="192" width="669.76" height="16" fill="#1c1917" /> <!-- 92% of 728 -->
+  <!-- Header -->
+  <rect x="28" y="21" width="12" height="12" fill="#1C1917"/>
+  <text x="50" y="32" class="title">SKILLS // loadout</text>
+  <text x="764" y="32" class="meta" text-anchor="end">SYNC: OK &#183; UNIT al-dioooo</text>
 
-  <!-- 4. JavaScript / Next.js -->
-  <text x="36" y="238" class="skill-name">JavaScript &amp; Next.js Ecosystem</text>
-  <text x="710" y="238" class="skill-val">88%</text>
-  <rect x="36" y="246" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
-  <rect x="36" y="246" width="640.64" height="16" fill="#1c1917" /> <!-- 88% of 728 -->
+  <!-- Header rule with ticks and dot clusters -->
+  <line x1="24" y1="50" x2="768" y2="50" stroke="#38352E" stroke-width="2"/>
+  <use href="#tick" x="72"  y="54"/><use href="#tick" x="182" y="54"/>
+  <use href="#tick" x="292" y="54"/><use href="#tick" x="402" y="54"/>
+  <use href="#tick" x="512" y="54"/><use href="#tick" x="622" y="54"/>
+  <use href="#tick" x="732" y="54"/>
+  <use href="#tri" x="133" y="60"/><use href="#tri" x="243" y="60"/>
+  <use href="#tri" x="353" y="60"/><use href="#tri" x="463" y="60"/>
+  <use href="#tri" x="573" y="60"/><use href="#tri" x="683" y="60"/>
 
-  <!-- 5. HTML & CSS Grid -->
-  <text x="36" y="292" class="skill-name">HTML5 &amp; CSS Layouts</text>
-  <text x="710" y="292" class="skill-val">95%</text>
-  <rect x="36" y="300" width="728" height="16" fill="#f5f5f4" stroke="#1c1917" stroke-width="2" />
-  <rect x="36" y="300" width="691.6" height="16" fill="#1c1917" /> <!-- 95% of 728 -->
+  <!-- 01 Full-Stack Development : 90 -->
+  <text x="40" y="96" class="idx">01</text>
+  <text x="66" y="96" class="name">FULL-STACK DEVELOPMENT</text>
+  <text x="764" y="96" class="val" text-anchor="end">90%</text>
+  <rect x="40" y="104" width="724" height="14" fill="#F5F4F2" stroke="#1C1917" stroke-width="2"/>
+  <rect x="40" y="104" width="651.6" height="14" fill="#38352E">
+    <animate attributeName="width" values="0;0;651.6;651.6" keyTimes="0;0.075;0.575;1" begin="0.15s" dur="2s" fill="freeze"
+             calcMode="spline" keySplines="0 0 1 1;0.25 0.8 0.25 1;0 0 1 1"/>
+  </rect>
+
+  <!-- 02 UI/UX Design : 85 -->
+  <text x="40" y="150" class="idx">02</text>
+  <text x="66" y="150" class="name">UI/UX DESIGN</text>
+  <text x="764" y="150" class="val" text-anchor="end">85%</text>
+  <rect x="40" y="158" width="724" height="14" fill="#F5F4F2" stroke="#1C1917" stroke-width="2"/>
+  <rect x="40" y="158" width="615.4" height="14" fill="#38352E">
+    <animate attributeName="width" values="0;0;615.4;615.4" keyTimes="0;0.15;0.65;1" begin="0.15s" dur="2s" fill="freeze"
+             calcMode="spline" keySplines="0 0 1 1;0.25 0.8 0.25 1;0 0 1 1"/>
+  </rect>
+
+  <!-- 03 PHP &amp; Laravel : 92 -->
+  <text x="40" y="204" class="idx">03</text>
+  <text x="66" y="204" class="name">PHP &amp; LARAVEL DEVELOPMENT</text>
+  <text x="764" y="204" class="val" text-anchor="end">92%</text>
+  <rect x="40" y="212" width="724" height="14" fill="#F5F4F2" stroke="#1C1917" stroke-width="2"/>
+  <rect x="40" y="212" width="666.08" height="14" fill="#38352E">
+    <animate attributeName="width" values="0;0;666.08;666.08" keyTimes="0;0.225;0.725;1" begin="0.15s" dur="2s" fill="freeze"
+             calcMode="spline" keySplines="0 0 1 1;0.25 0.8 0.25 1;0 0 1 1"/>
+  </rect>
+
+  <!-- 04 JavaScript &amp; Next.js : 88 -->
+  <text x="40" y="258" class="idx">04</text>
+  <text x="66" y="258" class="name">JAVASCRIPT &amp; NEXT.JS ECOSYSTEM</text>
+  <text x="764" y="258" class="val" text-anchor="end">88%</text>
+  <rect x="40" y="266" width="724" height="14" fill="#F5F4F2" stroke="#1C1917" stroke-width="2"/>
+  <rect x="40" y="266" width="637.12" height="14" fill="#38352E">
+    <animate attributeName="width" values="0;0;637.12;637.12" keyTimes="0;0.3;0.8;1" begin="0.15s" dur="2s" fill="freeze"
+             calcMode="spline" keySplines="0 0 1 1;0.25 0.8 0.25 1;0 0 1 1"/>
+  </rect>
+
+  <!-- 05 HTML5 &amp; CSS Layouts : 95 -->
+  <text x="40" y="312" class="idx">05</text>
+  <text x="66" y="312" class="name">HTML5 &amp; CSS LAYOUTS</text>
+  <text x="764" y="312" class="val" text-anchor="end">95%</text>
+  <rect x="40" y="320" width="724" height="14" fill="#F5F4F2" stroke="#1C1917" stroke-width="2"/>
+  <rect x="40" y="320" width="687.8" height="14" fill="#38352E">
+    <animate attributeName="width" values="0;0;687.8;687.8" keyTimes="0;0.375;0.875;1" begin="0.15s" dur="2s" fill="freeze"
+             calcMode="spline" keySplines="0 0 1 1;0.25 0.8 0.25 1;0 0 1 1"/>
+  </rect>
+
+  <!-- Bar 10% graduations -->
+  <g stroke="#1C1917" opacity="0.18" stroke-width="1">
+    <path d="M112.4 104v14 M184.8 104v14 M257.2 104v14 M329.6 104v14 M402 104v14 M474.4 104v14 M546.8 104v14 M619.2 104v14 M691.6 104v14"/>
+    <path d="M112.4 158v14 M184.8 158v14 M257.2 158v14 M329.6 158v14 M402 158v14 M474.4 158v14 M546.8 158v14 M619.2 158v14 M691.6 158v14"/>
+    <path d="M112.4 212v14 M184.8 212v14 M257.2 212v14 M329.6 212v14 M402 212v14 M474.4 212v14 M546.8 212v14 M619.2 212v14 M691.6 212v14"/>
+    <path d="M112.4 266v14 M184.8 266v14 M257.2 266v14 M329.6 266v14 M402 266v14 M474.4 266v14 M546.8 266v14 M619.2 266v14 M691.6 266v14"/>
+    <path d="M112.4 320v14 M184.8 320v14 M257.2 320v14 M329.6 320v14 M402 320v14 M474.4 320v14 M546.8 320v14 M619.2 320v14 M691.6 320v14"/>
+  </g>
+
+  <!-- Footer rule -->
+  <line x1="24" y1="350" x2="768" y2="350" stroke="#38352E" stroke-width="1" stroke-dasharray="2 6" opacity="0.6"/>
+  <text x="764" y="364" class="foot" text-anchor="end">ALL SYSTEMS GREEN</text>
+  <text x="28" y="364" class="foot">LOADOUT.CFG</text>
 </svg>

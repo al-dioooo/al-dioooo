@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 26" width="100%" role="img" aria-label="">
+  <defs>
+    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M10 0H0V10" fill="none" stroke="#45403A" stroke-width="0.5" opacity="0.12"/>
+    </pattern>
+    <g id="tri" fill="#38352E">
+      <circle cx="-4" cy="0" r="1.6"/>
+      <circle cx="4" cy="0" r="1.6"/>
+      <circle cx="0" cy="5" r="1.6"/>
+    </g>
+    <rect id="tick" width="10" height="2" fill="#38352E"/>
+  </defs>
+
+  <!-- Hard drop shadow -->
+  <rect x="6" y="6" width="792" height="18" fill="#79716B" stroke="#1C1917" stroke-width="2"/>
+  <!-- Paper tape -->
+  <rect x="2" y="2" width="792" height="18" fill="#E7E5E4" stroke="#1C1917" stroke-width="2"/>
+  <rect x="3" y="3" width="790" height="16" fill="url(#grid)"/>
+
+  <!-- Alternating clusters and ticks -->
+  <use href="#tri" x="60"  y="8"/><use href="#tick" x="100" y="10"/>
+  <use href="#tri" x="150" y="8"/><use href="#tick" x="190" y="10"/>
+  <use href="#tri" x="240" y="8"/><use href="#tick" x="280" y="10"/>
+  <use href="#tri" x="330" y="8"/><use href="#tick" x="370" y="10"/>
+  <use href="#tri" x="420" y="8"/><use href="#tick" x="460" y="10"/>
+  <use href="#tri" x="510" y="8"/><use href="#tick" x="550" y="10"/>
+  <use href="#tri" x="600" y="8"/><use href="#tick" x="640" y="10"/>
+  <use href="#tri" x="690" y="8"/><use href="#tick" x="730" y="10"/>
+</svg>

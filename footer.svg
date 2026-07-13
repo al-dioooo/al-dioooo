@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 110" width="100%" role="img" aria-label="Record end — glory to mankind">
+  <style>
+    text { font-family: ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace; }
+    .main { font-size: 15px; font-weight: bold; fill: #1C1917; letter-spacing: 6px; }
+    .sub  { font-size: 10px; font-weight: bold; fill: #79716B; letter-spacing: 3px; }
+  </style>
+  <defs>
+    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M10 0H0V10" fill="none" stroke="#45403A" stroke-width="0.5" opacity="0.12"/>
+    </pattern>
+    <pattern id="gridMajor" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#45403A" stroke-width="0.75" opacity="0.14"/>
+    </pattern>
+    <g id="tri" fill="#38352E">
+      <circle cx="-5" cy="0" r="2"/>
+      <circle cx="5" cy="0" r="2"/>
+      <circle cx="0" cy="6.5" r="2"/>
+    </g>
+    <rect id="tick" width="12" height="3" fill="#38352E"/>
+    <clipPath id="card">
+      <rect x="3" y="3" width="786" height="96"/>
+    </clipPath>
+  </defs>
+
+  <!-- Hard drop shadow -->
+  <rect x="10" y="10" width="788" height="98" fill="#79716B" stroke="#1C1917" stroke-width="2"/>
+  <!-- Paper -->
+  <rect x="2" y="2" width="788" height="98" fill="#E7E5E4" stroke="#1C1917" stroke-width="2"/>
+  <rect x="3" y="3" width="786" height="96" fill="url(#grid)"/>
+  <rect x="3" y="3" width="786" height="96" fill="url(#gridMajor)"/>
+
+  <!-- Construction lines -->
+  <g clip-path="url(#card)">
+    <circle cx="400" cy="51" r="130" fill="none" stroke="#45403A" stroke-width="1" opacity="0.1"/>
+    <path d="M-40 150 L160 -50" stroke="#45403A" stroke-width="1" opacity="0.08" fill="none"/>
+    <path d="M640 150 L840 -50" stroke="#45403A" stroke-width="1" opacity="0.08" fill="none"/>
+  </g>
+
+  <!-- Top rule with ticks and dot clusters -->
+  <line x1="24" y1="20" x2="768" y2="20" stroke="#38352E" stroke-width="2"/>
+  <use href="#tick" x="90"  y="24"/><use href="#tick" x="250" y="24"/>
+  <use href="#tick" x="410" y="24"/><use href="#tick" x="570" y="24"/>
+  <use href="#tick" x="730" y="24"/>
+  <use href="#tri" x="170" y="30"/><use href="#tri" x="330" y="30"/>
+  <use href="#tri" x="490" y="30"/><use href="#tri" x="650" y="30"/>
+
+  <!-- Record end -->
+  <text x="400" y="62" class="main" text-anchor="middle">[ RECORD END ]</text>
+  <text x="400" y="84" class="sub" text-anchor="middle">GLORY TO MANKIND</text>
+
+  <!-- Awaiting-input cursor -->
+  <rect x="396" y="89" width="8" height="4" fill="#38352E">
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Corner stamps -->
+  <text x="28" y="93" class="sub" letter-spacing="1">POD 042</text>
+  <text x="764" y="93" class="sub" letter-spacing="1" text-anchor="end">SIGNING OFF</text>
+</svg>
