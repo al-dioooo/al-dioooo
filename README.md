@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <samp><b>Web developer focused on practical systems, calm interfaces, and maintainable code.</b></samp>
+  <samp><b>Full-stack developer working across secure systems, applied AI, and maintainable code.</b></samp>
 </p>
 
 <p align="center">
@@ -16,55 +16,33 @@
 </p>
 
 > <samp><b>POD 042:</b> Report — unit <code>al-dioooo</code> operating within normal parameters.
-> Primary directive: turn everyday workflows into structured, usable tools.
+> Primary directive: build systems that are useful, and keep them standing under pressure.
 > Proposal: review the records below.</samp>
 
 ## <samp>■ 01 · INTEL // unit_data</samp>
 
-I build web applications that turn everyday workflows into structured, usable tools. My work usually sits around PHP/Laravel, JavaScript, database-backed features, and interface details that make apps easier to use.
+I build web applications that turn everyday workflows into structured, usable tools. My foundation is PHP/Laravel, JavaScript, and database-backed features — the unglamorous work of making software people can actually rely on.
 
-I enjoy working on products with a clear real-world purpose: business systems, information dashboards, educational resources, content-driven websites, and tools that help people manage data with less friction.
+Lately my attention has moved a layer deeper: how those systems hold up when someone is actively trying to break them, and where an AI model earns its place in a product instead of just decorating it. Security engineering and applied AI are where my learning hours go now — built on top of the web work rather than replacing it.
 
-<p align="center">
-  <img src="divider.svg" alt="" width="100%" />
-</p>
-
-## <samp>■ 02 · QUESTS // active_quests</samp>
-
-| <samp>STATUS</samp> | <samp>QUEST LOG</samp> |
-| :--- | :--- |
-| <samp>▸ ACTIVE</samp> | Sharpening Laravel and PHP application structure |
-| <samp>▸ ACTIVE</samp> | Improving frontend polish with cleaner responsive layouts |
-| <samp>▸ ACTIVE</samp> | Writing clearer documentation for projects and technical decisions |
-| <samp>▸ SIDE&nbsp;&nbsp;</samp> | Building small, focused tools before expanding the feature set |
+I like products with a clear real-world purpose: business systems, information dashboards, educational resources, and tools that help people manage data with less friction.
 
 <p align="center">
   <img src="divider.svg" alt="" width="100%" />
 </p>
 
-## <samp>■ 03 · SYSTEM // operating_protocol</samp>
+## <samp>■ 02 · INTEL // points_of_interest</samp>
 
-- <samp>P-01</samp> — Start from the user's workflow, then design the data and screens around it
-- <samp>P-02</samp> — Prefer readable code, predictable structure, and small iterations
-- <samp>P-03</samp> — Keep interfaces direct, calm, and easy to scan
-- <samp>P-04</samp> — Document the "why" when a decision affects future changes
-
-<p align="center">
-  <img src="divider.svg" alt="" width="100%" />
-</p>
-
-## <samp>■ 04 · INTEL // points_of_interest</samp>
-
-- Practical web systems
-- Local business process tools
-- Cultural and educational web resources
-- Clean dashboards, catalogs, and content management flows
+- **Cyber security** — secure-by-default design, threat modeling, hardening real systems
+- **AI integration** — putting models into products where they do actual work
+- **AI model engineering** — fine-tuning, evaluation, production-ready models
+- **Practical web systems** — the foundation the above gets built on
 
 <p align="center">
   <img src="divider.svg" alt="" width="100%" />
 </p>
 
-## <samp>■ 05 · SKILLS // loadout</samp>
+## <samp>■ 03 · SKILLS // loadout</samp>
 
 <p align="center">
   <img src="skills.svg" alt="Skills — Full-Stack Development 90%, UI/UX Design 85%, PHP & Laravel 92%, JavaScript & Next.js 88%, HTML5 & CSS 95%" width="100%" />
@@ -74,7 +52,7 @@ I enjoy working on products with a clear real-world purpose: business systems, i
   <img src="divider.svg" alt="" width="100%" />
 </p>
 
-## <samp>■ 06 · COMMS // transmission_channels</samp>
+## <samp>■ 04 · COMMS // transmission_channels</samp>
 
 <p align="center">
   <a href="https://al.is-a.dev" target="_blank"><img src="btn-website.svg" alt="Website — al.is-a.dev" width="250" height="44" /></a>&nbsp;
