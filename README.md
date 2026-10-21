@@ -4,24 +4,45 @@
      ════════════════════════════════════════════════════════════ -->
 
 <p align="center">
-  <img src="banner.svg" alt="Aldio Lisafron — Creative Full-stack Developer" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="banner-dark.svg" />
+    <img src="banner.svg" alt="Aldio Lisafron — Creative Full-stack Developer" width="100%" />
+  </picture>
 </p>
 
 <p align="center">
-  <samp><b>Full-stack developer building useful products with thoughtful interfaces.</b></samp>
-  <br />
-  <samp>Web & mobile · Secure systems · Applied AI</samp>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/tagline?theme=dark" />
+    <img src="https://al.is-a.dev/api/readme/tagline" alt="Full-stack developer building useful products with thoughtful interfaces. Web &amp; mobile · Secure systems · Applied AI" width="100%" />
+  </picture>
 </p>
 
 <p align="center">
-  <img src="divider.svg" alt="" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="divider-dark.svg" />
+    <img src="divider.svg" alt="" width="100%" />
+  </picture>
 </p>
 
 > **POD 042:** Report — unit `al-dioooo` operating within normal parameters.
 > Primary directive: build systems that are useful, and keep them standing under pressure.
 > Proposal: review the mission records below.
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/status?theme=dark" />
+    <img src="https://al.is-a.dev/api/readme/status" alt="Pod 042 unit status: local time in Jakarta and latest public commit" width="100%" />
+  </picture>
+</p>
+
 ## <samp>■ 01 · INTEL // unit_data</samp>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/boot?theme=dark" />
+    <img src="https://al.is-a.dev/api/readme/boot" alt="YoRHa OS boot sequence: live GitHub diagnostics" width="100%" />
+  </picture>
+</p>
 
 I'm **Aldio Lisafron**, a full-stack developer and UI/UX designer studying Software Engineering Technology at **IPB University**. I build web and mobile applications, from business operations tools to community platforms, using Laravel, React, Next.js, and React Native. My current interests are secure systems and applied AI: making products more dependable and putting models to work on specific problems.
 
@@ -30,7 +51,10 @@ I'm **Aldio Lisafron**, a full-stack developer and UI/UX designer studying Softw
 </p>
 
 <p align="center">
-  <img src="divider.svg" alt="" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="divider-dark.svg" />
+    <img src="divider.svg" alt="" width="100%" />
+  </picture>
 </p>
 
 ## <samp>■ 02 · MISSIONS // selected_work</samp>
@@ -60,7 +84,17 @@ Brings program discovery, community operations, and member engagement together w
 - **Project:** [gdgocipb.com ↗](https://gdgocipb.com)
 
 <p align="center">
-  <img src="divider.svg" alt="" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/corrupt?theme=dark" />
+    <img src="https://al.is-a.dev/api/readme/corrupt" alt="Recovered record: latest commit, restored from corrupted data" width="100%" />
+  </picture>
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="divider-dark.svg" />
+    <img src="divider.svg" alt="" width="100%" />
+  </picture>
 </p>
 
 ## <samp>■ 03 · LOADOUT // stack_and_tools</samp>
@@ -75,7 +109,17 @@ Brings program discovery, community operations, and member engagement together w
 | **Workflow** | Git, GitHub |
 
 <p align="center">
-  <img src="divider.svg" alt="" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/hack?theme=dark" />
+    <img src="https://al.is-a.dev/api/readme/hack" alt="Hacking space: wireframe arena, reseeded daily" width="100%" />
+  </picture>
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="divider-dark.svg" />
+    <img src="divider.svg" alt="" width="100%" />
+  </picture>
 </p>
 
 ## <samp>■ 04 · OBJECTIVE // current_focus</samp>
@@ -85,7 +129,10 @@ Brings program discovery, community operations, and member engagement together w
 - **Creative development:** bring interface design and interactive graphics into practical web products.
 
 <p align="center">
-  <img src="divider.svg" alt="" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="divider-dark.svg" />
+    <img src="divider.svg" alt="" width="100%" />
+  </picture>
 </p>
 
 ## <samp>■ 05 · COMMS // transmission_channels</samp>
@@ -93,15 +140,30 @@ Brings program discovery, community operations, and member engagement together w
 Have a web or mobile project in mind, or want to collaborate on applied AI or creative development? Send me an email or connect on LinkedIn.
 
 <p align="center">
-  <a href="https://al.is-a.dev"><img src="btn-website.svg" alt="Website — al.is-a.dev" width="250" height="44" /></a>&nbsp;
-  <a href="https://linkedin.com/in/aldio-lisafron"><img src="btn-linkedin.svg" alt="LinkedIn — aldio-lisafron" width="250" height="44" /></a>
+  <a href="https://al.is-a.dev"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="btn-website-dark.svg" />
+    <img src="btn-website.svg" alt="Website — al.is-a.dev" width="250" height="44" />
+  </picture></a>&nbsp;
+  <a href="https://linkedin.com/in/aldio-lisafron"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="btn-linkedin-dark.svg" />
+    <img src="btn-linkedin.svg" alt="LinkedIn — aldio-lisafron" width="250" height="44" />
+  </picture></a>
   <br />
-  <a href="https://instagram.com/al.dioooo"><img src="btn-instagram.svg" alt="Instagram — @al.dioooo" width="250" height="44" /></a>&nbsp;
-  <a href="mailto:contact@al.is-a.dev"><img src="btn-email.svg" alt="Email — contact@al.is-a.dev" width="250" height="44" /></a>
+  <a href="https://instagram.com/al.dioooo"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="btn-instagram-dark.svg" />
+    <img src="btn-instagram.svg" alt="Instagram — @al.dioooo" width="250" height="44" />
+  </picture></a>&nbsp;
+  <a href="mailto:contact@al.is-a.dev"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="btn-email-dark.svg" />
+    <img src="btn-email.svg" alt="Email — contact@al.is-a.dev" width="250" height="44" />
+  </picture></a>
 </p>
 
 <p align="center">
-  <img src="footer.svg" alt="Record end — glory to mankind" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="footer-dark.svg" />
+    <img src="footer.svg" alt="Record end — glory to mankind" width="100%" />
+  </picture>
 </p>
 
 <!-- [E]ject data? ... negative. Thanks for reading. -->
