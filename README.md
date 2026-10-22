@@ -16,7 +16,10 @@
 
 <p align="center">
   <a href="https://al.is-a.dev/contact">
-    <img src="https://al.is-a.dev/api/readme/contact" alt="Com. 09 — direct line: Operator 210 reporting the latest transmission from al-dioooo" width="100%" />
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/contact?theme=dark" />
+      <img src="https://al.is-a.dev/api/readme/contact" alt="Unit record: Operator 210 reporting the latest transmission from al-dioooo" width="100%" />
+    </picture>
   </a>
 </p>
 
