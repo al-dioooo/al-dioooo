@@ -64,13 +64,11 @@
 
 ## <samp>■ 03 · COMMS // transmission_channels</samp>
 
-Have a web or mobile project in mind, or want to collaborate on applied AI or creative development? Send me an email or connect on LinkedIn.
-
 <p align="center">
-  <a href="https://al.is-a.dev">Website — al.is-a.dev</a> ·
-  <a href="https://linkedin.com/in/aldio-lisafron">LinkedIn — aldio-lisafron</a> ·
-  <a href="https://instagram.com/al.dioooo">Instagram — @al.dioooo</a> ·
-  <a href="mailto:contact@al.is-a.dev">Email — contact@al.is-a.dev</a>
+  <a href="https://al.is-a.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/comms/website-dark.svg" /><img src="assets/comms/website.svg" alt="Website: al.is-a.dev" width="88" /></picture></a>
+  <a href="https://linkedin.com/in/aldio-lisafron"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/comms/linkedin-dark.svg" /><img src="assets/comms/linkedin.svg" alt="LinkedIn: aldio-lisafron" width="88" /></picture></a>
+  <a href="https://instagram.com/al.dioooo"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/comms/instagram-dark.svg" /><img src="assets/comms/instagram.svg" alt="Instagram: @al.dioooo" width="88" /></picture></a>
+  <a href="mailto:contact@al.is-a.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/comms/email-dark.svg" /><img src="assets/comms/email.svg" alt="Email: contact@al.is-a.dev" width="88" /></picture></a>
 </p>
 
 <!-- [E]ject data? ... negative. Thanks for reading. -->
