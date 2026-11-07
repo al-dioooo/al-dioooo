@@ -23,15 +23,7 @@
   </a>
 </p>
 
-## <samp>■ 01 · INTEL // unit_data</samp>
-
-I'm **Aldio Lisafron**, a full-stack developer and UI/UX designer studying Software Engineering Technology at **IPB University**. I build web and mobile applications, from business operations tools to community platforms, using Laravel, React, Next.js, and React Native. My current interests are secure systems and applied AI: making products more dependable and putting models to work on specific problems.
-
-<p align="center">
-  <a href="https://al.is-a.dev">Explore my portfolio ↗</a>
-</p>
-
-## <samp>■ 02 · MISSIONS // selected_work</samp>
+## <samp>■ 01 · MISSIONS // selected_work</samp>
 
 ### Aksesin · AI accessibility travel companion
 
@@ -57,7 +49,7 @@ Brings program discovery, community operations, and member engagement together w
 - **Focus:** community workflows, visual design, interactive 3D.
 - **Project:** [gdgocipb.com ↗](https://gdgocipb.com)
 
-## <samp>■ 03 · LOADOUT // stack_and_tools</samp>
+## <samp>■ 02 · LOADOUT // stack_and_tools</samp>
 
 | Area | Technologies & tools |
 | :--- | :--- |
@@ -68,13 +60,7 @@ Brings program discovery, community operations, and member engagement together w
 | **Design & graphics** | UI/UX design, Figma, Canva, Three.js, WebGL |
 | **Workflow** | Git, GitHub |
 
-## <samp>■ 04 · OBJECTIVE // current_focus</samp>
-
-- **Secure systems:** deepen my practice in threat modeling, secure defaults, and application hardening.
-- **Applied AI:** build useful model integrations and improve how I evaluate their outputs.
-- **Creative development:** bring interface design and interactive graphics into practical web products.
-
-## <samp>■ 05 · COMMS // transmission_channels</samp>
+## <samp>■ 03 · COMMS // transmission_channels</samp>
 
 Have a web or mobile project in mind, or want to collaborate on applied AI or creative development? Send me an email or connect on LinkedIn.
 
