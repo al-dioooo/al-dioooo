@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" width="88" height="88" role="img" aria-label="Fastify">
+  <title>Fastify</title>
+  <style>
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+  </style>
+  <defs>
+    <pattern id="gridMinor" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="#45403A" stroke-opacity=".07"/></pattern>
+    <pattern id="gridMajor" x="-23" y="-23" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#45403A" stroke-opacity=".12"/><path d="M-4 0h8M0 -4v8" stroke="#45403A" stroke-opacity=".28"/></pattern>
+    <clipPath id="paper"><rect x="2" y="2" width="76" height="76"/></clipPath>
+  </defs>
+  <rect x="8" y="8" width="76" height="76" fill="#79716B" stroke="#1C1917" stroke-width="2"/>
+  <rect x="2" y="2" width="76" height="76" fill="#E7E5E4"/>
+  <rect x="2" y="2" width="76" height="76" fill="url(#gridMinor)"/>
+  <rect x="2" y="2" width="76" height="76" fill="url(#gridMajor)"/>
+  <g clip-path="url(#paper)" fill="none" stroke="#45403A">
+    <path d="M2 11.4L72.2 116" stroke-opacity=".14"/>
+    <path d="M59.28 2C63.84 41.8 41.8 76 2 77.52" stroke-opacity=".16"/>
+  </g>
+  <rect x="3" y="3" width="74" height="74" fill="none" stroke="#45403A" stroke-width="2"/>
+  <rect x="8" y="8" width="5" height="5" fill="#1C1917"/>
+  
+  <path transform="translate(26 15) scale(1.17)" fill="#1C1917" d="M23.245 6.49L24 4.533l-.031-.121-7.473 1.967c.797-1.153.523-2.078.523-2.078s-2.387 1.524-4.193 1.485c-1.804-.04-2.387-.52-5.155.362-2.768.882-3.551 3.59-4.351 4.173-.804.583-3.32 2.477-3.32 2.477l.006.034 2.27-.724s-.622.585-1.945 2.37l-.062-.057.002.011s1.064 1.626 2.107 1.324a2.14 2.14 0 0 0 .353-.147c.419.234.967.463 1.572.525 0 0-.41-.475-.752-1.017l.238-.154.865.318-.096-.812c.003-.003.006-.003.008-.006l.849.311-.105-.738a5.65 5.65 0 0 1 .322-.158l.885-3.345 3.662-2.497-.291.733c-.741 1.826-2.135 2.256-2.135 2.256l-.582.22c-.433.512-.614.637-.764 2.353.348-.088.682-.107.984-.028 1.564.421 2.107 2.307 1.685 2.827-.104.13-.356.354-.673.617H7.77l-.008.514-.065.051h-.645l-.009.504-.17.127c-.607.011-1.373-.518-1.373-.518 0 .481.401 1.225.401 1.225l.07-.034-.061.045s1.625 1.083 2.646.681c.91-.356 3.263-2.213 5.296-3.093l6.15-1.62.811-2.1-4.688 1.235v-1.889l5.5-1.448.811-2.1-6.31 1.662V8.367zm-11.163 4l1.459-.384.02.074-.455 1.179-1.513.398zm.503 2.526l-1.512.398.489-1.266 1.459-.385.02.074zm1.971-.424l-1.513.398.49-1.266 1.459-.385.02.073Z"/>
+  <path d="M10 53H70" stroke="#38352E" stroke-width="1.2"/><g fill="#38352E"><rect x="14" y="53.6" width="4" height="1.2"/><rect x="30" y="53.6" width="4" height="1.2"/><rect x="46" y="53.6" width="4" height="1.2"/><rect x="62" y="53.6" width="4" height="1.2"/></g>
+  <text x="40" y="69" class="mono" font-size="8" font-weight="700" letter-spacing="0.5" fill="#1C1917" text-anchor="middle">FASTIFY</text>
+</svg>

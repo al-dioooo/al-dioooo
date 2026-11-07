@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88" width="88" height="88" role="img" aria-label="Next.Js">
+  <title>Next.Js</title>
+  <style>
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+  </style>
+  <defs>
+    <pattern id="gridMinor" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="#A8A29E" stroke-opacity=".07"/></pattern>
+    <pattern id="gridMajor" x="-23" y="-23" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#A8A29E" stroke-opacity=".12"/><path d="M-4 0h8M0 -4v8" stroke="#A8A29E" stroke-opacity=".28"/></pattern>
+    <clipPath id="paper"><rect x="2" y="2" width="76" height="76"/></clipPath>
+  </defs>
+  <rect x="8" y="8" width="76" height="76" fill="#0C0A09" stroke="#E7E5E4" stroke-width="2"/>
+  <rect x="2" y="2" width="76" height="76" fill="#1C1917"/>
+  <rect x="2" y="2" width="76" height="76" fill="url(#gridMinor)"/>
+  <rect x="2" y="2" width="76" height="76" fill="url(#gridMajor)"/>
+  <g clip-path="url(#paper)" fill="none" stroke="#A8A29E">
+    <path d="M2 11.4L72.2 116" stroke-opacity=".14"/>
+    <path d="M59.28 2C63.84 41.8 41.8 76 2 77.52" stroke-opacity=".16"/>
+  </g>
+  <rect x="3" y="3" width="74" height="74" fill="none" stroke="#A8A29E" stroke-width="2"/>
+  <rect x="8" y="8" width="5" height="5" fill="#E7E5E4"/>
+  
+  <path transform="translate(26 15) scale(1.17)" fill="#E7E5E4" d="M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z"/>
+  <path d="M10 53H70" stroke="#D6D3D1" stroke-width="1.2"/><g fill="#D6D3D1"><rect x="14" y="53.6" width="4" height="1.2"/><rect x="30" y="53.6" width="4" height="1.2"/><rect x="46" y="53.6" width="4" height="1.2"/><rect x="62" y="53.6" width="4" height="1.2"/></g>
+  <text x="40" y="69" class="mono" font-size="8" font-weight="700" letter-spacing="0.5" fill="#E7E5E4" text-anchor="middle">NEXT.JS</text>
+</svg>

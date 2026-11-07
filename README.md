@@ -33,14 +33,34 @@
 
 ## <samp>■ 02 · LOADOUT // stack_and_tools</samp>
 
-| Area | Technologies & tools |
-| :--- | :--- |
-| **Core languages** | PHP, JavaScript, TypeScript, HTML, CSS |
-| **Web applications** | Laravel, React, Next.js, Vue, Inertia.js, Tailwind CSS |
-| **Mobile** | React Native, Expo |
-| **Backend & data** | REST APIs, Fastify, Drizzle, MySQL, PostgreSQL |
-| **Design & graphics** | UI/UX design, Figma, Canva, Three.js, WebGL |
-| **Workflow** | Git, GitHub |
+<p align="center">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/php-dark.svg" /><img src="assets/loadout/php.svg" alt="PHP" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/javascript-dark.svg" /><img src="assets/loadout/javascript.svg" alt="JavaScript" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/typescript-dark.svg" /><img src="assets/loadout/typescript.svg" alt="TypeScript" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/html-dark.svg" /><img src="assets/loadout/html.svg" alt="HTML" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/css-dark.svg" /><img src="assets/loadout/css.svg" alt="CSS" width="88" /></picture>
+  <br />
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/laravel-dark.svg" /><img src="assets/loadout/laravel.svg" alt="Laravel" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/react-dark.svg" /><img src="assets/loadout/react.svg" alt="React" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/nextjs-dark.svg" /><img src="assets/loadout/nextjs.svg" alt="Next.js" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/vue-dark.svg" /><img src="assets/loadout/vue.svg" alt="Vue" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/inertia-dark.svg" /><img src="assets/loadout/inertia.svg" alt="Inertia.js" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/tailwindcss-dark.svg" /><img src="assets/loadout/tailwindcss.svg" alt="Tailwind CSS" width="88" /></picture>
+  <br />
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/react-native-dark.svg" /><img src="assets/loadout/react-native.svg" alt="React Native" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/expo-dark.svg" /><img src="assets/loadout/expo.svg" alt="Expo" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/fastify-dark.svg" /><img src="assets/loadout/fastify.svg" alt="Fastify" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/drizzle-dark.svg" /><img src="assets/loadout/drizzle.svg" alt="Drizzle" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/mysql-dark.svg" /><img src="assets/loadout/mysql.svg" alt="MySQL" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/postgresql-dark.svg" /><img src="assets/loadout/postgresql.svg" alt="PostgreSQL" width="88" /></picture>
+  <br />
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/figma-dark.svg" /><img src="assets/loadout/figma.svg" alt="Figma" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/canva-dark.svg" /><img src="assets/loadout/canva.svg" alt="Canva" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/threejs-dark.svg" /><img src="assets/loadout/threejs.svg" alt="Three.js" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/webgl-dark.svg" /><img src="assets/loadout/webgl.svg" alt="WebGL" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/git-dark.svg" /><img src="assets/loadout/git.svg" alt="Git" width="88" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/github-dark.svg" /><img src="assets/loadout/github.svg" alt="GitHub" width="88" /></picture>
+</p>
 
 ## <samp>■ 03 · COMMS // transmission_channels</samp>
 
