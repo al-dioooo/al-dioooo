@@ -25,29 +25,11 @@
 
 ## <samp>■ 01 · MISSIONS // selected_work</samp>
 
-### Aksesin · AI accessibility travel companion
-
-Helps people with disabilities and their companions assess whether a trip fits their access needs before leaving. **1st place, IFEST National Hackathon 2026.**
-
-- **My contribution:** development across the mobile app, backend, and web dashboard, including Navi's text, voice, and photo-analysis features.
-- **Stack:** Expo / React Native, Next.js, Fastify, Drizzle, PostgreSQL, PostGIS, pgvector, Mastra.
-- **Project:** [aksesin.onefatir.dev ↗](https://aksesin.onefatir.dev)
-
-### Modular ERP · Business operations platform
-
-Connects inventory, cashier and payments, accounting, reconciliation, reporting, and audit trails through independently deployable modules.
-
-- **My contribution:** full-stack development at Bloomreef, with shared services for users, roles, branches, customers, and suppliers.
-- **Stack:** React, Laravel, Tailwind CSS.
-- **Project:** [Portfolio overview ↗](https://al.is-a.dev/work/modular-erp)
-
-### GDGoC IPB · Community website & member dashboard
-
-Brings program discovery, community operations, and member engagement together with an interactive 3D campus experience.
-
-- **My contribution:** website and member-dashboard development as Creative Technologist in the Media & Creative division.
-- **Focus:** community workflows, visual design, interactive 3D.
-- **Project:** [gdgocipb.com ↗](https://gdgocipb.com)
+<p align="center">
+  <a href="https://aksesin.onefatir.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/missions/aksesin-dark.svg" /><img src="assets/missions/aksesin.svg" alt="Aksesin: AI accessibility travel companion. 1st place, IFEST National Hackathon 2026." width="272" /></picture></a>
+  <a href="https://al.is-a.dev/work/modular-erp"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/missions/modular-erp-dark.svg" /><img src="assets/missions/modular-erp.svg" alt="Modular ERP: business operations platform built at Bloomreef." width="272" /></picture></a>
+  <a href="https://gdgocipb.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/missions/gdgoc-ipb-dark.svg" /><img src="assets/missions/gdgoc-ipb.svg" alt="GDGoC IPB: community website and member dashboard with an interactive 3D campus." width="272" /></picture></a>
+</p>
 
 ## <samp>■ 02 · LOADOUT // stack_and_tools</samp>
 
