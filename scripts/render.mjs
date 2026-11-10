@@ -268,6 +268,50 @@ function experience(ink, f) {
     })
 }
 
+// --- Mission card ---------------------------------------------------------------------
+
+function mission(ink, m, i) {
+    const W = 392
+    const P = { x: 3, y: 3, w: 380, h: 210 }
+    const L = P.x + 14
+    const R = P.x + P.w - 14
+    const on = inverse(ink)
+    const text = wrapSans(m.text, R - L, 11.5, 0.1).slice(0, 3)
+    const chips = chipFlow(ink, L, 161, m.stack, R - L, { size: 7.5, h: 15, gap: 5, base: 0.5 })
+
+    const body = `${plate(ink, P, { id: "paper" })}
+  <rect x="${P.x}" y="${P.y}" width="${P.w}" height="24" fill="${ink.block}"/>
+  ${mono(L, 19.5, `M-0${i + 1} // ${m.kind}`, { size: 8.5, fill: on.strong, tracking: 1.4, bold: true })}
+  ${mono(R - 13, 19.5, m.year, { size: 8.5, fill: on.muted, tracking: 1, anchor: "end" })}
+  <rect x="${R - 7}" y="11.5" width="7" height="7" fill="${on.strong}" class="pulse" style="${delay(i * 0.3)}"/>
+  ${acorn(L, 62, m.title, { size: 23, fill: ink.strong, tracking: 0.8, cls: "boot", style: delay(0.1 + i * 0.08) })}
+  ${mono(L + 1, 79, m.tag, { size: 8, fill: ink.muted, tracking: 1.2, bold: true })}
+  <path d="M${L} 90H${R}" stroke="${ink.rail}" stroke-width="1.2" pathLength="1" class="draw" style="${delay(0.2)}"/>
+  <g fill="${ink.rail}">${[0, 1, 2, 3].map((d) => `<rect x="${L + 4 + d * 16}" y="90.6" width="4" height="1.2"/>`).join("")}</g>
+  ${text.map((line, n) => sans(L, 110 + n * 17, line, { size: 11.5, fill: ink.text, tracking: 0.1, cls: "rise", style: delay(0.3 + n * 0.08) })).join("\n  ")}
+  ${chips.svg}
+  <path d="M${L} 188H${R}" stroke="${ink.muted}" stroke-opacity=".6"/>
+  ${mono(L, 203, m.link, { size: 8.5, fill: ink.text, tracking: 0.6 })}
+  <g>${icon(ARROW, R - 11, 193, 11, ink.strong)}<animateTransform attributeName="transform" type="translate" values="0 0;0 0;2 -2;0 0" keyTimes="0;0.7;0.85;1" dur="2.4s" begin="${num(i * 0.3)}s" repeatCount="indefinite"/></g>
+  ${scan(ink, P, { dur: 10, begin: 1.5 + i * 0.7 })}`
+
+    return document({
+        w: W, h: 230, fonts: ["acorn", "sans"],
+        label: `${m.title}: ${m.text} ${m.tag}.`,
+        defs: gridDefs(ink, 50), body
+    })
+}
+
+function cta(ink) {
+    const P = { x: 3, y: 3, w: 290, h: 44 }
+    const body = `${plate(ink, P, { s: 5, curves: false, outlined: true })}
+  <rect x="${P.x}" y="${P.y}" width="44" height="${P.h}" fill="${ink.block}" stroke="${ink.outline}" stroke-width="2"/>
+  <g>${icon(ARROW, P.x + 13, P.y + 13, 18, ink.blockInk)}<animateTransform attributeName="transform" type="translate" values="0 0;0 0;2 -2;0 0" keyTimes="0;0.6;0.8;1" dur="2s" repeatCount="indefinite"/></g>
+  ${mono(P.x + 58, P.y + 20, "VIEW ALL MISSION RECORDS", { size: 9.5, fill: ink.strong, tracking: 1.6, bold: true })}
+  ${mono(P.x + 58, P.y + 34, "al.is-a.dev/work", { size: 8.5, fill: ink.muted, tracking: 0.6 })}`
+    return document({ w: 302, h: 56, label: "View all mission records at al.is-a.dev/work", defs: gridDefs(ink, 50), body })
+}
+
 // --- Output ----------------------------------------------------------------------------
 
 const out = join(root, "assets/svg")
@@ -302,5 +346,7 @@ wide("about", about)
 wide("stats", stats)
 profile.sections.forEach((section, i) => wide(`header-${section.slug}`, (ink, f) => header(ink, f, section, i)))
 wide("experience", experience)
+profile.missions.forEach((m, i) => small(`mission-${m.slug}`, (ink) => mission(ink, m, i)))
+small("cta-missions", cta)
 
 console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg`)
