@@ -599,4 +599,77 @@ wide("training", training)
 profile.comms.forEach((c, i) => small(`comm-${c.slug}`, (ink) => comm(ink, c, i)))
 wide("footer", footer)
 
-console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg`)
+// --- README ----------------------------------------------------------------------------
+
+const src = (name) => `assets/svg/${name}.svg`
+const link = (href, inner) => (href ? `<a href="${href}">${inner}</a>` : inner)
+
+const wideTag = (name, href) =>
+    link(href, `<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="${src(`${name}-dark`)}" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="${src(`${name}-light`)}" /><source media="(prefers-color-scheme: dark)" srcset="${src(`${name}-dark-mobile`)}" /><img src="${src(`${name}-light-mobile`)}" width="100%" alt="${alts[name]}" /></picture>`)
+
+const smallTag = (name, width, href) =>
+    link(href, `<picture><source media="(prefers-color-scheme: dark)" srcset="${src(`${name}-dark`)}" /><img src="${src(`${name}-light`)}" width="${width}" alt="${alts[name]}" /></picture>`)
+
+const head = (slug) => wideTag(`header-${slug}`)
+
+const readme = `<!-- ════════════════════════════════════════════════════════════
+     UNIT RECORD : ${profile.unit}
+     FORMAT      : NieR graph-paper UI
+     Drawn by scripts/render.mjs from scripts/data/profile.mjs.
+     Edit the data or the script, then run: node scripts/render.mjs
+     ════════════════════════════════════════════════════════════ -->
+
+${wideTag("hero", profile.site)}
+
+${wideTag("about")}
+
+${wideTag("stats")}
+
+${head("service")}
+
+${wideTag("experience")}
+
+${head("missions")}
+
+<p align="center">
+${profile.missions.map((m) => smallTag(`mission-${m.slug}`, 392, m.href)).join("\n")}
+</p>
+
+<p align="center">
+${smallTag("cta-missions", 302, `${profile.site}/work`)}
+</p>
+
+${head("loadout")}
+
+${wideTag("loadout")}
+
+${head("signal")}
+
+${wideTag("signal", `https://github.com/${profile.unit}`)}
+
+<p align="center">
+  <a href="${profile.site}/contact">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="${profile.site}/api/readme/contact?theme=dark" />
+      <img src="${profile.site}/api/readme/contact" alt="Unit record: Operator 210 reporting the latest transmission from ${profile.unit}" width="100%" />
+    </picture>
+  </a>
+</p>
+
+${head("training")}
+
+${wideTag("training")}
+
+${head("comms")}
+
+<p align="center">
+${profile.comms.map((c) => smallTag(`comm-${c.slug}`, 168, esc(c.href))).join("\n")}
+</p>
+
+${wideTag("footer")}
+
+<!-- [E]ject data? ... negative. Thanks for reading. -->
+`
+
+writeFileSync(join(root, "README.md"), readme)
+console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg; README.md rewritten`)
