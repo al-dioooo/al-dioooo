@@ -41,8 +41,10 @@
 <p align="center">
   <a href="https://al.is-a.dev/contact">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/contact?theme=dark" />
-      <img src="https://al.is-a.dev/api/readme/contact" alt="Unit record: Operator 210 reporting the latest transmission from al-dioooo" width="100%" />
+      <source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="https://al.is-a.dev/api/readme/contact?theme=dark" />
+      <source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="https://al.is-a.dev/api/readme/contact" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/contact?theme=dark&amp;view=mobile" />
+      <img src="https://al.is-a.dev/api/readme/contact?view=mobile" alt="Unit record: Operator 210 reporting the latest transmission from al-dioooo" width="100%" />
     </picture>
   </a>
 </p>
