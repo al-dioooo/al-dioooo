@@ -248,3 +248,122 @@ export function chipFlow(ink, x, y, labels, max, { gap = 6, rowGap = 6, h = 16, 
     })
     return { svg, h: cy - y + h + 1 }
 }
+
+// --- SMIL ---------------------------------------------------------------------------
+
+// Opacity that is 1 only between alternating pairs of times in a repeating
+// cycle: [on, off, on, off, ...]. Discrete, so a glitch snaps rather than fades.
+export function flicker(times, dur) {
+    const values = [0, ...times.map((_, i) => (i % 2 === 0 ? 1 : 0))]
+    const keys = [0, ...times.map((t) => t / dur)]
+    return `<animate attributeName="opacity" calcMode="discrete" values="${values.join(";")}" keyTimes="${keys.map(key).join(";")}" dur="${dur}s" repeatCount="indefinite"/>`
+}
+
+// Horizontal offsets stepping through the same times
+export function jolt(times, offsets, dur) {
+    const values = ["0 0", ...offsets.map((dx) => `${dx} 0`)]
+    const keys = [0, ...times.map((t) => t / dur)]
+    return `<animateTransform attributeName="transform" type="translate" calcMode="discrete" values="${values.join(";")}" keyTimes="${keys.map(key).join(";")}" dur="${dur}s" repeatCount="indefinite"/>`
+}
+
+// A heading drawn through <use> so red and cyan ghosts can misregister it for
+// a few frames of every cycle, with one slice torn sideways.
+export function glitchHeading(ink, markup, { x, y, w, h, dur = 9, at = 5.2 }) {
+    const tear = [at, at + 0.08, at + 0.16, at + 0.3, at + 0.45]
+    const slice = { y: y + h * 0.38, h: h * 0.22 }
+    return {
+        defs: `<g id="heading">${markup}</g>
+    <clipPath id="headingTear"><rect x="${num(x - 14)}" y="${num(slice.y)}" width="${num(w + 28)}" height="${num(slice.h)}"/></clipPath>`,
+        body: `<g opacity="0">${flicker([tear[0], tear[2], tear[3], tear[4]], dur)}
+    <use href="#heading" x="-3" fill="${ink.red}" opacity=".8"/>
+    <use href="#heading" x="3" y="1" fill="${ink.cyan}" opacity=".8"/>
+  </g>
+  <use href="#heading" fill="${ink.strong}"/>`,
+        // Drawn by the caller on top of whatever sits behind the heading
+        tear: (backdrop) => `<g clip-path="url(#headingTear)" opacity="0">${flicker([tear[1], tear[3]], dur)}
+    <rect x="${num(x - 14)}" y="${num(slice.y)}" width="${num(w + 28)}" height="${num(slice.h)}" fill="${backdrop}"/>
+    <use href="#heading" fill="${ink.strong}">${jolt(tear, [0, 10, -6, 0, 0], dur)}</use>
+  </g>`
+    }
+}
+
+// Poppins lines typed glyph by glyph through masks. `messages` is a list of
+// row lists; with `loop` each message is typed, held and cleared in turn,
+// without it the single message is typed once and stays.
+export function typewriter(ink, messages, { x, rows, size, tracking = 0.4, max, fill, loop = true, speed = 0.035, hold = 3.4, gap = 0.5, start = 0.5, id = "row" }) {
+    const timeline = []
+    let t = start
+    messages.forEach((message, mi) => {
+        const glyphs = message.reduce((n, r) => n + [...r].length, 0)
+        const end = t + glyphs * speed + hold
+        message.forEach((text, i) => {
+            const widths = sansAdvances(text, size, tracking)
+            const cum = widths.reduce((acc, w) => [...acc, acc[acc.length - 1] + w], [0])
+            timeline.push({ text, y: rows[i], start: t, end, cum, first: mi === 0 })
+            t += widths.length * speed
+        })
+        t = end + gap
+    })
+    const cycle = loop ? t : t - gap - hold + 0.01
+    const repeat = loop ? ' repeatCount="indefinite"' : ' fill="freeze"'
+
+    let defs = ""
+    let body = ""
+    const steps = []
+    const push = (step) => {
+        // A wrapped row's last step coincides with the next row's first glyph;
+        // keep the later one so keyTimes stay strictly increasing.
+        if (steps.length && key(steps[steps.length - 1].k) === key(step.k)) steps[steps.length - 1] = step
+        else steps.push(step)
+    }
+
+    timeline.forEach((row, i) => {
+        const n = row.cum.length - 1
+        const keys = [0, row.start / cycle]
+        const values = [0, 0]
+        for (let g = 1; g <= n; g++) {
+            keys.push(Math.min(1, (row.start + g * speed) / cycle))
+            values.push(row.cum[g])
+            push({ k: (row.start + (g - 1) * speed) / cycle, x: x + row.cum[g - 1], y: row.y })
+        }
+        push({ k: Math.min(1, (row.start + n * speed) / cycle), x: x + row.cum[n], y: row.y })
+        if (loop) {
+            // Discrete values hold until the next key, so the clear is its own key
+            keys.push(row.end / cycle, 1)
+            values.push(0, 0)
+            if (i === timeline.length - 1 || timeline[i + 1].start > row.end) push({ k: row.end / cycle, x, y: rows[0] })
+        } else if (keys[keys.length - 1] < 1) {
+            keys.push(1)
+            values.push(row.cum[n])
+        }
+        // keyTimes must strictly increase; a row finishing exactly at 1 keeps one key there
+        const pairs = keys.map((k, j) => [key(k), values[j]]).filter((p, j, all) => j === all.length - 1 || p[0] < all[j + 1][0])
+
+        const base = !loop || row.first ? row.cum[n] : 0
+        const top = row.y - size - 2
+        defs += `<mask id="${id}${i}" maskUnits="userSpaceOnUse" x="${num(x)}" y="${num(top)}" width="${num(max + 20)}" height="${size + 8}"><rect x="${num(x)}" y="${num(top)}" width="${num(base + 1)}" height="${size + 8}" fill="#fff">
+      <animate attributeName="width" calcMode="discrete" values="${pairs.map((p) => num(p[1] + (p[1] ? 1 : 0))).join(";")}" keyTimes="${pairs.map((p) => p[0]).join(";")}" dur="${num(cycle)}s"${repeat}/>
+    </rect></mask>`
+        body += `${sans(x, row.y, row.text, { size, tracking, fill, attrs: ` mask="url(#${id}${i})"` })}\n  `
+    })
+
+    const last = steps[steps.length - 1]
+    const all = [{ k: 0, x, y: rows[0] }, ...steps.filter((s) => s.k > 0 && s.k < 1), { ...last, k: 1 }]
+    const rest = loop ? timeline.filter((r) => r.first).at(-1) : timeline.at(-1)
+    const kt = all.map((s) => key(s.k)).join(";")
+    body += `<rect width="${num(size * 0.55)}" height="${size + 2}" fill="${fill}" x="${num(x + rest.cum.at(-1) + 2)}" y="${num(rest.y - size + 1)}">
+    <animate attributeName="x" calcMode="discrete" values="${all.map((s) => num(s.x + 2)).join(";")}" keyTimes="${kt}" dur="${num(cycle)}s"${repeat}/>
+    <animate attributeName="y" calcMode="discrete" values="${all.map((s) => num(s.y - size + 1)).join(";")}" keyTimes="${kt}" dur="${num(cycle)}s"${repeat}/>
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.55;0.56;1" dur="1.1s" repeatCount="indefinite"/>
+  </rect>`
+
+    return { defs, body, cycle }
+}
+
+// A soft band that crosses a plate once per cycle, like a scanner pass
+export function scan(ink, { x, y, w, h }, { dur = 9, begin = 0, clip = "paper", width = 46, opacity = 0.07 } = {}) {
+    const travel = 1.3 / dur
+    return `<g clip-path="url(#${clip})"><rect x="${num(x - width)}" y="${y}" width="${width}" height="${h}" fill="${ink.strong}" opacity="${opacity}">
+    <animate attributeName="x" values="${num(x - width)};${num(x + w)};${num(x + w)}" keyTimes="0;${key(travel)};1" dur="${dur}s" begin="${num(begin)}s" repeatCount="indefinite"/>
+  </rect></g>`
+}
