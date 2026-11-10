@@ -312,6 +312,64 @@ function cta(ink) {
     return document({ w: 302, h: 56, label: "View all mission records at al.is-a.dev/work", defs: gridDefs(ink, 50), body })
 }
 
+// --- Loadout ---------------------------------------------------------------------------
+
+function loadout(ink, f) {
+    const { W, x, y, w, s, pad, mobile } = f
+    const groups = profile.loadout
+    const L = x + pad
+    const cols = mobile ? 1 : 2
+    const colGap = 20
+    const gw = (w - pad * 2 - colGap * (cols - 1)) / cols
+    const cell = 46
+    const pitch = gw / 6
+    const groupH = 20 + cell + 16
+    const rowGap = mobile ? 14 : 18
+    const y0 = mobile ? 54 : 72
+    const total = groups.reduce((n, g) => n + g.items.length, 0)
+
+    let slot = 0
+    const drawn = groups.map((group, gi) => {
+        const gx = L + (gi % cols) * (gw + colGap)
+        const gy = y0 + Math.floor(gi / cols) * (groupH + rowGap)
+        const labelW = monoWidth(group.label, 8.5, 1.4)
+        const cells = group.items.map((name, i) => {
+            const item = ICONS[`loadout/${name}`]
+            const cx = gx + i * pitch
+            const cy = gy + 20
+            const n = slot++
+            return `<g class="rise" style="${delay(0.3 + n * 0.04)}">
+      <rect x="${num(cx) + 0.5}" y="${cy + 0.5}" width="${cell}" height="${cell}" fill="${ink.paper}" fill-opacity=".6" stroke="${ink.muted}"/>
+      ${icon(item.d, cx + (cell - 24) / 2, cy + (cell - 24) / 2, 24, ink.strong)}
+      ${mono(cx + cell / 2, cy + cell + 12, item.label.toUpperCase(), { size: 7, fill: ink.text, tracking: 0.3, anchor: "middle" })}
+    </g>
+    <rect x="${num(cx) + 0.5}" y="${cy + 0.5}" width="${cell}" height="${cell}" fill="none" stroke="${ink.strong}" stroke-width="2.5" class="sweep" style="${delay(2 + n * 0.34)}"/>`
+        })
+        return `${bullet(ink, gx, gy + 2, 6)}
+    ${mono(gx + 12, gy + 9, group.label, { size: 8.5, fill: ink.strong, tracking: 1.4, bold: true })}
+    <path d="M${num(gx + 12 + labelW + 10)} ${gy + 5.5}H${num(gx + gw - (pitch - cell))}" stroke="${ink.muted}" stroke-opacity=".6"/>
+    ${cells.join("\n    ")}`
+    })
+
+    const aiY = y0 + Math.ceil(groups.length / cols) * (groupH + rowGap) + (mobile ? 0 : 2)
+    const ai = chipFlow(ink, L, aiY + 18, profile.appliedAi, w - pad * 2, { size: 8, h: 18, base: 1.2, solid: true })
+    const P = { x, y, w, h: aiY + 18 + ai.h + (mobile ? 14 : 18) - y }
+
+    const body = `${plate(ink, P, { s })}
+  ${cardHead(ink, f, `INVENTORY — ${total} ITEMS EQUIPPED`, mobile ? "" : "STACK AND TOOLS")}
+  ${drawn.join("\n  ")}
+  ${bullet(ink, L, aiY + 2, 6)}
+  ${mono(L + 12, aiY + 9, "APPLIED AI", { size: 8.5, fill: ink.strong, tracking: 1.4, bold: true })}
+  <path d="M${num(L + 12 + monoWidth("APPLIED AI", 8.5, 1.4) + 10)} ${aiY + 5.5}H${x + w - pad}" stroke="${ink.muted}" stroke-opacity=".6"/>
+  ${ai.svg}`
+
+    return document({
+        w: W, h: P.y + P.h + s + (mobile ? 5 : 9),
+        label: `Loadout: ${groups.map((g) => `${g.label.toLowerCase()}: ${g.items.map((n) => ICONS[`loadout/${n}`].label).join(", ")}`).join("; ")}; applied AI: ${profile.appliedAi.join(", ").toLowerCase()}`,
+        defs: gridDefs(ink), body
+    })
+}
+
 // --- Output ----------------------------------------------------------------------------
 
 const out = join(root, "assets/svg")
@@ -348,5 +406,6 @@ profile.sections.forEach((section, i) => wide(`header-${section.slug}`, (ink, f)
 wide("experience", experience)
 profile.missions.forEach((m, i) => small(`mission-${m.slug}`, (ink) => mission(ink, m, i)))
 small("cta-missions", cta)
+wide("loadout", loadout)
 
 console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg`)
