@@ -17,6 +17,7 @@ import { profile } from "./data/profile.mjs"
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const read = (path) => JSON.parse(readFileSync(join(root, path), "utf8"))
 const ICONS = read("scripts/data/icons.json")
+const ACTIVITY = read("scripts/data/contributions.json")
 
 // The small square that opens every card's header line
 const bullet = (ink, x, y, size, rest = "") => `<rect x="${x}" y="${y}" width="${size}" height="${size}" fill="${ink.strong}"${rest}/>`
@@ -370,6 +371,101 @@ function loadout(ink, f) {
     })
 }
 
+// --- Signal log ------------------------------------------------------------------------
+
+function activityStats() {
+    const days = ACTIVITY.weeks.flat()
+    let streak = 0
+    let best = 0
+    for (const [, count] of days) {
+        streak = count > 0 ? streak + 1 : 0
+        best = Math.max(best, streak)
+    }
+    const active = days.filter(([, c]) => c > 0)
+    const sorted = active.map(([, c]) => c).sort((a, b) => a - b)
+    const q = (p) => sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * p))]
+    return { total: ACTIVITY.total, best, active: active.length, cuts: [q(0.25), q(0.5), q(0.75)] }
+}
+
+function signal(ink, f) {
+    const { W, x, y, w, s, pad, mobile } = f
+    const st = activityStats()
+    const L = x + pad
+    const R = x + w - pad
+    const weeks = ACTIVITY.weeks
+    const pitch = (R - L) / weeks.length
+    const cell = pitch - (mobile ? 1 : 2)
+    const statY = mobile ? 72 : 98
+    const gridY = mobile ? 112 : 150
+    const level = (c) => (c === 0 ? 0 : c <= st.cuts[0] ? 1 : c <= st.cuts[1] ? 2 : c <= st.cuts[2] ? 3 : 4)
+    const tone = [0.08, 0.3, 0.52, 0.76, 1]
+    const fmt = (n) => n.toLocaleString("en-US")
+
+    const facts = [
+        { value: fmt(st.total), label: "SIGNALS LOGGED" },
+        { value: String(st.active), label: "ACTIVE DAYS" },
+        { value: String(st.best), label: mobile ? "DAY BEST STREAK" : "DAY LONGEST STREAK" }
+    ]
+    const factSize = mobile ? 21 : 28
+    const factsSvg = facts.map((fact, i) => {
+        const fx = L + i * ((R - L) / 3)
+        return `<g class="rise" style="${delay(0.2 + i * 0.12)}">${acorn(fx, statY, fact.value, { size: factSize, fill: ink.strong, tracking: 0.5 })}${mobile
+            ? mono(fx, statY + 13, fact.label, { size: 7, fill: ink.muted, tracking: 0.8 })
+            : mono(fx + acornWidth(fact.value, factSize, 0.5) + 10, statY - 2, fact.label, { size: 8.5, fill: ink.muted, tracking: 1.4 })}</g>`
+    }).join("\n  ")
+
+    const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+    let months = ""
+    let lastMonth = -1
+    let lastLabelAt = -99
+    const today = weeks.at(-1).at(-1)[0]
+    const columns = weeks.map((week, c) => {
+        const month = Number(week[0][0].slice(5, 7)) - 1
+        if (month !== lastMonth && c - lastLabelAt >= (mobile ? 7 : 3) && c < weeks.length - 2) {
+            months += mono(L + c * pitch, gridY - (mobile ? 5 : 7), MONTHS[month], { size: mobile ? 6.5 : 7.5, fill: ink.muted, tracking: 0.8 })
+            lastLabelAt = c
+        }
+        lastMonth = month
+        const cells = week.map(([date, count]) => {
+            const d = new Date(`${date}T00:00:00Z`).getUTCDay()
+            const mark = date === today ? ` stroke="${ink.red}" stroke-width="${mobile ? 1 : 1.5}" class="pulse"` : ""
+            return `<rect x="${num(L + c * pitch)}" y="${num(gridY + d * pitch)}" width="${num(cell)}" height="${num(cell)}" fill="${ink.strong}" fill-opacity="${tone[level(count)]}"${mark}/>`
+        }).join("")
+        return `<g class="fade" style="${delay(0.3 + c * 0.022)}">${cells}</g>`
+    }).join("\n  ")
+
+    const gridH = pitch * 7
+    const legendY = gridY + gridH + (mobile ? 16 : 20)
+    const lc = mobile ? 7 : 10
+    const legendW = 5 * (lc + 2) + monoWidth("MORE", 7.5, 0.8) + 8
+    const lx = R - legendW
+    const legend = `${mono(lx - 8, legendY, "LESS", { size: 7.5, fill: ink.muted, tracking: 0.8, anchor: "end" })}
+  ${tone.map((o, i) => `<rect x="${num(lx + i * (lc + 2))}" y="${num(legendY - lc + 1)}" width="${lc}" height="${lc}" fill="${ink.strong}" fill-opacity="${o}"/>`).join("")}
+  ${mono(R, legendY, "MORE", { size: 7.5, fill: ink.muted, tracking: 0.8, anchor: "end" })}
+  ${mono(L, legendY, mobile ? "GITHUB.COM/AL-DIOOOO" : "GITHUB.COM/AL-DIOOOO · ONE SQUARE, ONE DAY", { size: 7.5, fill: ink.muted, tracking: 0.8 })}`
+
+    const P = { x, y, w, h: legendY + (mobile ? 12 : 16) - y }
+    // A reader head that crosses the grid once per cycle
+    const head = `<rect x="${L}" y="${num(gridY - 3)}" width="${mobile ? 1.5 : 2}" height="${num(gridH + 4)}" fill="${ink.red}" opacity="0">
+    <animate attributeName="opacity" values="0;.9;.9;0;0" keyTimes="0;0.03;0.55;0.6;1" dur="7s" begin="2s" repeatCount="indefinite"/>
+    <animate attributeName="x" values="${L};${num(R)};${num(R)}" keyTimes="0;0.6;1" dur="7s" begin="2s" repeatCount="indefinite"/>
+  </rect>`
+
+    const body = `${plate(ink, P, { s })}
+  ${cardHead(ink, f, mobile ? "TRANSMISSION LOG — 12 MONTHS" : "TRANSMISSION LOG — LAST 12 MONTHS", `SNAPSHOT ${ACTIVITY.fetched}`)}
+  ${factsSvg}
+  ${months}
+  ${columns}
+  ${head}
+  ${legend}`
+
+    return document({
+        w: W, h: P.y + P.h + s + (mobile ? 5 : 9), fonts: ["acorn"],
+        label: `Signal log, snapshot ${ACTIVITY.fetched}: ${fmt(st.total)} contributions in the last 12 months, ${st.active} active days, longest streak ${st.best} days`,
+        defs: gridDefs(ink), body
+    })
+}
+
 // --- Output ----------------------------------------------------------------------------
 
 const out = join(root, "assets/svg")
@@ -407,5 +503,6 @@ wide("experience", experience)
 profile.missions.forEach((m, i) => small(`mission-${m.slug}`, (ink) => mission(ink, m, i)))
 small("cta-missions", cta)
 wide("loadout", loadout)
+wide("signal", signal)
 
 console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg`)
