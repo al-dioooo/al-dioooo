@@ -1,18 +1,42 @@
 <!-- ════════════════════════════════════════════════════════════
      UNIT RECORD : al-dioooo
      FORMAT      : NieR graph-paper UI
+     Drawn by scripts/render.mjs from scripts/data/profile.mjs.
+     Edit the data or the script, then run: node scripts/render.mjs
      ════════════════════════════════════════════════════════════ -->
 
+<a href="https://al.is-a.dev"><picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/hero-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/hero-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/hero-dark-mobile.svg" /><img src="assets/svg/hero-light-mobile.svg" width="100%" alt="Aldio Lisafron: Full-stack Product Engineer, AI-powered Web &amp; Mobile Products" /></picture></a>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/about-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/about-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/about-dark-mobile.svg" /><img src="assets/svg/about-light-mobile.svg" width="100%" alt="Full-stack product engineer with 4+ years shipping web and mobile products, from modular ERP and commerce platforms to AI assistants. I design, build, and deploy the whole stack, with attention to access control, audit trails, and human review of AI output." /></picture>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/stats-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/stats-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/stats-dark-mobile.svg" /><img src="assets/svg/stats-light-mobile.svg" width="100%" alt="Field data: 4+ years, shipping web and mobile; 6 clients, served at bloomreef dev; 50+ branches, on back-office systems; 1ST place, ifest unpad 2026" /></picture>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-service-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-service-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-service-dark-mobile.svg" /><img src="assets/svg/header-service-light-mobile.svg" width="100%" alt="01 · SERVICE RECORD // experience" /></picture>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/experience-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/experience-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/experience-dark-mobile.svg" /><img src="assets/svg/experience-light-mobile.svg" width="100%" alt="Service record: Product Engineer, NGONLENIN ID, AUG 2026 — PRESENT; Full Stack Engineer, RASYLVA.ID, AUG 2026 — PRESENT; Full-stack DevOps &amp; UI/UX Designer, BLOOMREEF DEV, JUN 2022 — OCT 2025; Freelance Full-stack Developer, FREELANCE, 2020 — PRESENT; Web Developer Intern, KLHK · KARYA MITRA USAHA, JUL 2021 — DEC 2021" /></picture>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-missions-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-missions-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-missions-dark-mobile.svg" /><img src="assets/svg/header-missions-light-mobile.svg" width="100%" alt="02 · MISSIONS // selected_work" /></picture>
+
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="banner-dark.svg" />
-    <img src="banner.svg" alt="Aldio Lisafron — Creative Full-stack Developer" width="100%" />
-  </picture>
+<a href="https://aksesin.onefatir.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/mission-aksesin-dark.svg" /><img src="assets/svg/mission-aksesin-light.svg" width="392" alt="AKSESIN: AI accessibility travel companion that checks whether a trip fits a person&#39;s access needs before they leave. 1ST PLACE · IFEST UNPAD 2026." /></picture></a>
+<a href="https://al.is-a.dev/work/modular-erp"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/mission-modular-erp-dark.svg" /><img src="assets/svg/mission-modular-erp-light.svg" width="392" alt="MODULAR ERP: Independently deployable modules for inventory, cashier and payments, accounting, reconciliation, reporting and audit trails. BUSINESS OPERATIONS PLATFORM." /></picture></a>
+<a href="https://gdgocipb.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/mission-gdgoc-ipb-dark.svg" /><img src="assets/svg/mission-gdgoc-ipb-light.svg" width="392" alt="GDGOC IPB: Chapter website with an interactive 3D campus and a member dashboard for Google Developer Group on Campus IPB University. CREATIVE TECHNOLOGIST." /></picture></a>
+<a href="https://lokerin.site"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/mission-lokerin-dark.svg" /><img src="assets/svg/mission-lokerin-light.svg" width="392" alt="LOKERIN: Voice-first job board for informal work and internships in Banyumas, used by talking or typing. ITASEFEST 2026 · ITASE 7.0." /></picture></a>
+<a href="https://al.is-a.dev/work/siren"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/mission-siren-dark.svg" /><img src="assets/svg/mission-siren-light.svg" width="392" alt="SIREN: Flags illegal fishing, AIS gaps and zone violations in Indonesian waters from Global Fishing Watch data. MARITIME DOMAIN AWARENESS." /></picture></a>
+<a href="https://yorhagarden.xyz"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/mission-yorha-garden-dark.svg" /><img src="assets/svg/mission-yorha-garden-light.svg" width="392" alt="YORHA GARDEN: A macOS desktop with Pod 042, Raycast themes and an extension for a coding agent, all in YoRHa style. NIER-THEMED PERSONAL TOOLS." /></picture></a>
 </p>
 
-> **POD 042:** Report — unit `al-dioooo` operating within normal parameters.
-> Primary directive: build systems that are useful, and keep them standing under pressure.
-> Proposal: review the mission records below.
+<p align="center">
+<a href="https://al.is-a.dev/work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/cta-missions-dark.svg" /><img src="assets/svg/cta-missions-light.svg" width="302" alt="View all mission records at al.is-a.dev/work" /></picture></a>
+</p>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-loadout-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-loadout-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-loadout-dark-mobile.svg" /><img src="assets/svg/header-loadout-light-mobile.svg" width="100%" alt="03 · LOADOUT // stack_and_tools" /></picture>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/loadout-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/loadout-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/loadout-dark-mobile.svg" /><img src="assets/svg/loadout-light-mobile.svg" width="100%" alt="Loadout: core languages: Php, Javascript, Typescript, Html, Css; web applications: Laravel, React, Next.Js, Vue, Inertia.Js, Tailwind Css; mobile, backend and data: React Native, Expo, Fastify, Drizzle, Mysql, Postgresql; design, 3d and workflow: Figma, Canva, Three.Js, Webgl, Git, Github; applied AI: mastra agents, model context protocol, rag on pgvector, voice and vision" /></picture>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-signal-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-signal-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-signal-dark-mobile.svg" /><img src="assets/svg/header-signal-light-mobile.svg" width="100%" alt="04 · SIGNAL LOG // activity" /></picture>
+
+<a href="https://github.com/al-dioooo"><picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/signal-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/signal-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/signal-dark-mobile.svg" /><img src="assets/svg/signal-light-mobile.svg" width="100%" alt="Signal log, snapshot 2026-11-10: 3,152 contributions in the last 12 months, 184 active days, longest streak 38 days" /></picture></a>
 
 <p align="center">
   <a href="https://al.is-a.dev/contact">
@@ -23,52 +47,19 @@
   </a>
 </p>
 
-## <samp>■ 01 · MISSIONS // selected_work</samp>
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-training-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-training-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-training-dark-mobile.svg" /><img src="assets/svg/header-training-light-mobile.svg" width="100%" alt="05 · TRAINING // education" /></picture>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/training-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/training-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/training-dark-mobile.svg" /><img src="assets/svg/training-light-mobile.svg" width="100%" alt="Training: IPB University, Bachelor of Applied Software Engineering Technology (D4), Sekolah Vokasi, AUG 2024 — AUG 2028, GPA 3.66 of 4; SMK Negeri 1 Ciomas, Software Engineering (RPL), 2019 — 2022. Certifications 2026: CLAUDE ACADEMY · BUILDING WITH THE CLAUDE API; CLAUDE ACADEMY · MCP ADVANCED TOPICS; CLAUDE ACADEMY · CLAUDE CODE 101; GOOGLE FOR EDUCATION · GEMINI CERTIFIED UNIVERSITY STUDENT" /></picture>
+
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-comms-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-comms-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-comms-dark-mobile.svg" /><img src="assets/svg/header-comms-light-mobile.svg" width="100%" alt="06 · COMMS // transmission_channels" /></picture>
 
 <p align="center">
-  <a href="https://aksesin.onefatir.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/missions/aksesin-dark.svg" /><img src="assets/missions/aksesin.svg" alt="Aksesin: AI accessibility travel companion. 1st place, IFEST National Hackathon 2026." width="272" /></picture></a>
-  <a href="https://al.is-a.dev/work/modular-erp"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/missions/modular-erp-dark.svg" /><img src="assets/missions/modular-erp.svg" alt="Modular ERP: business operations platform built at Bloomreef." width="272" /></picture></a>
-  <a href="https://gdgocipb.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/missions/gdgoc-ipb-dark.svg" /><img src="assets/missions/gdgoc-ipb.svg" alt="GDGoC IPB: community website and member dashboard with an interactive 3D campus." width="272" /></picture></a>
+<a href="https://al.is-a.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/comm-website-dark.svg" /><img src="assets/svg/comm-website-light.svg" width="168" alt="WEBSITE: al.is-a.dev" /></picture></a>
+<a href="https://linkedin.com/in/aldio-lisafron"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/comm-linkedin-dark.svg" /><img src="assets/svg/comm-linkedin-light.svg" width="168" alt="LINKEDIN: aldio-lisafron" /></picture></a>
+<a href="https://instagram.com/al.dioooo"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/comm-instagram-dark.svg" /><img src="assets/svg/comm-instagram-light.svg" width="168" alt="INSTAGRAM: @al.dioooo" /></picture></a>
+<a href="mailto:contact@al.is-a.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/comm-email-dark.svg" /><img src="assets/svg/comm-email-light.svg" width="168" alt="EMAIL: contact@al.is-a.dev" /></picture></a>
 </p>
 
-## <samp>■ 02 · LOADOUT // stack_and_tools</samp>
-
-<p align="center">
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/php-dark.svg" /><img src="assets/loadout/php.svg" alt="PHP" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/javascript-dark.svg" /><img src="assets/loadout/javascript.svg" alt="JavaScript" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/typescript-dark.svg" /><img src="assets/loadout/typescript.svg" alt="TypeScript" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/html-dark.svg" /><img src="assets/loadout/html.svg" alt="HTML" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/css-dark.svg" /><img src="assets/loadout/css.svg" alt="CSS" width="88" /></picture>
-  <br />
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/laravel-dark.svg" /><img src="assets/loadout/laravel.svg" alt="Laravel" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/react-dark.svg" /><img src="assets/loadout/react.svg" alt="React" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/nextjs-dark.svg" /><img src="assets/loadout/nextjs.svg" alt="Next.js" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/vue-dark.svg" /><img src="assets/loadout/vue.svg" alt="Vue" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/inertia-dark.svg" /><img src="assets/loadout/inertia.svg" alt="Inertia.js" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/tailwindcss-dark.svg" /><img src="assets/loadout/tailwindcss.svg" alt="Tailwind CSS" width="88" /></picture>
-  <br />
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/react-native-dark.svg" /><img src="assets/loadout/react-native.svg" alt="React Native" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/expo-dark.svg" /><img src="assets/loadout/expo.svg" alt="Expo" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/fastify-dark.svg" /><img src="assets/loadout/fastify.svg" alt="Fastify" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/drizzle-dark.svg" /><img src="assets/loadout/drizzle.svg" alt="Drizzle" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/mysql-dark.svg" /><img src="assets/loadout/mysql.svg" alt="MySQL" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/postgresql-dark.svg" /><img src="assets/loadout/postgresql.svg" alt="PostgreSQL" width="88" /></picture>
-  <br />
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/figma-dark.svg" /><img src="assets/loadout/figma.svg" alt="Figma" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/canva-dark.svg" /><img src="assets/loadout/canva.svg" alt="Canva" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/threejs-dark.svg" /><img src="assets/loadout/threejs.svg" alt="Three.js" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/webgl-dark.svg" /><img src="assets/loadout/webgl.svg" alt="WebGL" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/git-dark.svg" /><img src="assets/loadout/git.svg" alt="Git" width="88" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="assets/loadout/github-dark.svg" /><img src="assets/loadout/github.svg" alt="GitHub" width="88" /></picture>
-</p>
-
-## <samp>■ 03 · COMMS // transmission_channels</samp>
-
-<p align="center">
-  <a href="https://al.is-a.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/comms/website-dark.svg" /><img src="assets/comms/website.svg" alt="Website: al.is-a.dev" width="88" /></picture></a>
-  <a href="https://linkedin.com/in/aldio-lisafron"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/comms/linkedin-dark.svg" /><img src="assets/comms/linkedin.svg" alt="LinkedIn: aldio-lisafron" width="88" /></picture></a>
-  <a href="https://instagram.com/al.dioooo"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/comms/instagram-dark.svg" /><img src="assets/comms/instagram.svg" alt="Instagram: @al.dioooo" width="88" /></picture></a>
-  <a href="mailto:contact@al.is-a.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/comms/email-dark.svg" /><img src="assets/comms/email.svg" alt="Email: contact@al.is-a.dev" width="88" /></picture></a>
-</p>
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/footer-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/footer-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/footer-dark-mobile.svg" /><img src="assets/svg/footer-light-mobile.svg" width="100%" alt="Record end. Glory to mankind. Pod 042, signing off." /></picture>
 
 <!-- [E]ject data? ... negative. Thanks for reading. -->
