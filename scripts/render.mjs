@@ -163,6 +163,40 @@ function stats(ink, f) {
     })
 }
 
+// --- Section header ---------------------------------------------------------------------
+
+function header(ink, f, section, index) {
+    const { W, x, w, mobile } = f
+    const H = mobile ? 50 : 60
+    const b = mobile ? 34 : 40
+    const top = mobile ? 6 : 8
+    const no = String(index + 1).padStart(2, "0")
+    const size = mobile ? 20 : 27
+    const tx = x + b + (mobile ? 13 : 17)
+    const ty = top + b / 2 + size * 0.36
+    const tw = acornWidth(section.title, size, 1)
+    const sub = `// ${section.sub}`
+    const subSize = mobile ? 8.5 : 10.5
+    const end = x + w + (mobile ? 5 : 6)
+    let cursor = tx + tw + (mobile ? 9 : 13)
+    let subText = ""
+    if (cursor + monoWidth(sub, subSize, 0.4) < end - 30) {
+        subText = mono(cursor, ty - 1, sub, { size: subSize, fill: ink.muted, tracking: 0.4, cls: "rise", style: delay(0.35) })
+        cursor += monoWidth(sub, subSize, 0.4) + (mobile ? 10 : 16)
+    }
+    const railY = top + b / 2 - 5
+    const line = end - cursor > 70 ? rail(ink, railY, cursor, end, { marker: 8, drawn: true }) : ""
+
+    const body = `<rect x="${x + 4}" y="${top + 4}" width="${b}" height="${b}" fill="none" stroke="${ink.muted}" stroke-width="1.5"/>
+  <rect x="${x}" y="${top}" width="${b}" height="${b}" fill="${ink.block}"/>
+  ${mono(x + b / 2, top + b / 2 + (mobile ? 4.5 : 5.5), no, { size: mobile ? 13 : 15, fill: ink.blockInk, tracking: 0.5, anchor: "middle", bold: true })}
+  ${acorn(tx, ty, section.title, { size, fill: ink.strong, tracking: 1, cls: "boot" })}
+  ${subText}
+  ${line}`
+
+    return document({ w: W, h: H, fonts: ["acorn"], label: `${no} · ${section.title} // ${section.sub}`, body })
+}
+
 // --- Output ----------------------------------------------------------------------------
 
 const out = join(root, "assets/svg")
@@ -195,5 +229,6 @@ function small(name, draw) {
 wide("hero", hero)
 wide("about", about)
 wide("stats", stats)
+profile.sections.forEach((section, i) => wide(`header-${section.slug}`, (ink, f) => header(ink, f, section, i)))
 
 console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg`)
