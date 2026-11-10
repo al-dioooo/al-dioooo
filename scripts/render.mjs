@@ -612,6 +612,10 @@ const smallTag = (name, width, href) =>
 
 const head = (slug) => wideTag(`header-${slug}`)
 
+// The live card is drawn by the portfolio site, which serves a 400px record
+// for ?view=mobile; like the local cards, narrow screens get that one.
+const liveCard = `${profile.site}/api/readme/contact`
+
 const readme = `<!-- ════════════════════════════════════════════════════════════
      UNIT RECORD : ${profile.unit}
      FORMAT      : NieR graph-paper UI
@@ -650,8 +654,10 @@ ${wideTag("signal", `https://github.com/${profile.unit}`)}
 <p align="center">
   <a href="${profile.site}/contact">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="${profile.site}/api/readme/contact?theme=dark" />
-      <img src="${profile.site}/api/readme/contact" alt="Unit record: Operator 210 reporting the latest transmission from ${profile.unit}" width="100%" />
+      <source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="${liveCard}?theme=dark" />
+      <source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="${liveCard}" />
+      <source media="(prefers-color-scheme: dark)" srcset="${liveCard}?theme=dark&amp;view=mobile" />
+      <img src="${liveCard}?view=mobile" alt="Unit record: Operator 210 reporting the latest transmission from ${profile.unit}" width="100%" />
     </picture>
   </a>
 </p>
