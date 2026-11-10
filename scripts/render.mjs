@@ -466,6 +466,66 @@ function signal(ink, f) {
     })
 }
 
+// --- Training --------------------------------------------------------------------------
+
+function training(ink, f) {
+    const { W, x, y, w, s, pad, mobile } = f
+    const L = x + pad
+    const R = x + w - pad
+    const y0 = mobile ? 50 : 66
+    const rowH = mobile ? 92 : 60
+    const rows = profile.education
+
+    const gauge = (gpa, gx, gy, gw) => {
+        const fill = gw * (gpa.value / gpa.of)
+        return `<rect x="${num(gx) + 0.5}" y="${gy + 0.5}" width="${gw}" height="7" fill="none" stroke="${ink.muted}"/>
+    <rect x="${num(gx) + 0.5}" y="${gy + 0.5}" width="${num(fill)}" height="7" fill="${ink.strong}"><animate attributeName="width" values="0;0;${num(fill)}" keyTimes="0;0.35;1" calcMode="spline" keySplines="0 0 1 1;.2 .7 .2 1" dur="2s" fill="freeze"/></rect>`
+    }
+
+    const drawn = rows.map((row, i) => {
+        const ry = y0 + i * rowH
+        const gpaText = row.gpa ? `GPA ${row.gpa.value.toFixed(2)} / ${row.gpa.of.toFixed(2)}` : ""
+        if (mobile) {
+            const programme = wrapSans(row.programme, R - L, 11, 0.1).slice(0, 2)
+            return `<g class="rise" style="${delay(0.25 + i * 0.12)}">
+    ${mono(L, ry + 21, row.date, { size: 8.5, fill: ink.muted, tracking: 0.6 })}
+    ${row.gpa ? `${mono(R, ry + 21, gpaText, { size: 8.5, fill: ink.strong, tracking: 0.8, anchor: "end", bold: true })}${gauge(row.gpa, R - 96, ry + 27, 96)}` : mono(R, ry + 21, row.type, { size: 7.5, fill: ink.muted, tracking: 1, anchor: "end" })}
+    ${acorn(L, ry + 47, row.school, { size: 16, fill: ink.strong, tracking: 0.3 })}
+    ${programme.map((line, n) => sans(L, ry + 65 + n * 15, line, { size: 11, fill: ink.text, tracking: 0.1 })).join("")}
+  </g>`
+        }
+        return `<g class="rise" style="${delay(0.25 + i * 0.12)}">
+    ${mono(L, ry + 25, String(i + 1).padStart(2, "0"), { size: 9, fill: ink.muted, tracking: 1, bold: true })}
+    ${mono(L + 28, ry + 25, row.date, { size: 9.5, fill: ink.text, tracking: 0.8 })}
+    ${mono(L + 28, ry + 42, row.type, { size: 8, fill: ink.muted, tracking: 1.2 })}
+    ${acorn(L + 212, ry + 26, row.school, { size: 17, fill: ink.strong, tracking: 0.3 })}
+    ${sans(L + 212, ry + 44, row.programme, { size: 12, fill: ink.text, tracking: 0.1 })}
+    ${row.gpa ? `${mono(R, ry + 25, gpaText, { size: 9.5, fill: ink.strong, tracking: 1, anchor: "end", bold: true })}${gauge(row.gpa, R - 124 - monoWidth(gpaText, 9.5, 1) + 0, ry + 17, 110)}` : ""}
+  </g>${i ? `<path d="M${L} ${ry}H${R}" stroke="${ink.muted}" stroke-opacity=".5"/>` : ""}`
+    }).join("\n  ")
+
+    const mobileSeps = mobile ? rows.slice(1).map((_, i) => `<path d="M${L} ${y0 + (i + 1) * rowH}H${R}" stroke="${ink.muted}" stroke-opacity=".5"/>`).join("") : ""
+    const certY = y0 + rows.length * rowH + (mobile ? 8 : 10)
+    const labels = mobile ? profile.certifications.map((c) => c.split(" · ")[1]) : profile.certifications
+    const certs = chipFlow(ink, L, certY + 18, labels, R - L, { size: mobile ? 7 : 8, h: 18, base: 0.7 })
+    const P = { x, y, w, h: certY + 18 + certs.h + (mobile ? 14 : 18) - y }
+
+    const body = `${plate(ink, P, { s })}
+  ${cardHead(ink, f, "TRAINING RECORD — EDUCATION", mobile ? "" : `${rows.length} ENTRIES`)}
+  ${drawn}
+  ${mobileSeps}
+  <path d="M${L} ${certY - (mobile ? 8 : 10)}H${R}" stroke="${ink.muted}" stroke-opacity=".5"/>
+  ${bullet(ink, L, certY + 2, 6)}
+  ${mono(L + 12, certY + 9, "CERTIFICATIONS — 2026", { size: 8.5, fill: ink.strong, tracking: 1.4, bold: true })}
+  ${certs.svg}`
+
+    return document({
+        w: W, h: P.y + P.h + s + (mobile ? 5 : 9), fonts: ["acorn", "sans"],
+        label: `Training: ${rows.map((r) => `${r.school}, ${r.programme}, ${r.date}${r.gpa ? `, GPA ${r.gpa.value} of ${r.gpa.of}` : ""}`).join("; ")}. Certifications 2026: ${profile.certifications.join("; ")}`,
+        defs: gridDefs(ink), body
+    })
+}
+
 // --- Output ----------------------------------------------------------------------------
 
 const out = join(root, "assets/svg")
@@ -504,5 +564,6 @@ profile.missions.forEach((m, i) => small(`mission-${m.slug}`, (ink) => mission(i
 small("cta-missions", cta)
 wide("loadout", loadout)
 wide("signal", signal)
+wide("training", training)
 
 console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg`)
