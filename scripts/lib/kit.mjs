@@ -132,3 +132,45 @@ export const ARROW = [
     "M11 5H5v2h6V5ZM5 7H3v12h2V7Zm12 12H5v2h12v-2Zm2-6h-2v6h2v-6Zm-8 0H9v2h2v-2Zm2-2h-2v2h2v-2Zm2-2h-2v2h2V9Zm2-2h-2v2h2V7Zm2-2h-2v2h2V5Zm2-2h-2v8h2V3Z",
     "M21 3h-8v2h8V3Z"
 ]
+
+// --- Document ----------------------------------------------------------------------
+
+const FACES = {
+    acorn: `@font-face { font-family: "Acorn"; font-weight: 600; src: url(data:font/woff2;base64,${ACORN}) format("woff2"); }`,
+    sans: `@font-face { font-family: "Poppins"; font-weight: 400; src: url(data:font/woff2;base64,${POPPINS_400}) format("woff2"); }`
+}
+
+// One-shot entrances and loops. Every keyframe set ends on the element's own
+// base state, and reduced-motion viewers skip them all.
+const MOTION = `
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes boot { 0% { opacity: 0; } 12% { opacity: 1; } 22% { opacity: .15; } 38% { opacity: 1; } 52% { opacity: .4; } 62%, 100% { opacity: 1; } }
+    @keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+    @keyframes pulse { 0%, 60% { opacity: 1; } 80% { opacity: .2; } 100% { opacity: 1; } }
+    @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+    @keyframes sweep { 0%, 6% { opacity: 1; } 7%, 100% { opacity: 0; } }
+    .rise { animation: rise .55s cubic-bezier(.2, .7, .2, 1) both; }
+    .fade { animation: fade .6s ease-out both; }
+    .boot { animation: boot .9s steps(1, end) both; }
+    .blink { animation: blink 1.1s steps(1, end) infinite; }
+    .pulse { animation: pulse 1.6s linear infinite; }
+    .draw { stroke-dasharray: 1; animation: draw 1.1s cubic-bezier(.6, 0, .2, 1) both; }
+    .sweep { opacity: 0; animation: sweep 8s steps(1, end) infinite; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } .sweep { opacity: 0; } }`
+
+export const delay = (seconds) => `animation-delay: ${num(seconds)}s`
+
+export function document({ w, h, label, fonts = [], defs = "", body }) {
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="${esc(label)}">
+  <title>${esc(label)}</title>
+  <style>
+    ${fonts.map((f) => FACES[f]).join("\n    ")}${MOTION}
+  </style>
+  <defs>
+    ${defs}
+  </defs>
+  ${body}
+</svg>
+`
+}
