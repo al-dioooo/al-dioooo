@@ -69,3 +69,66 @@ export const key = (n) => Number(n.toFixed(5))
 
 export const esc = (value) =>
     String(value).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c])
+
+// --- Text ------------------------------------------------------------------------
+
+const monoStack = "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
+
+const advance = (table) => (text, size, tracking = 0) => {
+    const glyphs = [...text]
+    return glyphs.reduce((w, ch) => w + (table[ch] ?? 0.6) * size, 0) + tracking * Math.max(0, glyphs.length - 1)
+}
+
+export const acornWidth = advance(ACORN_ADVANCE)
+export const sansWidth = advance(POPPINS_ADVANCE["400"])
+export const sansAdvances = (text, size, tracking = 0) =>
+    [...text].map((ch) => (POPPINS_ADVANCE["400"][ch] ?? 0.6) * size + tracking)
+
+// Mono text uses the viewer's monospace font; layout is planned with a
+// generous advance so every slot keeps slack.
+export const monoWidth = (text, size, tracking = 0) => {
+    const n = [...text].length
+    return n * size * 0.62 + Math.max(0, n - 1) * tracking
+}
+
+// Greedy word wrap of Poppins text
+export function wrapSans(text, max, size, tracking = 0) {
+    const rows = []
+    let current = ""
+    for (const word of text.split(" ")) {
+        const next = current ? `${current} ${word}` : word
+        if (!current || sansWidth(next, size, tracking) <= max) current = next
+        else {
+            rows.push(current)
+            current = word
+        }
+    }
+    rows.push(current)
+    return rows
+}
+
+const attrsOf = ({ cls, style, attrs }) => `${cls ? ` class="${cls}"` : ""}${style ? ` style="${style}"` : ""}${attrs ?? ""}`
+
+export function mono(x, y, text, { size, fill, tracking = 0, anchor = "start", bold = false, italic = false, ...rest }) {
+    return `<text x="${num(x)}" y="${num(y)}" font-family="${monoStack}" font-weight="${bold ? 700 : 400}"${italic ? ' font-style="italic"' : ""} font-size="${size}" letter-spacing="${tracking}" fill="${fill}" text-anchor="${anchor}"${attrsOf(rest)}>${esc(text)}</text>`
+}
+
+export function sans(x, y, text, { size, fill, tracking = 0, anchor = "start", ...rest }) {
+    return `<text x="${num(x)}" y="${num(y)}" font-family="Poppins, system-ui, sans-serif" font-weight="400" font-size="${size}" letter-spacing="${tracking}" fill="${fill}" text-anchor="${anchor}"${attrsOf(rest)}>${esc(text)}</text>`
+}
+
+export function acorn(x, y, text, { size, fill, tracking = 0, anchor = "start", ...rest }) {
+    return `<text x="${num(x)}" y="${num(y)}" font-family="Acorn, Poppins, system-ui, sans-serif" font-weight="600" font-size="${size}" letter-spacing="${tracking}"${fill ? ` fill="${fill}"` : ""} text-anchor="${anchor}"${attrsOf(rest)}>${esc(text)}</text>`
+}
+
+// A 24-grid glyph (pixelarticons or a brand mark) with its top-left at (x, y)
+export function icon(d, x, y, size, fill, rest = {}) {
+    const paths = Array.isArray(d) ? d : [d]
+    return `<g transform="translate(${num(x)} ${num(y)}) scale(${num(size / 24)})" fill="${fill}"${attrsOf(rest)}>${paths.map((p) => `<path d="${p}"/>`).join("")}</g>`
+}
+
+// The "opens elsewhere" arrow the comms tiles carry
+export const ARROW = [
+    "M11 5H5v2h6V5ZM5 7H3v12h2V7Zm12 12H5v2h12v-2Zm2-6h-2v6h2v-6Zm-8 0H9v2h2v-2Zm2-2h-2v2h2v-2Zm2-2h-2v2h2V9Zm2-2h-2v2h2V7Zm2-2h-2v2h2V5Zm2-2h-2v8h2V3Z",
+    "M21 3h-8v2h8V3Z"
+]
