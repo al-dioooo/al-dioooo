@@ -526,6 +526,37 @@ function training(ink, f) {
     })
 }
 
+// --- Comms -----------------------------------------------------------------------------
+
+function comm(ink, c, i) {
+    const P = { x: 3, y: 3, w: 157, h: 42 }
+    const glyph = ICONS[`comms/${c.slug}`].d
+    const body = `${plate(ink, P, { s: 5, curves: false, outlined: true })}
+  <rect x="${P.x}" y="${P.y}" width="40" height="${P.h}" fill="${ink.block}" stroke="${ink.outline}" stroke-width="2"/>
+  ${icon(glyph, P.x + 10, P.y + 11, 20, ink.blockInk)}
+  ${mono(P.x + 50, P.y + 17, c.label, { size: 8, fill: ink.strong, tracking: 1.4, bold: true })}
+  ${mono(P.x + 50, P.y + 31, c.value, { size: 8.2, fill: ink.text, tracking: 0 })}
+  <g>${icon(ARROW, P.x + P.w - 15, P.y + 6, 9, ink.muted)}<animateTransform attributeName="transform" type="translate" values="0 0;0 0;1.5 -1.5;0 0" keyTimes="0;0.7;0.85;1" dur="2.4s" begin="${num(i * 0.4)}s" repeatCount="indefinite"/></g>`
+    return document({ w: 168, h: 60, label: `${c.label}: ${c.value}`, defs: gridDefs(ink, 50), body })
+}
+
+// --- Footer ----------------------------------------------------------------------------
+
+function footer(ink, f) {
+    const { W, x, y, w, s, pad, mobile } = f
+    const P = { x, y, w, h: mobile ? 104 : 100 }
+    const cx = x + w / 2
+    const top = P.y
+    const body = `${plate(ink, P, { s })}
+  ${rail(ink, top + 18, P.x, P.x + P.w, { marker: 10, drawn: true })}
+  ${mono(cx, top + 53, "[ RECORD END ]", { size: mobile ? 13 : 15, fill: ink.strong, tracking: mobile ? 5 : 7, anchor: "middle", bold: true, cls: "boot" })}
+  ${mono(cx, top + 69, "GLORY TO MANKIND", { size: mobile ? 7.5 : 8.5, fill: ink.muted, tracking: 4, anchor: "middle" })}
+  <rect x="${cx - 5}" y="${top + 76}" width="10" height="3" fill="${ink.strong}" class="blink"/>
+  ${mono(x + pad, top + P.h - 10, "POD 042", { size: mobile ? 7 : 8, fill: ink.muted, tracking: 3 })}
+  ${mono(x + w - pad, top + P.h - 10, "SIGNING OFF", { size: mobile ? 7 : 8, fill: ink.muted, tracking: 3, anchor: "end" })}`
+    return document({ w: W, h: P.y + P.h + s + (mobile ? 5 : 9), label: "Record end. Glory to mankind. Pod 042, signing off.", defs: gridDefs(ink), body })
+}
+
 // --- Output ----------------------------------------------------------------------------
 
 const out = join(root, "assets/svg")
@@ -565,5 +596,7 @@ small("cta-missions", cta)
 wide("loadout", loadout)
 wide("signal", signal)
 wide("training", training)
+profile.comms.forEach((c, i) => small(`comm-${c.slug}`, (ink) => comm(ink, c, i)))
+wide("footer", footer)
 
 console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg`)
