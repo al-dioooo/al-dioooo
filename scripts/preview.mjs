@@ -8,7 +8,9 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
-const readme = readFileSync(join(root, "README.md"), "utf8")
+// Cards the README reads from the output branch are shown from live/, where
+// scripts/render.mjs just wrote them
+const readme = readFileSync(join(root, "README.md"), "utf8").replace(/https:\/\/raw\.githubusercontent\.com\/[^/"]+\/[^/"]+\/output\//g, "live/")
 const dir = join(root, "output/readme-preview")
 mkdirSync(dir, { recursive: true })
 
