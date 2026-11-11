@@ -14,8 +14,8 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import {
-    ARROW, PIXEL, acorn, acornWidth, chip, chipFlow, delay, document, esc, frame, glitchHeading, gridDefs, icon, inverse,
-    key, mono, monoWidth, num, palettes, plate, rail, sans, scan, typewriter, wrapSans
+    ARROW, PIXEL, acorn, acornWidth, chipFlow, delay, document, esc, frame, glitchHeading, gridDefs, icon,
+    mono, monoWidth, num, palettes, plate, rail, sans, scan, typewriter, wrapSans
 } from "./lib/kit.mjs"
 import { profile } from "./data/profile.mjs"
 import { body, currents, lane, layout, streamlines } from "./lib/river.mjs"
