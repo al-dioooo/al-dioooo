@@ -14,8 +14,8 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import {
-    ARROW, PIXEL, acorn, acornWidth, chip, chipFlow, delay, document, esc, frame, glitchHeading, gridDefs, icon, inverse,
-    key, mono, monoWidth, num, palettes, plate, rail, sans, scan, typewriter, wrapSans
+    ARROW, PIXEL, acorn, acornWidth, chipFlow, delay, document, esc, frame, glitchHeading, gridDefs, icon,
+    mono, monoWidth, num, palettes, plate, rail, sans, scan, typewriter, wrapSans
 } from "./lib/kit.mjs"
 import { profile } from "./data/profile.mjs"
 import { body, currents, lane, layout, streamlines } from "./lib/river.mjs"
@@ -111,30 +111,6 @@ function hero(ink, f) {
     })
 }
 
-// --- About ---------------------------------------------------------------------------
-
-function about(ink, f) {
-    const { W, x, w, s, mobile } = f
-    const blockW = mobile ? 40 : 58
-    const size = mobile ? 12 : 13.5
-    const lead = mobile ? 19 : 21
-    const tx = x + blockW + (mobile ? 12 : 18)
-    const max = x + w - (mobile ? 14 : 24) - tx
-    const lines = wrapSans(profile.about, max, size, 0.2)
-    const top = 5
-    const first = top + (mobile ? 42 : 46)
-    const h = first - top + (lines.length - 1) * lead + (mobile ? 16 : 20)
-    const typed = typewriter(ink, [lines], { x: tx, rows: lines.map((_, i) => first + i * lead), size, tracking: 0.2, max, fill: ink.strong, loop: false, speed: 0.011, start: 0.5 })
-
-    const body = `${plate(ink, { x, y: top, w, h }, { s, curves: false, outlined: true })}
-  <rect x="${x}" y="${top}" width="${blockW}" height="${h}" fill="${ink.block}" stroke="${ink.outline}" stroke-width="2"/>
-  ${icon(PIXEL.user, x + (blockW - 24) / 2, top + (h - 24) / 2, 24, ink.blockInk)}
-  ${mono(tx, top + (mobile ? 20 : 22), "INTEL — UNIT DATA", { size: mobile ? 8 : 9, fill: ink.muted, tracking: 2 })}
-  ${typed.body}`
-
-    return document({ w: W, h: top + h + s + 3, fonts: ["sans"], label: profile.about, defs: `${gridDefs(ink)}\n    ${typed.defs}`, body })
-}
-
 // --- Field data ------------------------------------------------------------------------
 
 function stats(ink, f) {
@@ -202,121 +178,6 @@ function header(ink, f, section, index) {
   ${line}`
 
     return document({ w: W, h: H, fonts: ["acorn"], label: `${no} · ${section.title} // ${section.sub}`, body })
-}
-
-// --- Service record -------------------------------------------------------------------
-
-function experience(ink, f) {
-    const { W, x, y, w, s, pad, mobile } = f
-    const rows = profile.experience
-    const L = x + pad
-    const R = x + w - pad
-    const y0 = mobile ? 50 : 66
-    const rowH = mobile ? 88 : 58
-    const P = { x, y, w, h: y0 + rows.length * rowH + (mobile ? 8 : 12) - y }
-    const band = { x: x + (mobile ? 8 : 15), w: w - (mobile ? 16 : 30), h: rowH - 6 }
-
-    const draw = (tone, animated) =>
-        rows.map((row, i) => {
-            const ry = y0 + i * rowH
-            const anim = animated ? ` class="rise" style="${delay(0.25 + i * 0.1)}"` : ""
-            if (mobile) {
-                const note = wrapSans(row.note, R - L, 11, 0.1).slice(0, 2)
-                return `<g${anim}>
-    ${mono(L, ry + 21, row.date, { size: 8.5, fill: tone.muted, tracking: 0.6 })}
-    ${mono(R, ry + 21, row.org, { size: 8.5, fill: tone.strong, tracking: 1, anchor: "end", bold: true })}
-    ${acorn(L, ry + 43, row.role, { size: 15, fill: tone.strong, tracking: 0.3 })}
-    ${note.map((line, n) => sans(L, ry + 61 + n * 15, line, { size: 11, fill: tone.text, tracking: 0.1 })).join("")}
-  </g>`
-            }
-            return `<g${anim}>
-    ${mono(L, ry + 25, String(i + 1).padStart(2, "0"), { size: 9, fill: tone.muted, tracking: 1, bold: true })}
-    ${mono(L + 28, ry + 25, row.date, { size: 9.5, fill: tone.text, tracking: 0.8 })}
-    ${mono(L + 28, ry + 42, row.type, { size: 8, fill: tone.muted, tracking: 1.2 })}
-    ${acorn(L + 212, ry + 26, row.role, { size: 17, fill: tone.strong, tracking: 0.3 })}
-    ${sans(L + 212, ry + 44, row.note, { size: 12, fill: tone.text, tracking: 0.1 })}
-    ${mono(R, ry + 25, row.org, { size: 9.5, fill: tone.strong, tracking: 1.2, anchor: "end", bold: true })}
-  </g>`
-        }).join("\n  ")
-
-    // The menu cursor: an ink band that steps from entry to entry and inverts
-    // the text under it. It rests on the current role.
-    const hold = 2.6
-    const slide = 0.3
-    const cycle = rows.length * hold
-    const values = []
-    const keys = []
-    rows.forEach((_, i) => {
-        const ry = y0 + i * rowH + 3
-        values.push(ry, ry)
-        keys.push((i * hold) / cycle, ((i + 1) * hold - slide) / cycle)
-    })
-    values.push(y0 + 3)
-    keys.push(1)
-    const move = `<animate attributeName="y" values="${values.join(";")}" keyTimes="${keys.map(key).join(";")}" calcMode="spline" keySplines="${keys.slice(1).map(() => ".6 0 .2 1").join(";")}" dur="${cycle}s" begin="1.6s" repeatCount="indefinite"/>`
-
-    const seps = rows.slice(1).map((_, i) => `<path d="M${L} ${y0 + (i + 1) * rowH}H${R}" stroke="${ink.muted}" stroke-opacity=".5"/>`).join("")
-
-    const body = `${plate(ink, P, { s })}
-  ${cardHead(ink, f, `SERVICE LOG — ${rows.length} ENTRIES`, mobile ? "NEWEST FIRST" : "SORT: NEWEST FIRST")}
-  ${seps}
-  ${draw(ink, true)}
-  <g mask="url(#band)">
-    <rect x="${band.x}" y="${y0}" width="${band.w}" height="${rows.length * rowH}" fill="${ink.block}"/>
-    ${draw(inverse(ink), true)}
-  </g>`
-
-    return document({
-        w: W, h: P.y + P.h + s + (mobile ? 5 : 9), fonts: ["acorn", "sans"],
-        label: `Service record: ${rows.map((r) => `${r.role}, ${r.org}, ${r.date}`).join("; ")}`,
-        defs: `${gridDefs(ink)}
-    <mask id="band" maskUnits="userSpaceOnUse" x="${band.x}" y="${y0}" width="${band.w}" height="${rows.length * rowH}"><rect x="${band.x}" y="${y0 + 3}" width="${band.w}" height="${band.h}" fill="#fff">${move}</rect></mask>`,
-        body
-    })
-}
-
-// --- Mission card ---------------------------------------------------------------------
-
-function mission(ink, m, i) {
-    const W = 392
-    const P = { x: 3, y: 3, w: 380, h: 210 }
-    const L = P.x + 14
-    const R = P.x + P.w - 14
-    const on = inverse(ink)
-    const text = wrapSans(m.text, R - L, 11.5, 0.1).slice(0, 3)
-    const chips = chipFlow(ink, L, 161, m.stack, R - L, { size: 7.5, h: 15, gap: 5, base: 0.5 })
-
-    const body = `${plate(ink, P, { id: "paper" })}
-  <rect x="${P.x}" y="${P.y}" width="${P.w}" height="24" fill="${ink.block}"/>
-  ${mono(L, 19.5, `M-0${i + 1} // ${m.kind}`, { size: 8.5, fill: on.strong, tracking: 1.4, bold: true })}
-  ${mono(R - 13, 19.5, m.year, { size: 8.5, fill: on.muted, tracking: 1, anchor: "end" })}
-  <rect x="${R - 7}" y="11.5" width="7" height="7" fill="${on.strong}" class="pulse" style="${delay(i * 0.3)}"/>
-  ${acorn(L, 62, m.title, { size: 23, fill: ink.strong, tracking: 0.8, cls: "boot", style: delay(0.1 + i * 0.08) })}
-  ${mono(L + 1, 79, m.tag, { size: 8, fill: ink.muted, tracking: 1.2, bold: true })}
-  <path d="M${L} 90H${R}" stroke="${ink.rail}" stroke-width="1.2" pathLength="1" class="draw" style="${delay(0.2)}"/>
-  <g fill="${ink.rail}">${[0, 1, 2, 3].map((d) => `<rect x="${L + 4 + d * 16}" y="90.6" width="4" height="1.2"/>`).join("")}</g>
-  ${text.map((line, n) => sans(L, 110 + n * 17, line, { size: 11.5, fill: ink.text, tracking: 0.1, cls: "rise", style: delay(0.3 + n * 0.08) })).join("\n  ")}
-  ${chips.svg}
-  <path d="M${L} 188H${R}" stroke="${ink.muted}" stroke-opacity=".6"/>
-  ${mono(L, 203, m.link, { size: 8.5, fill: ink.text, tracking: 0.6 })}
-  <g>${icon(ARROW, R - 11, 193, 11, ink.strong)}<animateTransform attributeName="transform" type="translate" values="0 0;0 0;2 -2;0 0" keyTimes="0;0.7;0.85;1" dur="2.4s" begin="${num(i * 0.3)}s" repeatCount="indefinite"/></g>
-  ${scan(ink, P, { dur: 10, begin: 1.5 + i * 0.7 })}`
-
-    return document({
-        w: W, h: 230, fonts: ["acorn", "sans"],
-        label: `${m.title}: ${m.text} ${m.tag}.`,
-        defs: gridDefs(ink, 50), body
-    })
-}
-
-function cta(ink) {
-    const P = { x: 3, y: 3, w: 290, h: 44 }
-    const body = `${plate(ink, P, { s: 5, curves: false, outlined: true })}
-  <rect x="${P.x}" y="${P.y}" width="44" height="${P.h}" fill="${ink.block}" stroke="${ink.outline}" stroke-width="2"/>
-  <g>${icon(ARROW, P.x + 13, P.y + 13, 18, ink.blockInk)}<animateTransform attributeName="transform" type="translate" values="0 0;0 0;2 -2;0 0" keyTimes="0;0.6;0.8;1" dur="2s" repeatCount="indefinite"/></g>
-  ${mono(P.x + 58, P.y + 20, "VIEW ALL MISSION RECORDS", { size: 9.5, fill: ink.strong, tracking: 1.6, bold: true })}
-  ${mono(P.x + 58, P.y + 34, "al.is-a.dev/work", { size: 8.5, fill: ink.muted, tracking: 0.6 })}`
-    return document({ w: 302, h: 56, label: "View all mission records at al.is-a.dev/work", defs: gridDefs(ink, 50), body })
 }
 
 // --- Loadout ---------------------------------------------------------------------------
@@ -538,66 +399,6 @@ function signal(ink, f) {
     })
 }
 
-// --- Training --------------------------------------------------------------------------
-
-function training(ink, f) {
-    const { W, x, y, w, s, pad, mobile } = f
-    const L = x + pad
-    const R = x + w - pad
-    const y0 = mobile ? 50 : 66
-    const rowH = mobile ? 92 : 60
-    const rows = profile.education
-
-    const gauge = (gpa, gx, gy, gw) => {
-        const fill = gw * (gpa.value / gpa.of)
-        return `<rect x="${num(gx) + 0.5}" y="${gy + 0.5}" width="${gw}" height="7" fill="none" stroke="${ink.muted}"/>
-    <rect x="${num(gx) + 0.5}" y="${gy + 0.5}" width="${num(fill)}" height="7" fill="${ink.strong}"><animate attributeName="width" values="0;0;${num(fill)}" keyTimes="0;0.35;1" calcMode="spline" keySplines="0 0 1 1;.2 .7 .2 1" dur="2s" fill="freeze"/></rect>`
-    }
-
-    const drawn = rows.map((row, i) => {
-        const ry = y0 + i * rowH
-        const gpaText = row.gpa ? `GPA ${row.gpa.value.toFixed(2)} / ${row.gpa.of.toFixed(2)}` : ""
-        if (mobile) {
-            const programme = wrapSans(row.programme, R - L, 11, 0.1).slice(0, 2)
-            return `<g class="rise" style="${delay(0.25 + i * 0.12)}">
-    ${mono(L, ry + 21, row.date, { size: 8.5, fill: ink.muted, tracking: 0.6 })}
-    ${row.gpa ? `${mono(R, ry + 21, gpaText, { size: 8.5, fill: ink.strong, tracking: 0.8, anchor: "end", bold: true })}${gauge(row.gpa, R - 96, ry + 27, 96)}` : mono(R, ry + 21, row.type, { size: 7.5, fill: ink.muted, tracking: 1, anchor: "end" })}
-    ${acorn(L, ry + 47, row.school, { size: 16, fill: ink.strong, tracking: 0.3 })}
-    ${programme.map((line, n) => sans(L, ry + 65 + n * 15, line, { size: 11, fill: ink.text, tracking: 0.1 })).join("")}
-  </g>`
-        }
-        return `<g class="rise" style="${delay(0.25 + i * 0.12)}">
-    ${mono(L, ry + 25, String(i + 1).padStart(2, "0"), { size: 9, fill: ink.muted, tracking: 1, bold: true })}
-    ${mono(L + 28, ry + 25, row.date, { size: 9.5, fill: ink.text, tracking: 0.8 })}
-    ${mono(L + 28, ry + 42, row.type, { size: 8, fill: ink.muted, tracking: 1.2 })}
-    ${acorn(L + 212, ry + 26, row.school, { size: 17, fill: ink.strong, tracking: 0.3 })}
-    ${sans(L + 212, ry + 44, row.programme, { size: 12, fill: ink.text, tracking: 0.1 })}
-    ${row.gpa ? `${mono(R, ry + 25, gpaText, { size: 9.5, fill: ink.strong, tracking: 1, anchor: "end", bold: true })}${gauge(row.gpa, R - 124 - monoWidth(gpaText, 9.5, 1) + 0, ry + 17, 110)}` : ""}
-  </g>${i ? `<path d="M${L} ${ry}H${R}" stroke="${ink.muted}" stroke-opacity=".5"/>` : ""}`
-    }).join("\n  ")
-
-    const mobileSeps = mobile ? rows.slice(1).map((_, i) => `<path d="M${L} ${y0 + (i + 1) * rowH}H${R}" stroke="${ink.muted}" stroke-opacity=".5"/>`).join("") : ""
-    const certY = y0 + rows.length * rowH + (mobile ? 8 : 10)
-    const labels = mobile ? profile.certifications.map((c) => c.split(" · ")[1]) : profile.certifications
-    const certs = chipFlow(ink, L, certY + 18, labels, R - L, { size: mobile ? 7 : 8, h: 18, base: 0.7 })
-    const P = { x, y, w, h: certY + 18 + certs.h + (mobile ? 14 : 18) - y }
-
-    const body = `${plate(ink, P, { s })}
-  ${cardHead(ink, f, "TRAINING RECORD — EDUCATION", mobile ? "" : `${rows.length} ENTRIES`)}
-  ${drawn}
-  ${mobileSeps}
-  <path d="M${L} ${certY - (mobile ? 8 : 10)}H${R}" stroke="${ink.muted}" stroke-opacity=".5"/>
-  ${bullet(ink, L, certY + 2, 6)}
-  ${mono(L + 12, certY + 9, "CERTIFICATIONS — 2026", { size: 8.5, fill: ink.strong, tracking: 1.4, bold: true })}
-  ${certs.svg}`
-
-    return document({
-        w: W, h: P.y + P.h + s + (mobile ? 5 : 9), fonts: ["acorn", "sans"],
-        label: `Training: ${rows.map((r) => `${r.school}, ${r.programme}, ${r.date}${r.gpa ? `, GPA ${r.gpa.value} of ${r.gpa.of}` : ""}`).join("; ")}. Certifications 2026: ${profile.certifications.join("; ")}`,
-        defs: gridDefs(ink), body
-    })
-}
-
 // --- Comms -----------------------------------------------------------------------------
 
 function comm(ink, c, i) {
@@ -661,15 +462,10 @@ function small(name, draw) {
 }
 
 wide("hero", hero)
-wide("about", about)
 wide("stats", stats)
 profile.sections.forEach((section, i) => wide(`header-${section.slug}`, (ink, f) => header(ink, f, section, i)))
-wide("experience", experience)
-profile.missions.forEach((m, i) => small(`mission-${m.slug}`, (ink) => mission(ink, m, i)))
-small("cta-missions", cta)
 wide("loadout", loadout)
 wide("signal", signal, live)
-wide("training", training)
 profile.comms.forEach((c, i) => small(`comm-${c.slug}`, (ink) => comm(ink, c, i)))
 wide("footer", footer)
 
@@ -704,32 +500,6 @@ const readme = `<!-- ═══════════════════�
 
 ${wideTag("hero", profile.site)}
 
-${wideTag("about")}
-
-${wideTag("stats")}
-
-${head("service")}
-
-${wideTag("experience")}
-
-${head("missions")}
-
-<p align="center">
-${profile.missions.map((m) => smallTag(`mission-${m.slug}`, 392, m.href)).join("\n")}
-</p>
-
-<p align="center">
-${smallTag("cta-missions", 302, `${profile.site}/work`)}
-</p>
-
-${head("loadout")}
-
-${wideTag("loadout")}
-
-${head("signal")}
-
-${wideTag("signal", `https://github.com/${profile.unit}`, { base: OUTPUT, alt: "Signal log: a year of GitHub activity drawn as a river with one current per repository, redrawn every night" })}
-
 <p align="center">
   <a href="${profile.site}/contact">
     <picture>
@@ -741,9 +511,15 @@ ${wideTag("signal", `https://github.com/${profile.unit}`, { base: OUTPUT, alt: "
   </a>
 </p>
 
-${head("training")}
+${wideTag("stats")}
 
-${wideTag("training")}
+${head("loadout")}
+
+${wideTag("loadout")}
+
+${head("signal")}
+
+${wideTag("signal", `https://github.com/${profile.unit}`, { base: OUTPUT, alt: "Signal log: a year of GitHub activity drawn as a river with one current per repository, redrawn every night" })}
 
 ${head("comms")}
 
