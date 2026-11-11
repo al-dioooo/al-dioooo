@@ -111,30 +111,6 @@ function hero(ink, f) {
     })
 }
 
-// --- About ---------------------------------------------------------------------------
-
-function about(ink, f) {
-    const { W, x, w, s, mobile } = f
-    const blockW = mobile ? 40 : 58
-    const size = mobile ? 12 : 13.5
-    const lead = mobile ? 19 : 21
-    const tx = x + blockW + (mobile ? 12 : 18)
-    const max = x + w - (mobile ? 14 : 24) - tx
-    const lines = wrapSans(profile.about, max, size, 0.2)
-    const top = 5
-    const first = top + (mobile ? 42 : 46)
-    const h = first - top + (lines.length - 1) * lead + (mobile ? 16 : 20)
-    const typed = typewriter(ink, [lines], { x: tx, rows: lines.map((_, i) => first + i * lead), size, tracking: 0.2, max, fill: ink.strong, loop: false, speed: 0.011, start: 0.5 })
-
-    const body = `${plate(ink, { x, y: top, w, h }, { s, curves: false, outlined: true })}
-  <rect x="${x}" y="${top}" width="${blockW}" height="${h}" fill="${ink.block}" stroke="${ink.outline}" stroke-width="2"/>
-  ${icon(PIXEL.user, x + (blockW - 24) / 2, top + (h - 24) / 2, 24, ink.blockInk)}
-  ${mono(tx, top + (mobile ? 20 : 22), "INTEL — UNIT DATA", { size: mobile ? 8 : 9, fill: ink.muted, tracking: 2 })}
-  ${typed.body}`
-
-    return document({ w: W, h: top + h + s + 3, fonts: ["sans"], label: profile.about, defs: `${gridDefs(ink)}\n    ${typed.defs}`, body })
-}
-
 // --- Field data ------------------------------------------------------------------------
 
 function stats(ink, f) {
@@ -661,7 +637,6 @@ function small(name, draw) {
 }
 
 wide("hero", hero)
-wide("about", about)
 wide("stats", stats)
 profile.sections.forEach((section, i) => wide(`header-${section.slug}`, (ink, f) => header(ink, f, section, i)))
 wide("experience", experience)
@@ -714,8 +689,6 @@ ${wideTag("hero", profile.site)}
     </picture>
   </a>
 </p>
-
-${wideTag("about")}
 
 ${wideTag("stats")}
 

@@ -29,8 +29,6 @@ export const profile = {
         "Proposal: review the mission records below."
     ],
 
-    about: "Full-stack product engineer with 4+ years shipping web and mobile products, from modular ERP and commerce platforms to AI assistants. I design, build, and deploy the whole stack, with attention to access control, audit trails, and human review of AI output.",
-
     stats: [
         { value: "4+", unit: "YEARS", caption: "SHIPPING WEB AND MOBILE" },
         { value: "6", unit: "CLIENTS", caption: "SERVED AT BLOOMREEF DEV" },

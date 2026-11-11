@@ -18,8 +18,6 @@
   </a>
 </p>
 
-<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/about-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/about-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/about-dark-mobile.svg" /><img src="assets/svg/about-light-mobile.svg" width="100%" alt="Full-stack product engineer with 4+ years shipping web and mobile products, from modular ERP and commerce platforms to AI assistants. I design, build, and deploy the whole stack, with attention to access control, audit trails, and human review of AI output." /></picture>
-
 <picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/stats-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/stats-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/stats-dark-mobile.svg" /><img src="assets/svg/stats-light-mobile.svg" width="100%" alt="Field data: 4+ years, shipping web and mobile; 6 clients, served at bloomreef dev; 50+ branches, on back-office systems; 1ST place, ifest unpad 2026" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-service-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-service-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-service-dark-mobile.svg" /><img src="assets/svg/header-service-light-mobile.svg" width="100%" alt="01 · SERVICE RECORD // experience" /></picture>
