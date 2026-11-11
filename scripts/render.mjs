@@ -13,7 +13,7 @@ import {
     key, mono, monoWidth, num, palettes, plate, rail, sans, scan, typewriter, wrapSans
 } from "./lib/kit.mjs"
 import { profile } from "./data/profile.mjs"
-import { body, currents, layout, streamlines } from "./lib/river.mjs"
+import { body, currents, lane, layout, streamlines } from "./lib/river.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const read = (path) => JSON.parse(readFileSync(join(root, path), "utf8"))
@@ -396,6 +396,9 @@ const FLOW = `
     .flow3 { stroke-dasharray: 17 7; animation: flow3 5s linear infinite; }
     .flow4 { stroke-dasharray: 3 5; animation: flow4 2.5s linear infinite; }`
 
+// A plain arrowhead, nose at +x, with a dashed wake behind it
+const CRAFT = { hull: "M9 0L-6 -5.2L-2.6 0L-6 5.2Z", wake: "M-7 0H-18" }
+
 function signal(ink, f) {
     const { W, x, y, w, s, pad, mobile } = f
     const st = activityStats()
@@ -424,6 +427,10 @@ function signal(ink, f) {
     })
     const { xs } = river
     const repos = river.currents.filter((c) => c.kind === "repo")
+    const biggest = Math.max(...river.currents.map((c) => c.count))
+    const latest = Math.max(...river.currents.map((c) => c.last))
+    // The repository touched most recently flies in red
+    const recent = [...repos].sort((a, b) => b.last - a.last || b.count - a.count)[0]
 
     const water = river.currents.map((current, k) => {
         const quiet = current.kind === "beyond"
@@ -434,6 +441,22 @@ function signal(ink, f) {
         }).join("")
         return `${wash}${lines}`
     }).join("\n    ")
+
+    const craft = river.currents.map((current, k) => {
+        const path = lane(current, xs, mobile ? 2.4 : 3.2)
+        if (!path || path.length < 30) return ""
+        const size = (mobile ? 0.5 : 0.7) + (mobile ? 0.35 : 0.5) * Math.sqrt(current.count / biggest)
+        // Older work sinks: the longer since the last commit, the fainter
+        const depth = num(Math.max(0.38, 1 - (latest - current.last) / 36))
+        const fill = current === recent ? ink.red : ink.strong
+        const dur = num(Math.min(46, Math.max(6, path.length / (mobile ? 9 : 14))))
+        const timing = `dur="${dur}s" begin="-${num((k * 3.7) % dur)}s" repeatCount="indefinite"`
+        return `<g transform="translate(${path.mid[0]} ${path.mid[1]})"><g opacity="${depth}">
+      <animateMotion path="${path.d}" rotate="auto" ${timing}/>
+      <animate attributeName="opacity" values="0;${depth};${depth};0" keyTimes="0;0.1;0.9;1" ${timing}/>
+      <g transform="scale(${num(size)})"><path d="${CRAFT.wake}" fill="none" stroke="${fill}" stroke-width="1.3" stroke-dasharray="2.5 2.5" stroke-opacity=".6"/><path d="${CRAFT.hull}" fill="${fill}" stroke="${ink.paper}" stroke-width="0.8"/></g>
+    </g></g>`
+    }).join("\n  ")
 
     const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
     const axisY = box.bottom + (mobile ? 9 : 12)
@@ -476,6 +499,7 @@ function signal(ink, f) {
     ${water}
   </g>
   ${axis}
+  ${craft}
   ${legend}`
 
     const rest = river.currents.find((c) => c.kind === "rest")
