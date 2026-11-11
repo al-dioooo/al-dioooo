@@ -154,6 +154,10 @@ export const profile = {
     ],
     appliedAi: ["MASTRA AGENTS", "MODEL CONTEXT PROTOCOL", "RAG ON PGVECTOR", "VOICE AND VISION"],
 
+    // The signal log river: how many repositories get a named current, and
+    // "owner/name" entries to keep out of the named ones
+    activity: { top: 8, hide: [] },
+
     education: [
         {
             date: "AUG 2024 — AUG 2028",
