@@ -36,7 +36,7 @@
 
 <picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-signal-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-signal-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-signal-dark-mobile.svg" /><img src="assets/svg/header-signal-light-mobile.svg" width="100%" alt="04 · SIGNAL LOG // activity" /></picture>
 
-<a href="https://github.com/al-dioooo"><picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/signal-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/signal-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/signal-dark-mobile.svg" /><img src="assets/svg/signal-light-mobile.svg" width="100%" alt="Signal log, snapshot 2026-11-10: 3,152 contributions in the last 12 months, 184 active days, longest streak 38 days" /></picture></a>
+<a href="https://github.com/al-dioooo"><picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/signal-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/signal-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/signal-dark-mobile.svg" /><img src="assets/svg/signal-light-mobile.svg" width="100%" alt="Signal log, snapshot 2026-11-12: 3,234 contributions in the last 12 months, 186 active days, longest streak 40 days" /></picture></a>
 
 <p align="center">
   <a href="https://al.is-a.dev/contact">
