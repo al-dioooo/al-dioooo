@@ -458,6 +458,27 @@ function signal(ink, f) {
     </g></g>`
     }).join("\n  ")
 
+    // Names sit on the widest free part of each current, biggest first
+    const size = mobile ? 6.5 : 7.5
+    const boxes = []
+    const named = [...river.currents].sort((a, b) => b.count - a.count).filter((c, i) => !mobile || i < 5)
+    const labels = named.map((current) => {
+        const text = current.label.toUpperCase()
+        const tw = monoWidth(text, size, 0.6) + 6
+        const candidates = current.w.map((width, i) => i).filter((i) => current.w[i] >= 2).sort((a, b) => current.w[b] - current.w[a])
+        for (const i of candidates) {
+            const cx = Math.min(R - tw / 2, Math.max(L + tw / 2, xs[i]))
+            const spot = { x: cx - tw / 2, y: current.c[i] - size, w: tw, h: size + 5 }
+            if (boxes.some((b) => spot.x < b.x + b.w && b.x < spot.x + spot.w && spot.y < b.y + b.h && b.y < spot.y + spot.h)) continue
+            boxes.push(spot)
+            return mono(cx, current.c[i] + size * 0.36, text, {
+                size, fill: current.kind === "repo" ? ink.strong : ink.muted, tracking: 0.6, anchor: "middle", bold: current.kind === "repo",
+                attrs: ` stroke="${ink.paper}" stroke-width="3" stroke-linejoin="round" paint-order="stroke"`
+            })
+        }
+        return ""
+    }).join("\n  ")
+
     const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
     const axisY = box.bottom + (mobile ? 9 : 12)
     let months = ""
@@ -500,6 +521,7 @@ function signal(ink, f) {
   </g>
   ${axis}
   ${craft}
+  ${labels}
   ${legend}`
 
     const rest = river.currents.find((c) => c.kind === "rest")
