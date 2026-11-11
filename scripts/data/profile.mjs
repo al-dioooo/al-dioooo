@@ -156,7 +156,7 @@ export const profile = {
 
     // The signal log river: how many repositories get a named current, and
     // "owner/name" entries to keep out of the named ones
-    activity: { top: 8, hide: [] },
+    activity: { top: 8, hide: ["rafi1912/Project_Big_Data_Klp4"] },
 
     education: [
         {
