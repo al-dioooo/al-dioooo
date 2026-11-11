@@ -49,28 +49,6 @@ export const profile = {
     // "owner/name" entries to keep out of the named ones
     activity: { top: 8, hide: ["rafi1912/Project_Big_Data_Klp4"] },
 
-    education: [
-        {
-            date: "AUG 2024 — AUG 2028",
-            type: "EXPECTED",
-            school: "IPB University",
-            programme: "Bachelor of Applied Software Engineering Technology (D4), Sekolah Vokasi",
-            gpa: { value: 3.66, of: 4 }
-        },
-        {
-            date: "2019 — 2022",
-            type: "VOCATIONAL HIGH SCHOOL",
-            school: "SMK Negeri 1 Ciomas",
-            programme: "Software Engineering (RPL)"
-        }
-    ],
-    certifications: [
-        "CLAUDE ACADEMY · BUILDING WITH THE CLAUDE API",
-        "CLAUDE ACADEMY · MCP ADVANCED TOPICS",
-        "CLAUDE ACADEMY · CLAUDE CODE 101",
-        "GOOGLE FOR EDUCATION · GEMINI CERTIFIED UNIVERSITY STUDENT"
-    ],
-
     comms: [
         { slug: "website", label: "WEBSITE", value: "al.is-a.dev", href: "https://al.is-a.dev" },
         { slug: "linkedin", label: "LINKEDIN", value: "aldio-lisafron", href: "https://linkedin.com/in/aldio-lisafron" },
@@ -81,7 +59,6 @@ export const profile = {
     sections: [
         { slug: "loadout", title: "LOADOUT", sub: "stack_and_tools" },
         { slug: "signal", title: "SIGNAL LOG", sub: "activity" },
-        { slug: "training", title: "TRAINING", sub: "education" },
         { slug: "comms", title: "COMMS", sub: "transmission_channels" }
     ]
 }
