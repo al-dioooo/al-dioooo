@@ -31,7 +31,7 @@ export const profile = {
 
     stats: [
         { value: "4+", unit: "YEARS", caption: "SHIPPING WEB AND MOBILE" },
-        { value: "6", unit: "CLIENTS", caption: "SERVED AT BLOOMREEF DEV" },
+        { value: "6", unit: "BIG COMPANIES", caption: "SERVED AT BLOOMREEF DEV" },
         { value: "50+", unit: "BRANCHES", caption: "ON BACK-OFFICE SYSTEMS" },
         { value: "1ST", unit: "PLACE", caption: "IFEST UNPAD 2026" }
     ],

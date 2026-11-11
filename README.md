@@ -18,7 +18,7 @@
   </a>
 </p>
 
-<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/stats-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/stats-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/stats-dark-mobile.svg" /><img src="assets/svg/stats-light-mobile.svg" width="100%" alt="Field data: 4+ years, shipping web and mobile; 6 clients, served at bloomreef dev; 50+ branches, on back-office systems; 1ST place, ifest unpad 2026" /></picture>
+<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/stats-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/stats-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/stats-dark-mobile.svg" /><img src="assets/svg/stats-light-mobile.svg" width="100%" alt="Field data: 4+ years, shipping web and mobile; 6 big companies, served at bloomreef dev; 50+ branches, on back-office systems; 1ST place, ifest unpad 2026" /></picture>
 
 <picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-loadout-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-loadout-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-loadout-dark-mobile.svg" /><img src="assets/svg/header-loadout-light-mobile.svg" width="100%" alt="01 · LOADOUT // stack_and_tools" /></picture>
 
