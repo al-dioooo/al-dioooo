@@ -1,0 +1,59 @@
+# Redraws the signal log card from fresh GitHub activity and publishes it on
+# the `output` branch, which README.md reads the image from. On pull requests
+# it only checks that the snapshot can be read and every card still draws.
+name: Activity cards
+
+on:
+  schedule:
+    - cron: "23 17 * * *" # 00:23 in Jakarta
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/**", ".github/workflows/activity.yml"]
+  pull_request:
+    paths: ["scripts/**", "assets/svg/**", "README.md", ".github/workflows/activity.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: activity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to push the output branch
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+
+      # The built-in token sees public activity only, which is all the
+      # snapshot keeps: private work stays an anonymous total.
+      - name: Read the year's activity
+        run: node scripts/refresh-activity.mjs "$GITHUB_REPOSITORY_OWNER"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Draw the cards
+        run: node scripts/render.mjs
+
+      - name: Check the committed cards match the generator
+        run: git diff --exit-code -- README.md assets/svg
+
+      # One fresh commit each night, so the branch never grows
+      - name: Publish on the output branch
+        if: github.event_name != 'pull_request'
+        working-directory: live
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git init -q -b output
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -q -m "chore: redraw the activity cards"
+          git push -q --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" output

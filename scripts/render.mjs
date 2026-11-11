@@ -1,9 +1,14 @@
-// Draws every card of the profile README into assets/svg and rewrites
-// README.md around them. Run: node scripts/render.mjs
+// Draws every card of the profile README and rewrites README.md around them.
+// Run: node scripts/render.mjs
 //
 // Full-width cards come in four files (light/dark × desktop/mobile); the small
 // link cards only in light and dark. Content lives in scripts/data/profile.mjs,
-// the activity grid in scripts/data/contributions.json (see refresh-activity.mjs).
+// the activity snapshot in scripts/data/contributions.json (see refresh-activity.mjs).
+//
+// Cards go to assets/svg and are committed. The signal log is different: it is
+// written to live/ (not committed), and .github/workflows/activity.yml redraws
+// it every night and publishes it on the `output` branch, where the README
+// reads it from.
 
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
@@ -627,23 +632,25 @@ function footer(ink, f) {
 // --- Output ----------------------------------------------------------------------------
 
 const out = join(root, "assets/svg")
+const live = join(root, "live")
 mkdirSync(out, { recursive: true })
+mkdirSync(live, { recursive: true })
 const alts = {}
 let files = 0
 let bytes = 0
 
-function emit(name, svg) {
-    writeFileSync(join(out, `${name}.svg`), svg)
+function emit(name, svg, dir = out) {
+    writeFileSync(join(dir, `${name}.svg`), svg)
     files++
     bytes += Buffer.byteLength(svg)
     return svg.match(/aria-label="([^"]*)"/)[1]
 }
 
 // Four files for a full-width card
-function wide(name, draw) {
+function wide(name, draw, dir) {
     for (const theme of ["light", "dark"]) {
         for (const mobile of [false, true]) {
-            alts[name] = emit(`${name}-${theme}${mobile ? "-mobile" : ""}`, draw(palettes[theme], frame(mobile)))
+            alts[name] = emit(`${name}-${theme}${mobile ? "-mobile" : ""}`, draw(palettes[theme], frame(mobile)), dir)
         }
     }
 }
@@ -661,18 +668,23 @@ wide("experience", experience)
 profile.missions.forEach((m, i) => small(`mission-${m.slug}`, (ink) => mission(ink, m, i)))
 small("cta-missions", cta)
 wide("loadout", loadout)
-wide("signal", signal)
+wide("signal", signal, live)
 wide("training", training)
 profile.comms.forEach((c, i) => small(`comm-${c.slug}`, (ink) => comm(ink, c, i)))
 wide("footer", footer)
 
 // --- README ----------------------------------------------------------------------------
 
-const src = (name) => `assets/svg/${name}.svg`
+// Where the nightly workflow publishes the cards written to live/
+const OUTPUT = `https://raw.githubusercontent.com/${profile.unit}/${profile.unit}/output`
+
+const src = (name, base = "assets/svg") => `${base}/${name}.svg`
 const link = (href, inner) => (href ? `<a href="${href}">${inner}</a>` : inner)
 
-const wideTag = (name, href) =>
-    link(href, `<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="${src(`${name}-dark`)}" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="${src(`${name}-light`)}" /><source media="(prefers-color-scheme: dark)" srcset="${src(`${name}-dark-mobile`)}" /><img src="${src(`${name}-light-mobile`)}" width="100%" alt="${alts[name]}" /></picture>`)
+// `base` and `alt` are for cards redrawn outside this run: their image lives
+// on another branch and their alt text must not go stale with the numbers
+const wideTag = (name, href, { base, alt = alts[name] } = {}) =>
+    link(href, `<picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="${src(`${name}-dark`, base)}" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="${src(`${name}-light`, base)}" /><source media="(prefers-color-scheme: dark)" srcset="${src(`${name}-dark-mobile`, base)}" /><img src="${src(`${name}-light-mobile`, base)}" width="100%" alt="${alt}" /></picture>`)
 
 const smallTag = (name, width, href) =>
     link(href, `<picture><source media="(prefers-color-scheme: dark)" srcset="${src(`${name}-dark`)}" /><img src="${src(`${name}-light`)}" width="${width}" alt="${alts[name]}" /></picture>`)
@@ -716,7 +728,7 @@ ${wideTag("loadout")}
 
 ${head("signal")}
 
-${wideTag("signal", `https://github.com/${profile.unit}`)}
+${wideTag("signal", `https://github.com/${profile.unit}`, { base: OUTPUT, alt: "Signal log: a year of GitHub activity drawn as a river with one current per repository, redrawn every night" })}
 
 <p align="center">
   <a href="${profile.site}/contact">
@@ -745,4 +757,4 @@ ${wideTag("footer")}
 `
 
 writeFileSync(join(root, "README.md"), readme)
-console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg; README.md rewritten`)
+console.log(`${files} cards, ${(bytes / 1024).toFixed(0)} KB → assets/svg and live; README.md rewritten`)
