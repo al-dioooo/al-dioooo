@@ -704,6 +704,17 @@ const readme = `<!-- ═══════════════════�
 
 ${wideTag("hero", profile.site)}
 
+<p align="center">
+  <a href="${profile.site}/contact">
+    <picture>
+      <source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="${liveCard}?theme=dark" />
+      <source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="${liveCard}" />
+      <source media="(prefers-color-scheme: dark)" srcset="${liveCard}?theme=dark&amp;view=mobile" />
+      <img src="${liveCard}?view=mobile" alt="Unit record: Operator 210 reporting the latest transmission from ${profile.unit}" width="100%" />
+    </picture>
+  </a>
+</p>
+
 ${wideTag("about")}
 
 ${wideTag("stats")}
@@ -729,17 +740,6 @@ ${wideTag("loadout")}
 ${head("signal")}
 
 ${wideTag("signal", `https://github.com/${profile.unit}`, { base: OUTPUT, alt: "Signal log: a year of GitHub activity drawn as a river with one current per repository, redrawn every night" })}
-
-<p align="center">
-  <a href="${profile.site}/contact">
-    <picture>
-      <source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="${liveCard}?theme=dark" />
-      <source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="${liveCard}" />
-      <source media="(prefers-color-scheme: dark)" srcset="${liveCard}?theme=dark&amp;view=mobile" />
-      <img src="${liveCard}?view=mobile" alt="Unit record: Operator 210 reporting the latest transmission from ${profile.unit}" width="100%" />
-    </picture>
-  </a>
-</p>
 
 ${head("training")}
 

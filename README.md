@@ -7,6 +7,17 @@
 
 <a href="https://al.is-a.dev"><picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/hero-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/hero-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/hero-dark-mobile.svg" /><img src="assets/svg/hero-light-mobile.svg" width="100%" alt="Aldio Lisafron: Full-stack Product Engineer, AI-powered Web &amp; Mobile Products" /></picture></a>
 
+<p align="center">
+  <a href="https://al.is-a.dev/contact">
+    <picture>
+      <source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="https://al.is-a.dev/api/readme/contact?theme=dark" />
+      <source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="https://al.is-a.dev/api/readme/contact" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/contact?theme=dark&amp;view=mobile" />
+      <img src="https://al.is-a.dev/api/readme/contact?view=mobile" alt="Unit record: Operator 210 reporting the latest transmission from al-dioooo" width="100%" />
+    </picture>
+  </a>
+</p>
+
 <picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/about-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/about-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/about-dark-mobile.svg" /><img src="assets/svg/about-light-mobile.svg" width="100%" alt="Full-stack product engineer with 4+ years shipping web and mobile products, from modular ERP and commerce platforms to AI assistants. I design, build, and deploy the whole stack, with attention to access control, audit trails, and human review of AI output." /></picture>
 
 <picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/stats-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/stats-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/stats-dark-mobile.svg" /><img src="assets/svg/stats-light-mobile.svg" width="100%" alt="Field data: 4+ years, shipping web and mobile; 6 clients, served at bloomreef dev; 50+ branches, on back-office systems; 1ST place, ifest unpad 2026" /></picture>
@@ -37,17 +48,6 @@
 <picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-signal-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-signal-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-signal-dark-mobile.svg" /><img src="assets/svg/header-signal-light-mobile.svg" width="100%" alt="04 · SIGNAL LOG // activity" /></picture>
 
 <a href="https://github.com/al-dioooo"><picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="https://raw.githubusercontent.com/al-dioooo/al-dioooo/output/signal-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="https://raw.githubusercontent.com/al-dioooo/al-dioooo/output/signal-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/al-dioooo/al-dioooo/output/signal-dark-mobile.svg" /><img src="https://raw.githubusercontent.com/al-dioooo/al-dioooo/output/signal-light-mobile.svg" width="100%" alt="Signal log: a year of GitHub activity drawn as a river with one current per repository, redrawn every night" /></picture></a>
-
-<p align="center">
-  <a href="https://al.is-a.dev/contact">
-    <picture>
-      <source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="https://al.is-a.dev/api/readme/contact?theme=dark" />
-      <source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="https://al.is-a.dev/api/readme/contact" />
-      <source media="(prefers-color-scheme: dark)" srcset="https://al.is-a.dev/api/readme/contact?theme=dark&amp;view=mobile" />
-      <img src="https://al.is-a.dev/api/readme/contact?view=mobile" alt="Unit record: Operator 210 reporting the latest transmission from al-dioooo" width="100%" />
-    </picture>
-  </a>
-</p>
 
 <picture><source media="(prefers-color-scheme: dark) and (min-width: 1012px)" srcset="assets/svg/header-training-dark.svg" /><source media="(prefers-color-scheme: light) and (min-width: 1012px)" srcset="assets/svg/header-training-light.svg" /><source media="(prefers-color-scheme: dark)" srcset="assets/svg/header-training-dark-mobile.svg" /><img src="assets/svg/header-training-light-mobile.svg" width="100%" alt="05 · TRAINING // education" /></picture>
 
