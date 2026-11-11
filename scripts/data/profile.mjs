@@ -36,44 +36,6 @@ export const profile = {
         { value: "1ST", unit: "PLACE", caption: "IFEST UNPAD 2026" }
     ],
 
-    experience: [
-        {
-            date: "AUG 2026 — PRESENT",
-            type: "FULL-TIME · HYBRID",
-            role: "Product Engineer",
-            org: "NGONLENIN ID",
-            note: "POS and business operations platform for merchants."
-        },
-        {
-            date: "AUG 2026 — PRESENT",
-            type: "INTERNSHIP · REMOTE",
-            role: "Full Stack Engineer",
-            org: "RASYLVA.ID",
-            note: "Biotalyzer: biota field data turned into analysis and reports."
-        },
-        {
-            date: "JUN 2022 — OCT 2025",
-            type: "SOFTWARE HOUSE",
-            role: "Full-stack DevOps & UI/UX Designer",
-            org: "BLOOMREEF DEV",
-            note: "Systems for 6 clients, with back-office software across 50+ branches."
-        },
-        {
-            date: "2020 — PRESENT",
-            type: "SELF-EMPLOYED",
-            role: "Freelance Full-stack Developer",
-            org: "FREELANCE",
-            note: "Client work from requirements and UI/UX through deployment."
-        },
-        {
-            date: "JUL 2021 — DEC 2021",
-            type: "INTERNSHIPS",
-            role: "Web Developer Intern",
-            org: "KLHK · KARYA MITRA USAHA",
-            note: "An asset-lending tracker, a storefront and a company blog."
-        }
-    ],
-
     missions: [
         {
             slug: "aksesin",
@@ -186,7 +148,6 @@ export const profile = {
     ],
 
     sections: [
-        { slug: "service", title: "SERVICE RECORD", sub: "experience" },
         { slug: "missions", title: "MISSIONS", sub: "selected_work" },
         { slug: "loadout", title: "LOADOUT", sub: "stack_and_tools" },
         { slug: "signal", title: "SIGNAL LOG", sub: "activity" },

@@ -180,77 +180,6 @@ function header(ink, f, section, index) {
     return document({ w: W, h: H, fonts: ["acorn"], label: `${no} · ${section.title} // ${section.sub}`, body })
 }
 
-// --- Service record -------------------------------------------------------------------
-
-function experience(ink, f) {
-    const { W, x, y, w, s, pad, mobile } = f
-    const rows = profile.experience
-    const L = x + pad
-    const R = x + w - pad
-    const y0 = mobile ? 50 : 66
-    const rowH = mobile ? 88 : 58
-    const P = { x, y, w, h: y0 + rows.length * rowH + (mobile ? 8 : 12) - y }
-    const band = { x: x + (mobile ? 8 : 15), w: w - (mobile ? 16 : 30), h: rowH - 6 }
-
-    const draw = (tone, animated) =>
-        rows.map((row, i) => {
-            const ry = y0 + i * rowH
-            const anim = animated ? ` class="rise" style="${delay(0.25 + i * 0.1)}"` : ""
-            if (mobile) {
-                const note = wrapSans(row.note, R - L, 11, 0.1).slice(0, 2)
-                return `<g${anim}>
-    ${mono(L, ry + 21, row.date, { size: 8.5, fill: tone.muted, tracking: 0.6 })}
-    ${mono(R, ry + 21, row.org, { size: 8.5, fill: tone.strong, tracking: 1, anchor: "end", bold: true })}
-    ${acorn(L, ry + 43, row.role, { size: 15, fill: tone.strong, tracking: 0.3 })}
-    ${note.map((line, n) => sans(L, ry + 61 + n * 15, line, { size: 11, fill: tone.text, tracking: 0.1 })).join("")}
-  </g>`
-            }
-            return `<g${anim}>
-    ${mono(L, ry + 25, String(i + 1).padStart(2, "0"), { size: 9, fill: tone.muted, tracking: 1, bold: true })}
-    ${mono(L + 28, ry + 25, row.date, { size: 9.5, fill: tone.text, tracking: 0.8 })}
-    ${mono(L + 28, ry + 42, row.type, { size: 8, fill: tone.muted, tracking: 1.2 })}
-    ${acorn(L + 212, ry + 26, row.role, { size: 17, fill: tone.strong, tracking: 0.3 })}
-    ${sans(L + 212, ry + 44, row.note, { size: 12, fill: tone.text, tracking: 0.1 })}
-    ${mono(R, ry + 25, row.org, { size: 9.5, fill: tone.strong, tracking: 1.2, anchor: "end", bold: true })}
-  </g>`
-        }).join("\n  ")
-
-    // The menu cursor: an ink band that steps from entry to entry and inverts
-    // the text under it. It rests on the current role.
-    const hold = 2.6
-    const slide = 0.3
-    const cycle = rows.length * hold
-    const values = []
-    const keys = []
-    rows.forEach((_, i) => {
-        const ry = y0 + i * rowH + 3
-        values.push(ry, ry)
-        keys.push((i * hold) / cycle, ((i + 1) * hold - slide) / cycle)
-    })
-    values.push(y0 + 3)
-    keys.push(1)
-    const move = `<animate attributeName="y" values="${values.join(";")}" keyTimes="${keys.map(key).join(";")}" calcMode="spline" keySplines="${keys.slice(1).map(() => ".6 0 .2 1").join(";")}" dur="${cycle}s" begin="1.6s" repeatCount="indefinite"/>`
-
-    const seps = rows.slice(1).map((_, i) => `<path d="M${L} ${y0 + (i + 1) * rowH}H${R}" stroke="${ink.muted}" stroke-opacity=".5"/>`).join("")
-
-    const body = `${plate(ink, P, { s })}
-  ${cardHead(ink, f, `SERVICE LOG — ${rows.length} ENTRIES`, mobile ? "NEWEST FIRST" : "SORT: NEWEST FIRST")}
-  ${seps}
-  ${draw(ink, true)}
-  <g mask="url(#band)">
-    <rect x="${band.x}" y="${y0}" width="${band.w}" height="${rows.length * rowH}" fill="${ink.block}"/>
-    ${draw(inverse(ink), true)}
-  </g>`
-
-    return document({
-        w: W, h: P.y + P.h + s + (mobile ? 5 : 9), fonts: ["acorn", "sans"],
-        label: `Service record: ${rows.map((r) => `${r.role}, ${r.org}, ${r.date}`).join("; ")}`,
-        defs: `${gridDefs(ink)}
-    <mask id="band" maskUnits="userSpaceOnUse" x="${band.x}" y="${y0}" width="${band.w}" height="${rows.length * rowH}"><rect x="${band.x}" y="${y0 + 3}" width="${band.w}" height="${band.h}" fill="#fff">${move}</rect></mask>`,
-        body
-    })
-}
-
 // --- Mission card ---------------------------------------------------------------------
 
 function mission(ink, m, i) {
@@ -639,7 +568,6 @@ function small(name, draw) {
 wide("hero", hero)
 wide("stats", stats)
 profile.sections.forEach((section, i) => wide(`header-${section.slug}`, (ink, f) => header(ink, f, section, i)))
-wide("experience", experience)
 profile.missions.forEach((m, i) => small(`mission-${m.slug}`, (ink) => mission(ink, m, i)))
 small("cta-missions", cta)
 wide("loadout", loadout)
@@ -691,10 +619,6 @@ ${wideTag("hero", profile.site)}
 </p>
 
 ${wideTag("stats")}
-
-${head("service")}
-
-${wideTag("experience")}
 
 ${head("missions")}
 
