@@ -116,3 +116,98 @@ export function layout(list, { x0, x1, cy, height, gap = 4, warp = 0.4 }) {
     }
     return { xs, currents: placed }
 }
+
+// --- Paths ----------------------------------------------------------------------------
+
+// A smooth curve through points sampled left to right: Hermite segments with
+// central-difference slopes, written with the short S form
+export function curve(points) {
+    if (points.length < 2) return ""
+    const slope = (i) => {
+        const a = points[Math.max(0, i - 1)]
+        const b = points[Math.min(points.length - 1, i + 1)]
+        return (b[1] - a[1]) / (b[0] - a[0])
+    }
+    const [first, second] = points
+    const third = (i) => (points[i][0] - points[i - 1][0]) / 3
+    let d = `M${r1(first[0])} ${r1(first[1])}C${r1(first[0] + third(1))} ${r1(first[1] + slope(0) * third(1))} ${r1(second[0] - third(1))} ${r1(second[1] - slope(1) * third(1))} ${r1(second[0])} ${r1(second[1])}`
+    for (let i = 2; i < points.length; i++) {
+        const [x, y] = points[i]
+        d += `S${r1(x - third(i))} ${r1(y - slope(i) * third(i))} ${r1(x)} ${r1(y)}`
+    }
+    return d
+}
+
+// Contiguous runs of indices where `test` holds, at least `min` long
+function runs(length, test, min = 2) {
+    const out = []
+    let start = -1
+    for (let i = 0; i <= length; i++) {
+        const ok = i < length && test(i)
+        if (ok && start < 0) start = i
+        if (!ok && start >= 0) {
+            if (i - start >= min) out.push([start, i - 1])
+            start = -1
+        }
+    }
+    return out
+}
+
+// The ink lines of one current, spread evenly across its width. The middle
+// line persists longest: as the current thins its outer lines end one by one
+// and it dries into a single thread. Returns [{ d, rank }] with rank 0 for
+// the middle line.
+export function streamlines(current, xs, { spacing = 4.2, minSpacing = 1.7, thread = 0.35, max = 9 } = {}) {
+    const widest = Math.max(...current.w)
+    const half = Math.min((max - 1) / 2, Math.floor(widest / (2 * spacing)))
+    const count = half * 2 + 1
+    const lines = []
+    for (let j = -half; j <= half; j++) {
+        const rank = Math.abs(j)
+        const need = rank ? rank * 2 * minSpacing : thread
+        const offset = (j / count) * 0.92
+        for (const [a, b] of runs(xs.length, (i) => current.w[i] >= need)) {
+            const points = []
+            for (let i = a; i <= b; i++) points.push([xs[i], current.c[i] + offset * current.w[i]])
+            lines.push({ d: curve(points), rank })
+        }
+    }
+    return lines
+}
+
+// The outline of a current, for a faint wash under its lines
+export function body(current, xs, thread = 0.35) {
+    return runs(xs.length, (i) => current.w[i] >= thread).map(([a, b]) => {
+        const upper = []
+        const lower = []
+        for (let i = a; i <= b; i++) {
+            upper.push([xs[i], current.c[i] - current.w[i] / 2])
+            lower.unshift([xs[i], current.c[i] + current.w[i] / 2])
+        }
+        return `${curve(upper)}L${r1(lower[0][0])} ${r1(lower[0][1])}${curve(lower).replace(/^M[^C]+/, "")}Z`
+    })
+}
+
+// The longest stretch of a current wide enough to fly along: its centre line
+// as a path relative to the stretch's midpoint (so a craft parked at `mid`
+// sits on the line even where animation is off), and its length in pixels.
+export function lane(current, xs, swim) {
+    const stretch = runs(xs.length, (i) => current.w[i] >= swim, 3).sort((p, q) => xs[q[1]] - xs[q[0]] - (xs[p[1]] - xs[p[0]]))[0]
+    if (!stretch) return null
+    const [a, b] = stretch
+    const m = Math.round((a + b) / 2)
+    const mid = [xs[m], current.c[m]]
+    const points = []
+    for (let i = a; i <= b; i++) points.push([xs[i] - mid[0], current.c[i] - mid[1]])
+    const length = points.slice(1).reduce((sum, p, i) => sum + Math.hypot(p[0] - points[i][0], p[1] - points[i][1]), 0)
+    return { d: curve(points), mid: mid.map(r1), length }
+}
+
+// The week where a current is widest, among those `test` accepts
+export function widest(current, test = () => true) {
+    let best = -1
+    current.w.forEach((w, i) => {
+        if (test(i) && (best < 0 || w > current.w[best])) best = i
+    })
+    return best
+}
