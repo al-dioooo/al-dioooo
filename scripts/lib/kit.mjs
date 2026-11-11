@@ -161,11 +161,12 @@ const MOTION = `
 
 export const delay = (seconds) => `animation-delay: ${num(seconds)}s`
 
-export function document({ w, h, label, fonts = [], defs = "", body }) {
+// `css` adds rules for one card, ahead of the reduced-motion switch
+export function document({ w, h, label, fonts = [], css = "", defs = "", body }) {
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="${esc(label)}">
   <title>${esc(label)}</title>
   <style>
-    ${fonts.map((f) => FACES[f]).join("\n    ")}${MOTION}
+    ${fonts.map((f) => FACES[f]).join("\n    ")}${css}${MOTION}
   </style>
   <defs>
     ${defs}

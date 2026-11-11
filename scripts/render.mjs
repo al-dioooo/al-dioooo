@@ -13,6 +13,7 @@ import {
     key, mono, monoWidth, num, palettes, plate, rail, sans, scan, typewriter, wrapSans
 } from "./lib/kit.mjs"
 import { profile } from "./data/profile.mjs"
+import { body, currents, lane, layout, streamlines } from "./lib/river.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const read = (path) => JSON.parse(readFileSync(join(root, path), "utf8"))
@@ -381,24 +382,29 @@ function activityStats() {
         streak = count > 0 ? streak + 1 : 0
         best = Math.max(best, streak)
     }
-    const active = days.filter(([, c]) => c > 0)
-    const sorted = active.map(([, c]) => c).sort((a, b) => a - b)
-    const q = (p) => sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * p))]
-    return { total: ACTIVITY.total, best, active: active.length, cuts: [q(0.25), q(0.5), q(0.75)] }
+    return { total: ACTIVITY.total, best, active: days.filter(([, c]) => c > 0).length }
 }
+
+// Ink lines drift toward today: each class slides its dash pattern by one period
+const FLOW = `
+    @keyframes flow1 { to { stroke-dashoffset: -32; } }
+    @keyframes flow2 { to { stroke-dashoffset: -48; } }
+    @keyframes flow3 { to { stroke-dashoffset: -24; } }
+    @keyframes flow4 { to { stroke-dashoffset: -8; } }
+    .flow1 { stroke-dasharray: 26 6; animation: flow1 6s linear infinite; }
+    .flow2 { stroke-dasharray: 38 10; animation: flow2 9s linear infinite; }
+    .flow3 { stroke-dasharray: 17 7; animation: flow3 5s linear infinite; }
+    .flow4 { stroke-dasharray: 3 5; animation: flow4 2.5s linear infinite; }`
+
+// A plain arrowhead, nose at +x, with a dashed wake behind it
+const CRAFT = { hull: "M9 0L-6 -5.2L-2.6 0L-6 5.2Z", wake: "M-7 0H-18" }
 
 function signal(ink, f) {
     const { W, x, y, w, s, pad, mobile } = f
     const st = activityStats()
     const L = x + pad
     const R = x + w - pad
-    const weeks = ACTIVITY.weeks
-    const pitch = (R - L) / weeks.length
-    const cell = pitch - (mobile ? 1 : 2)
     const statY = mobile ? 72 : 98
-    const gridY = mobile ? 112 : 150
-    const level = (c) => (c === 0 ? 0 : c <= st.cuts[0] ? 1 : c <= st.cuts[1] ? 2 : c <= st.cuts[2] ? 3 : 4)
-    const tone = [0.08, 0.3, 0.52, 0.76, 1]
     const fmt = (n) => n.toLocaleString("en-US")
 
     const facts = [
@@ -414,55 +420,116 @@ function signal(ink, f) {
             : mono(fx + acornWidth(fact.value, factSize, 0.5) + 10, statY - 2, fact.label, { size: 8.5, fill: ink.muted, tracking: 1.4 })}</g>`
     }).join("\n  ")
 
-    const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
-    let months = ""
-    let lastMonth = -1
-    let lastLabelAt = -99
-    const today = weeks.at(-1).at(-1)[0]
-    const columns = weeks.map((week, c) => {
-        const month = Number(week[0][0].slice(5, 7)) - 1
-        if (month !== lastMonth && c - lastLabelAt >= (mobile ? 7 : 3) && c < weeks.length - 2) {
-            months += mono(L + c * pitch, gridY - (mobile ? 5 : 7), MONTHS[month], { size: mobile ? 6.5 : 7.5, fill: ink.muted, tracking: 0.8 })
-            lastLabelAt = c
-        }
-        lastMonth = month
-        const cells = week.map(([date, count]) => {
-            const d = new Date(`${date}T00:00:00Z`).getUTCDay()
-            const mark = date === today ? ` stroke="${ink.red}" stroke-width="${mobile ? 1 : 1.5}" class="pulse"` : ""
-            return `<rect x="${num(L + c * pitch)}" y="${num(gridY + d * pitch)}" width="${num(cell)}" height="${num(cell)}" fill="${ink.strong}" fill-opacity="${tone[level(count)]}"${mark}/>`
+    // The river: one current per repository, flowing toward today
+    const box = mobile ? { top: 106, bottom: 250 } : { top: 126, bottom: 326 }
+    const river = layout(currents(ACTIVITY, profile.activity), {
+        x0: L, x1: R, cy: (box.top + box.bottom) / 2, height: box.bottom - box.top, gap: mobile ? 3 : 4
+    })
+    const { xs } = river
+    const repos = river.currents.filter((c) => c.kind === "repo")
+    const biggest = Math.max(...river.currents.map((c) => c.count))
+    const latest = Math.max(...river.currents.map((c) => c.last))
+    // The repository touched most recently flies in red
+    const recent = [...repos].sort((a, b) => b.last - a.last || b.count - a.count)[0]
+
+    const water = river.currents.map((current, k) => {
+        const quiet = current.kind === "beyond"
+        const wash = body(current, xs).map((d) => `<path d="${d}" fill="${ink.strong}" fill-opacity="${quiet ? 0.03 : 0.055}" stroke="none"/>`).join("")
+        const lines = streamlines(current, xs, mobile ? { spacing: 3.4, minSpacing: 1.4 } : {}).map((line) => {
+            const opacity = line.rank ? Math.max(0.3, 0.72 - line.rank * 0.11) : 0.9
+            return `<path d="${line.d}" class="flow${quiet ? 4 : ((k + line.rank) % 3) + 1}" stroke-opacity="${num(quiet ? opacity * 0.7 : opacity)}"/>`
         }).join("")
-        return `<g class="fade" style="${delay(0.3 + c * 0.022)}">${cells}</g>`
+        return `${wash}${lines}`
+    }).join("\n    ")
+
+    const craft = river.currents.map((current, k) => {
+        const path = lane(current, xs, mobile ? 2.4 : 3.2)
+        if (!path || path.length < 30) return ""
+        const size = (mobile ? 0.5 : 0.7) + (mobile ? 0.35 : 0.5) * Math.sqrt(current.count / biggest)
+        // Older work sinks: the longer since the last commit, the fainter
+        const depth = num(Math.max(0.38, 1 - (latest - current.last) / 36))
+        const fill = current === recent ? ink.red : ink.strong
+        const dur = num(Math.min(46, Math.max(6, path.length / (mobile ? 9 : 14))))
+        const timing = `dur="${dur}s" begin="-${num((k * 3.7) % dur)}s" repeatCount="indefinite"`
+        return `<g transform="translate(${path.mid[0]} ${path.mid[1]})"><g opacity="${depth}">
+      <animateMotion path="${path.d}" rotate="auto" ${timing}/>
+      <animate attributeName="opacity" values="0;${depth};${depth};0" keyTimes="0;0.1;0.9;1" ${timing}/>
+      <g transform="scale(${num(size)})"><path d="${CRAFT.wake}" fill="none" stroke="${fill}" stroke-width="1.3" stroke-dasharray="2.5 2.5" stroke-opacity=".6"/><path d="${CRAFT.hull}" fill="${fill}" stroke="${ink.paper}" stroke-width="0.8"/></g>
+    </g></g>`
     }).join("\n  ")
 
-    const gridH = pitch * 7
-    const legendY = gridY + gridH + (mobile ? 16 : 20)
-    const lc = mobile ? 7 : 10
-    const legendW = 5 * (lc + 2) + monoWidth("MORE", 7.5, 0.8) + 8
-    const lx = R - legendW
-    const legend = `${mono(lx - 8, legendY, "LESS", { size: 7.5, fill: ink.muted, tracking: 0.8, anchor: "end" })}
-  ${tone.map((o, i) => `<rect x="${num(lx + i * (lc + 2))}" y="${num(legendY - lc + 1)}" width="${lc}" height="${lc}" fill="${ink.strong}" fill-opacity="${o}"/>`).join("")}
-  ${mono(R, legendY, "MORE", { size: 7.5, fill: ink.muted, tracking: 0.8, anchor: "end" })}
-  ${mono(L, legendY, mobile ? "GITHUB.COM/AL-DIOOOO" : "GITHUB.COM/AL-DIOOOO · ONE SQUARE, ONE DAY", { size: 7.5, fill: ink.muted, tracking: 0.8 })}`
+    // Names sit on the widest free part of each current, biggest first
+    const size = mobile ? 6.5 : 7.5
+    const boxes = []
+    const named = [...river.currents].sort((a, b) => b.count - a.count).filter((c, i) => !mobile || i < 5)
+    const labels = named.map((current) => {
+        const text = current.label.toUpperCase()
+        const tw = monoWidth(text, size, 0.6) + 6
+        const candidates = current.w.map((width, i) => i).filter((i) => current.w[i] >= 2).sort((a, b) => current.w[b] - current.w[a])
+        for (const i of candidates) {
+            const cx = Math.min(R - tw / 2, Math.max(L + tw / 2, xs[i]))
+            const spot = { x: cx - tw / 2, y: current.c[i] - size, w: tw, h: size + 5 }
+            if (boxes.some((b) => spot.x < b.x + b.w && b.x < spot.x + spot.w && spot.y < b.y + b.h && b.y < spot.y + spot.h)) continue
+            boxes.push(spot)
+            return mono(cx, current.c[i] + size * 0.36, text, {
+                size, fill: current.kind === "repo" ? ink.strong : ink.muted, tracking: 0.6, anchor: "middle", bold: current.kind === "repo",
+                attrs: ` stroke="${ink.paper}" stroke-width="3" stroke-linejoin="round" paint-order="stroke"`
+            })
+        }
+        return ""
+    }).join("\n  ")
+
+    const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+    const axisY = box.bottom + (mobile ? 9 : 12)
+    let months = ""
+    let lastMonth = Number(ACTIVITY.weeks[0][0][0].slice(5, 7)) - 1
+    let lastLabelX = -99
+    ACTIVITY.weeks.forEach((week, i) => {
+        const month = Number(week[0][0].slice(5, 7)) - 1
+        if (month === lastMonth) return
+        lastMonth = month
+        months += `<rect x="${num(xs[i])}" y="${axisY - 4}" width="1.2" height="5" fill="${ink.rail}"/>`
+        if (xs[i] - lastLabelX < (mobile ? 30 : 34) || xs[i] > R - 18) return
+        months += mono(xs[i] + 4, axisY + 1, MONTHS[month], { size: mobile ? 6.5 : 7.5, fill: ink.muted, tracking: 0.8 })
+        lastLabelX = xs[i]
+    })
+    const axis = `<path d="M${L} ${axisY + 1.5}H${R}" stroke="${ink.rail}" stroke-width="1.2"/>
+  ${months}
+  <path d="M${R} ${box.top - 4}V${axisY + 1.5}" stroke="${ink.red}" stroke-width="1.2" stroke-dasharray="3 3" class="pulse"/>
+  ${mono(R - 5, box.top + 2, "NOW", { size: mobile ? 6.5 : 7.5, fill: ink.red, tracking: 1, anchor: "end", bold: true })}`
+
+    // The last seven days as lit or empty squares
+    const legendY = axisY + (mobile ? 21 : 26)
+    const week = ACTIVITY.weeks.flat().slice(-7)
+    const lc = mobile ? 7 : 9
+    const lit = week.map(([, count], i) => {
+        const lx = R - (7 - i) * (lc + 3) + 3
+        return count > 0
+            ? `<rect x="${num(lx)}" y="${legendY - lc + 1}" width="${lc}" height="${lc}" fill="${ink.strong}" class="pulse" style="${delay(i * 0.2)}"/>`
+            : `<rect x="${num(lx) + 0.5}" y="${legendY - lc + 1.5}" width="${lc - 1}" height="${lc - 1}" fill="none" stroke="${ink.muted}"/>`
+    }).join("")
+    const legend = `${mono(L, legendY, mobile ? "ONE CURRENT PER REPOSITORY" : "ONE CURRENT PER REPOSITORY · WIDTH FOLLOWS COMMITS · OLDEST ON THE LEFT", { size: mobile ? 7 : 7.5, fill: ink.muted, tracking: 0.8 })}
+  ${mono(R - 7 * (lc + 3) - 5, legendY, mobile ? "7 DAYS" : "LAST 7 DAYS", { size: mobile ? 7 : 7.5, fill: ink.muted, tracking: 0.8, anchor: "end" })}
+  ${lit}`
 
     const P = { x, y, w, h: legendY + (mobile ? 12 : 16) - y }
-    // A reader head that crosses the grid once per cycle
-    const head = `<rect x="${L}" y="${num(gridY - 3)}" width="${mobile ? 1.5 : 2}" height="${num(gridH + 4)}" fill="${ink.red}" opacity="0">
-    <animate attributeName="opacity" values="0;.9;.9;0;0" keyTimes="0;0.03;0.55;0.6;1" dur="7s" begin="2s" repeatCount="indefinite"/>
-    <animate attributeName="x" values="${L};${num(R)};${num(R)}" keyTimes="0;0.6;1" dur="7s" begin="2s" repeatCount="indefinite"/>
-  </rect>`
-
-    const body = `${plate(ink, P, { s })}
+    const card = `${plate(ink, P, { s })}
   ${cardHead(ink, f, mobile ? "TRANSMISSION LOG — 12 MONTHS" : "TRANSMISSION LOG — LAST 12 MONTHS", `SNAPSHOT ${ACTIVITY.fetched}`)}
   ${factsSvg}
-  ${months}
-  ${columns}
-  ${head}
+  <g class="fade" style="${delay(0.3)}" fill="none" stroke="${ink.rail}" stroke-width="${mobile ? 0.7 : 0.9}" stroke-linecap="round">
+    ${water}
+  </g>
+  ${axis}
+  ${craft}
+  ${labels}
   ${legend}`
 
+    const rest = river.currents.find((c) => c.kind === "rest")
+    const beyond = river.currents.find((c) => c.kind === "beyond")
     return document({
         w: W, h: P.y + P.h + s + (mobile ? 5 : 9), fonts: ["acorn"],
-        label: `Signal log, snapshot ${ACTIVITY.fetched}: ${fmt(st.total)} contributions in the last 12 months, ${st.active} active days, longest streak ${st.best} days`,
-        defs: gridDefs(ink), body
+        label: `Signal log, snapshot ${ACTIVITY.fetched}: ${fmt(st.total)} contributions in the last 12 months, ${st.active} active days, longest streak ${st.best} days. Drawn as a river with one current per repository, busiest first: ${[...repos].sort((a, b) => b.count - a.count).map((c) => c.label).join(", ")}${rest ? `, ${rest.label.replace("+", "")} more` : ""}${beyond ? `, and ${beyond.label}` : ""}`,
+        css: FLOW, defs: gridDefs(ink), body: card
     })
 }
 
