@@ -140,22 +140,15 @@ const FACES = {
     sans: `@font-face { font-family: "Poppins"; font-weight: 400; src: url(data:font/woff2;base64,${POPPINS_400}) format("woff2"); }`
 }
 
-// One-shot entrances and loops. Every keyframe set ends on the element's own
-// base state, and reduced-motion viewers skip them all.
+// Loops only: cards draw complete on load, with no entrance. Every keyframe
+// set ends on the element's own base state, and reduced-motion viewers skip
+// them all.
 const MOTION = `
-    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes boot { 0% { opacity: 0; } 12% { opacity: 1; } 22% { opacity: .15; } 38% { opacity: 1; } 52% { opacity: .4; } 62%, 100% { opacity: 1; } }
     @keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
     @keyframes pulse { 0%, 60% { opacity: 1; } 80% { opacity: .2; } 100% { opacity: 1; } }
-    @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
     @keyframes sweep { 0%, 6% { opacity: 1; } 7%, 100% { opacity: 0; } }
-    .rise { animation: rise .55s cubic-bezier(.2, .7, .2, 1) both; }
-    .fade { animation: fade .6s ease-out both; }
-    .boot { animation: boot .9s steps(1, end) both; }
     .blink { animation: blink 1.1s steps(1, end) infinite; }
     .pulse { animation: pulse 1.6s linear infinite; }
-    .draw { stroke-dasharray: 1; animation: draw 1.1s cubic-bezier(.6, 0, .2, 1) both; }
     .sweep { opacity: 0; animation: sweep 8s steps(1, end) infinite; }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; } .sweep { opacity: 0; } }`
 
@@ -201,9 +194,8 @@ export function plate(ink, { x, y, w, h }, { s = 6, id = "paper", curves = true,
   <rect x="${x + 1}" y="${y + 1}" width="${w - 2}" height="${h - 2}" fill="none" stroke="${outlined ? ink.outline : ink.frame}" stroke-width="2"/>`
 }
 
-// Rail with the banner's ticks and downward three-dot clusters. `drawn` draws
-// the line in on load.
-export function rail(ink, y, x0, x1, { dots = true, drawn = false } = {}) {
+// Rail with the banner's ticks and downward three-dot clusters
+export function rail(ink, y, x0, x1, { dots = true } = {}) {
     const step = 33.357
     const count = Math.floor((x1 - x0 - 40) / step)
     const start = x0 + (x1 - x0 - count * step) / 2
@@ -215,8 +207,8 @@ export function rail(ink, y, x0, x1, { dots = true, drawn = false } = {}) {
             marks += `<circle cx="${num(cx - 3.64)}" cy="${num(y + 3.94)}" r="1.52"/><circle cx="${num(cx + 3.64)}" cy="${num(y + 3.94)}" r="1.52"/><circle cx="${num(cx)}" cy="${num(y + 8.19)}" r="1.52"/>`
         }
     }
-    return `<path d="M${x0} ${y}H${x1}" stroke="${ink.rail}" stroke-width="1.21"${drawn ? ` pathLength="1" class="draw"` : ""}/>
-  <g fill="${ink.rail}"${drawn ? ` class="fade" style="${delay(0.5)}"` : ""}>${marks}</g>`
+    return `<path d="M${x0} ${y}H${x1}" stroke="${ink.rail}" stroke-width="1.21"/>
+  <g fill="${ink.rail}">${marks}</g>`
 }
 
 // Outlined label chip; returns the markup and the width it took
@@ -227,17 +219,17 @@ export function chip(ink, x, y, text, { size = 8, h = 16, padX = 7, tracking = 0
 }
 
 // Chips flowed into rows inside `max`; returns markup and the height used
-export function chipFlow(ink, x, y, labels, max, { gap = 6, rowGap = 6, h = 16, base = 0, step = 0.05, ...options } = {}) {
+export function chipFlow(ink, x, y, labels, max, { gap = 6, rowGap = 6, h = 16, ...options } = {}) {
     let cx = x
     let cy = y
     let svg = ""
-    labels.forEach((label, i) => {
+    labels.forEach((label) => {
         const probe = chip(ink, 0, 0, label, { h, ...options })
         if (cx > x && cx + probe.w > x + max) {
             cx = x
             cy += h + rowGap
         }
-        svg += chip(ink, cx, cy, label, { h, ...options, rest: { cls: "rise", style: delay(base + i * step) } }).svg
+        svg += chip(ink, cx, cy, label, { h, ...options }).svg
         cx += probe.w + gap
     })
     return { svg, h: cy - y + h + 1 }
