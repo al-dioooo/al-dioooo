@@ -201,9 +201,9 @@ export function plate(ink, { x, y, w, h }, { s = 6, id = "paper", curves = true,
   <rect x="${x + 1}" y="${y + 1}" width="${w - 2}" height="${h - 2}" fill="none" stroke="${outlined ? ink.outline : ink.frame}" stroke-width="2"/>`
 }
 
-// Rail with the banner's ticks and downward three-dot clusters. `marker` adds
-// a block that travels the rail; `drawn` draws the line in on load.
-export function rail(ink, y, x0, x1, { marker = 0, dots = true, drawn = false, begin = 0 } = {}) {
+// Rail with the banner's ticks and downward three-dot clusters. `drawn` draws
+// the line in on load.
+export function rail(ink, y, x0, x1, { dots = true, drawn = false } = {}) {
     const step = 33.357
     const count = Math.floor((x1 - x0 - 40) / step)
     const start = x0 + (x1 - x0 - count * step) / 2
@@ -215,15 +215,8 @@ export function rail(ink, y, x0, x1, { marker = 0, dots = true, drawn = false, b
             marks += `<circle cx="${num(cx - 3.64)}" cy="${num(y + 3.94)}" r="1.52"/><circle cx="${num(cx + 3.64)}" cy="${num(y + 3.94)}" r="1.52"/><circle cx="${num(cx)}" cy="${num(y + 8.19)}" r="1.52"/>`
         }
     }
-    const runner = marker
-        ? `<rect x="${x0}" y="${num(y - 2.4)}" width="18" height="4.8" fill="${ink.rail}" opacity="0">
-    <animate attributeName="x" values="${x0};${num(x1 - 18)}" dur="${marker}s" begin="${begin}s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.04;0.96;1" dur="${marker}s" begin="${begin}s" repeatCount="indefinite"/>
-  </rect>`
-        : ""
     return `<path d="M${x0} ${y}H${x1}" stroke="${ink.rail}" stroke-width="1.21"${drawn ? ` pathLength="1" class="draw"` : ""}/>
-  <g fill="${ink.rail}"${drawn ? ` class="fade" style="${delay(0.5)}"` : ""}>${marks}</g>
-  ${runner}`
+  <g fill="${ink.rail}"${drawn ? ` class="fade" style="${delay(0.5)}"` : ""}>${marks}</g>`
 }
 
 // Outlined label chip; returns the markup and the width it took

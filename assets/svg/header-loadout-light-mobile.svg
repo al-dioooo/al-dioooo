@@ -28,8 +28,4 @@
   <text x="161.52" y="29.2" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-weight="400" font-size="8.5" letter-spacing="0.4" fill="#79716B" text-anchor="start" class="rise" style="animation-delay: 0.35s">// stack_and_tools</text>
   <path d="M273.18 18H394" stroke="#38352E" stroke-width="1.21" pathLength="1" class="draw"/>
   <g fill="#38352E" class="fade" style="animation-delay: 0.5s"><rect x="297.83" y="18.6" width="4.85" height="1.21"/><rect x="331.19" y="18.6" width="4.85" height="1.21"/><rect x="364.55" y="18.6" width="4.85" height="1.21"/><circle cx="313.27" cy="21.94" r="1.52"/><circle cx="320.55" cy="21.94" r="1.52"/><circle cx="316.91" cy="26.19" r="1.52"/><circle cx="346.63" cy="21.94" r="1.52"/><circle cx="353.91" cy="21.94" r="1.52"/><circle cx="350.27" cy="26.19" r="1.52"/></g>
-  <rect x="273.18" y="15.6" width="18" height="4.8" fill="#38352E" opacity="0">
-    <animate attributeName="x" values="273.18;376" dur="8s" begin="0s" repeatCount="indefinite"/>
-    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.04;0.96;1" dur="8s" begin="0s" repeatCount="indefinite"/>
-  </rect>
 </svg>

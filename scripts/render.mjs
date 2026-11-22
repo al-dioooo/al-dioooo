@@ -37,7 +37,7 @@ function cardHead(ink, f, left, right) {
     return `${bullet(ink, x + pad, y - sq, sq)}
   ${mono(x + pad + sq + 8, y, left, { size, fill: ink.text, tracking: mobile ? 1.4 : 2 })}
   ${right ? mono(x + w - pad, y, right, { size: size - 1, fill: ink.muted, tracking: 1.2, anchor: "end" }) : ""}
-  ${rail(ink, mobile ? 38 : 52, x, x + w, { marker: 11, drawn: true })}`
+  ${rail(ink, mobile ? 38 : 52, x, x + w, { drawn: true })}`
 }
 
 // --- Hero ---------------------------------------------------------------------------
@@ -95,12 +95,12 @@ function hero(ink, f) {
     const body = `${plate(ink, P, { s })}
   ${scan(ink, P, { dur: 11, begin: 2 })}
   ${head}
-  ${rail(ink, railTop, P.x, P.x + P.w, { marker: 12, drawn: true })}
+  ${rail(ink, railTop, P.x, P.x + P.w, { drawn: true })}
   ${heading.body}
   ${heading.tear(ink.paper)}
   ${title}
   ${status}
-  ${rail(ink, railBottom, P.x, P.x + P.w, { marker: 15, begin: 3, drawn: true })}
+  ${rail(ink, railBottom, P.x, P.x + P.w, { drawn: true })}
   ${pod}`
 
     return document({
@@ -168,7 +168,7 @@ function header(ink, f, section, index) {
         cursor += monoWidth(sub, subSize, 0.4) + (mobile ? 10 : 16)
     }
     const railY = top + b / 2 - 5
-    const line = end - cursor > 70 ? rail(ink, railY, cursor, end, { marker: 8, drawn: true }) : ""
+    const line = end - cursor > 70 ? rail(ink, railY, cursor, end, { drawn: true }) : ""
 
     const body = `<rect x="${x + 4}" y="${top + 4}" width="${b}" height="${b}" fill="none" stroke="${ink.muted}" stroke-width="1.5"/>
   <rect x="${x}" y="${top}" width="${b}" height="${b}" fill="${ink.block}"/>
@@ -421,7 +421,7 @@ function footer(ink, f) {
     const cx = x + w / 2
     const top = P.y
     const body = `${plate(ink, P, { s })}
-  ${rail(ink, top + 18, P.x, P.x + P.w, { marker: 10, drawn: true })}
+  ${rail(ink, top + 18, P.x, P.x + P.w, { drawn: true })}
   ${mono(cx, top + 53, "[ RECORD END ]", { size: mobile ? 13 : 15, fill: ink.strong, tracking: mobile ? 5 : 7, anchor: "middle", bold: true, cls: "boot" })}
   ${mono(cx, top + 69, "GLORY TO MANKIND", { size: mobile ? 7.5 : 8.5, fill: ink.muted, tracking: 4, anchor: "middle" })}
   <rect x="${cx - 5}" y="${top + 76}" width="10" height="3" fill="${ink.strong}" class="blink"/>
