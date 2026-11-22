@@ -158,15 +158,8 @@ function header(ink, f, section, index) {
     const tx = x + b + (mobile ? 13 : 17)
     const ty = top + b / 2 + size * 0.36
     const tw = acornWidth(section.title, size, 1)
-    const sub = `// ${section.sub}`
-    const subSize = mobile ? 8.5 : 10.5
     const end = x + w + (mobile ? 5 : 6)
-    let cursor = tx + tw + (mobile ? 9 : 13)
-    let subText = ""
-    if (cursor + monoWidth(sub, subSize, 0.4) < end - 30) {
-        subText = mono(cursor, ty - 1, sub, { size: subSize, fill: ink.muted, tracking: 0.4 })
-        cursor += monoWidth(sub, subSize, 0.4) + (mobile ? 10 : 16)
-    }
+    const cursor = tx + tw + (mobile ? 12 : 18)
     const railY = top + b / 2 - 5
     const line = end - cursor > 70 ? rail(ink, railY, cursor, end) : ""
 
@@ -174,10 +167,9 @@ function header(ink, f, section, index) {
   <rect x="${x}" y="${top}" width="${b}" height="${b}" fill="${ink.block}"/>
   ${mono(x + b / 2, top + b / 2 + (mobile ? 4.5 : 5.5), no, { size: mobile ? 13 : 15, fill: ink.blockInk, tracking: 0.5, anchor: "middle", bold: true })}
   ${acorn(tx, ty, section.title, { size, fill: ink.strong, tracking: 1 })}
-  ${subText}
   ${line}`
 
-    return document({ w: W, h: H, fonts: ["acorn"], label: `${no} · ${section.title} // ${section.sub}`, body })
+    return document({ w: W, h: H, fonts: ["acorn"], label: `${no} · ${section.title}`, body })
 }
 
 // --- Loadout ---------------------------------------------------------------------------

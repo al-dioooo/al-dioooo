@@ -57,8 +57,8 @@ export const profile = {
     ],
 
     sections: [
-        { slug: "loadout", title: "LOADOUT", sub: "stack_and_tools" },
-        { slug: "signal", title: "SIGNAL LOG", sub: "activity" },
-        { slug: "comms", title: "COMMS", sub: "transmission_channels" }
+        { slug: "loadout", title: "LOADOUT" },
+        { slug: "signal", title: "SIGNAL LOG" },
+        { slug: "comms", title: "COMMS" }
     ]
 }
