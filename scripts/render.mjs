@@ -160,7 +160,9 @@ function header(ink, f, section, index) {
     const tw = acornWidth(section.title, size, 1)
     const end = x + w + (mobile ? 5 : 6)
     const cursor = tx + tw + (mobile ? 12 : 18)
-    const railY = top + b / 2 - 5
+    // The rail's line sits halfway up the title's capitals (Acorn's cap height
+    // is 0.70 em); its dot clusters hang below and are not part of the centring
+    const railY = ty - size * 0.35
     const line = end - cursor > 70 ? rail(ink, railY, cursor, end) : ""
 
     const body = `<rect x="${x + 4}" y="${top + 4}" width="${b}" height="${b}" fill="none" stroke="${ink.muted}" stroke-width="1.5"/>
