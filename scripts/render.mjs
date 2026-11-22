@@ -37,7 +37,7 @@ function cardHead(ink, f, left, right) {
     return `${bullet(ink, x + pad, y - sq, sq)}
   ${mono(x + pad + sq + 8, y, left, { size, fill: ink.text, tracking: mobile ? 1.4 : 2 })}
   ${right ? mono(x + w - pad, y, right, { size: size - 1, fill: ink.muted, tracking: 1.2, anchor: "end" }) : ""}
-  ${rail(ink, mobile ? 38 : 52, x, x + w, { marker: 11, drawn: true })}`
+  ${rail(ink, mobile ? 38 : 52, x, x + w)}`
 }
 
 // --- Hero ---------------------------------------------------------------------------
@@ -70,14 +70,14 @@ function hero(ink, f) {
     // Status columns: beside the name on desktop, under it on mobile
     const rowsY = mobile ? [168, 188, 208] : [106, 130, 154]
     const size = mobile ? 8.5 : 9.5
-    const column = (items, cx0, base) =>
-        items.map((item, i) => `<g class="rise" style="${delay(base + i * 0.12)}">${icon(PIXEL[item.icon], cx0, rowsY[i] - 10.5, 13, ink.strong)}${mono(cx0 + 20, rowsY[i], item.text, { size, fill: ink.text, tracking: 0.2 })}</g>`).join("\n  ")
+    const column = (items, cx0) =>
+        items.map((item, i) => `<g>${icon(PIXEL[item.icon], cx0, rowsY[i] - 10.5, 13, ink.strong)}${mono(cx0 + 20, rowsY[i], item.text, { size, fill: ink.text, tracking: 0.2 })}</g>`).join("\n  ")
     const rightX = mobile ? cx + 8 : R - 20 - Math.max(...profile.status.right.map((i) => monoWidth(i.text, size, 0.2)))
-    const status = `${column(profile.status.left, L, 0.5)}
-  ${column(profile.status.right, rightX, 0.7)}`
+    const status = `${column(profile.status.left, L)}
+  ${column(profile.status.right, rightX)}`
 
-    const title = `${mono(cx, mobile ? 120 : 164, profile.headline, { size: mobile ? 12.5 : 15, fill: ink.text, tracking: 0.6, anchor: "middle", italic: true, cls: "rise", style: delay(0.5) })}
-  ${mono(cx, mobile ? 138 : 185, profile.tagline.toUpperCase(), { size: mobile ? 7.5 : 9.5, fill: ink.muted, tracking: mobile ? 1.8 : 2.4, anchor: "middle", cls: "rise", style: delay(0.65) })}`
+    const title = `${mono(cx, mobile ? 120 : 164, profile.headline, { size: mobile ? 12.5 : 15, fill: ink.text, tracking: 0.6, anchor: "middle", italic: true })}
+  ${mono(cx, mobile ? 138 : 185, profile.tagline.toUpperCase(), { size: mobile ? 7.5 : 9.5, fill: ink.muted, tracking: mobile ? 1.8 : 2.4, anchor: "middle" })}`
 
     // Pod 042 plate under the bottom rail
     const block = mobile ? { x: L, y: 244, w: 38, h: 84 } : { x: L, y: 222, w: 58, h: 48 }
@@ -95,12 +95,12 @@ function hero(ink, f) {
     const body = `${plate(ink, P, { s })}
   ${scan(ink, P, { dur: 11, begin: 2 })}
   ${head}
-  ${rail(ink, railTop, P.x, P.x + P.w, { marker: 12, drawn: true })}
+  ${rail(ink, railTop, P.x, P.x + P.w)}
   ${heading.body}
   ${heading.tear(ink.paper)}
   ${title}
   ${status}
-  ${rail(ink, railBottom, P.x, P.x + P.w, { marker: 15, begin: 3, drawn: true })}
+  ${rail(ink, railBottom, P.x, P.x + P.w)}
   ${pod}`
 
     return document({
@@ -126,12 +126,12 @@ function stats(ink, f) {
         const tx = x + (i % cols) * (tw + gap)
         const ty = top + Math.floor(i / cols) * (th + gap + 2)
         const vw = acornWidth(item.value, 34, 0.5)
-        return `<g class="rise" style="${delay(0.15 + i * 0.12)}">
+        return `<g>
   ${plate(ink, { x: tx, y: ty, w: tw, h: th }, { s, id: `tile${i}`, curves: false })}
   ${mono(tx + 13, ty + 20, `DATA 0${i + 1}`, { size: 7.5, fill: ink.muted, tracking: 1.6 })}
   ${bullet(ink, tx + tw - 19, ty + 13, 6, ` class="pulse" style="${delay(i * 0.4)}"`)}
   ${acorn(tx + 12, ty + 56, item.value, { size: 34, fill: ink.strong, tracking: 0.5 })}
-  <path d="M${num(tx + 12 + vw + 10)} ${ty + 46}H${num(tx + tw - 13)}" stroke="${ink.rail}" stroke-width="1.2" pathLength="1" class="draw" style="${delay(0.5 + i * 0.12)}"/>
+  <path d="M${num(tx + 12 + vw + 10)} ${ty + 46}H${num(tx + tw - 13)}" stroke="${ink.rail}" stroke-width="1.2"/>
   <g fill="${ink.rail}">${[0, 1, 2].map((d) => `<rect x="${num(tx + tw - 17 - d * 10)}" y="${ty + 49}" width="4" height="1.2"/>`).join("")}</g>
   ${mono(tx + 13, ty + 72, item.unit, { size: 9, fill: ink.strong, tracking: 1.4, bold: true })}
   ${mono(tx + 13, ty + 85, item.caption, { size: 7.5, fill: ink.muted, tracking: 0.6 })}
@@ -158,26 +158,20 @@ function header(ink, f, section, index) {
     const tx = x + b + (mobile ? 13 : 17)
     const ty = top + b / 2 + size * 0.36
     const tw = acornWidth(section.title, size, 1)
-    const sub = `// ${section.sub}`
-    const subSize = mobile ? 8.5 : 10.5
     const end = x + w + (mobile ? 5 : 6)
-    let cursor = tx + tw + (mobile ? 9 : 13)
-    let subText = ""
-    if (cursor + monoWidth(sub, subSize, 0.4) < end - 30) {
-        subText = mono(cursor, ty - 1, sub, { size: subSize, fill: ink.muted, tracking: 0.4, cls: "rise", style: delay(0.35) })
-        cursor += monoWidth(sub, subSize, 0.4) + (mobile ? 10 : 16)
-    }
-    const railY = top + b / 2 - 5
-    const line = end - cursor > 70 ? rail(ink, railY, cursor, end, { marker: 8, drawn: true }) : ""
+    const cursor = tx + tw + (mobile ? 12 : 18)
+    // The rail's line sits halfway up the title's capitals (Acorn's cap height
+    // is 0.70 em); its dot clusters hang below and are not part of the centring
+    const railY = ty - size * 0.35
+    const line = end - cursor > 70 ? rail(ink, railY, cursor, end) : ""
 
     const body = `<rect x="${x + 4}" y="${top + 4}" width="${b}" height="${b}" fill="none" stroke="${ink.muted}" stroke-width="1.5"/>
   <rect x="${x}" y="${top}" width="${b}" height="${b}" fill="${ink.block}"/>
   ${mono(x + b / 2, top + b / 2 + (mobile ? 4.5 : 5.5), no, { size: mobile ? 13 : 15, fill: ink.blockInk, tracking: 0.5, anchor: "middle", bold: true })}
-  ${acorn(tx, ty, section.title, { size, fill: ink.strong, tracking: 1, cls: "boot" })}
-  ${subText}
+  ${acorn(tx, ty, section.title, { size, fill: ink.strong, tracking: 1 })}
   ${line}`
 
-    return document({ w: W, h: H, fonts: ["acorn"], label: `${no} · ${section.title} // ${section.sub}`, body })
+    return document({ w: W, h: H, fonts: ["acorn"], label: `${no} · ${section.title}`, body })
 }
 
 // --- Loadout ---------------------------------------------------------------------------
@@ -206,7 +200,7 @@ function loadout(ink, f) {
             const cx = gx + i * pitch
             const cy = gy + 20
             const n = slot++
-            return `<g class="rise" style="${delay(0.3 + n * 0.04)}">
+            return `<g>
       <rect x="${num(cx) + 0.5}" y="${cy + 0.5}" width="${cell}" height="${cell}" fill="${ink.paper}" fill-opacity=".6" stroke="${ink.muted}"/>
       ${icon(item.d, cx + (cell - 24) / 2, cy + (cell - 24) / 2, 24, ink.strong)}
       ${mono(cx + cell / 2, cy + cell + 12, item.label.toUpperCase(), { size: 7, fill: ink.text, tracking: 0.3, anchor: "middle" })}
@@ -220,7 +214,7 @@ function loadout(ink, f) {
     })
 
     const aiY = y0 + Math.ceil(groups.length / cols) * (groupH + rowGap) + (mobile ? 0 : 2)
-    const ai = chipFlow(ink, L, aiY + 18, profile.appliedAi, w - pad * 2, { size: 8, h: 18, base: 1.2, solid: true })
+    const ai = chipFlow(ink, L, aiY + 18, profile.appliedAi, w - pad * 2, { size: 8, h: 18, solid: true })
     const P = { x, y, w, h: aiY + 18 + ai.h + (mobile ? 14 : 18) - y }
 
     const body = `${plate(ink, P, { s })}
@@ -281,7 +275,7 @@ function signal(ink, f) {
     const factSize = mobile ? 21 : 28
     const factsSvg = facts.map((fact, i) => {
         const fx = L + i * ((R - L) / 3)
-        return `<g class="rise" style="${delay(0.2 + i * 0.12)}">${acorn(fx, statY, fact.value, { size: factSize, fill: ink.strong, tracking: 0.5 })}${mobile
+        return `<g>${acorn(fx, statY, fact.value, { size: factSize, fill: ink.strong, tracking: 0.5 })}${mobile
             ? mono(fx, statY + 13, fact.label, { size: 7, fill: ink.muted, tracking: 0.8 })
             : mono(fx + acornWidth(fact.value, factSize, 0.5) + 10, statY - 2, fact.label, { size: 8.5, fill: ink.muted, tracking: 1.4 })}</g>`
     }).join("\n  ")
@@ -382,7 +376,7 @@ function signal(ink, f) {
     const card = `${plate(ink, P, { s })}
   ${cardHead(ink, f, mobile ? "TRANSMISSION LOG — 12 MONTHS" : "TRANSMISSION LOG — LAST 12 MONTHS", `SNAPSHOT ${ACTIVITY.fetched}`)}
   ${factsSvg}
-  <g class="fade" style="${delay(0.3)}" fill="none" stroke="${ink.rail}" stroke-width="${mobile ? 0.7 : 0.9}" stroke-linecap="round">
+  <g fill="none" stroke="${ink.rail}" stroke-width="${mobile ? 0.7 : 0.9}" stroke-linecap="round">
     ${water}
   </g>
   ${axis}
@@ -421,8 +415,8 @@ function footer(ink, f) {
     const cx = x + w / 2
     const top = P.y
     const body = `${plate(ink, P, { s })}
-  ${rail(ink, top + 18, P.x, P.x + P.w, { marker: 10, drawn: true })}
-  ${mono(cx, top + 53, "[ RECORD END ]", { size: mobile ? 13 : 15, fill: ink.strong, tracking: mobile ? 5 : 7, anchor: "middle", bold: true, cls: "boot" })}
+  ${rail(ink, top + 18, P.x, P.x + P.w)}
+  ${mono(cx, top + 53, "[ RECORD END ]", { size: mobile ? 13 : 15, fill: ink.strong, tracking: mobile ? 5 : 7, anchor: "middle", bold: true })}
   ${mono(cx, top + 69, "GLORY TO MANKIND", { size: mobile ? 7.5 : 8.5, fill: ink.muted, tracking: 4, anchor: "middle" })}
   <rect x="${cx - 5}" y="${top + 76}" width="10" height="3" fill="${ink.strong}" class="blink"/>
   ${mono(x + pad, top + P.h - 10, "POD 042", { size: mobile ? 7 : 8, fill: ink.muted, tracking: 3 })}
