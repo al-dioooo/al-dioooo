@@ -57,8 +57,8 @@ export const profile = {
     ],
 
     sections: [
-        { slug: "loadout", title: "LOADOUT" },
-        { slug: "signal", title: "SIGNAL LOG" },
-        { slug: "comms", title: "COMMS" }
+        { slug: "loadout", title: "Loadout" },
+        { slug: "signal", title: "Signal Log" },
+        { slug: "comms", title: "Comms" }
     ]
 }
